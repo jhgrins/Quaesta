@@ -8,7 +8,8 @@
 		"unitTests": "TS_NODE_PROJECT=test/tsconfig.commonjs.json mocha --require test/hooks.js --require ts-node/register --recursive",
 		"test": "c8 --all --check-coverage --lines 50 --include 'server/' npm run unitTests",
 		"start": "serverless offline start",
-		"mockStart": "MOCK=true npm start"
+		"mockStart": "MOCK=true npm start",
+		"deploy": "serverless deploy"
 	},
 	"dependencies": {
 		"apicalypse": "^0.1.9",
