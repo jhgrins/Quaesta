@@ -1,0 +1,27 @@
+service: quaesta-backend-lambda
+frameworkVersion: "3"
+useDotenv: true
+
+plugins:
+  - serverless-dotenv-plugin  
+  - serverless-plugin-typescript
+  - serverless-dynamodb-local
+  - serverless-offline
+
+custom:
+  serverlessPluginTypescript:
+    tsConfigFileLocation: "./tsconfig.json"
+
+provider:
+  name: aws
+  runtime: nodejs14.x
+  region: us-west-2
+
+functions:
+  graphql:
+    handler: src/index.graphql
+    events:
+      - http:
+          path: /
+          method: post
+          cors: true

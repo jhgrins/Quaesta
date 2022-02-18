@@ -1,0 +1,15 @@
+{
+	"compileOnSave": false,
+	"compilerOptions": {
+		"target": "ES3",
+		"sourceMap": true,
+		"allowJs": true,
+		"esModuleInterop": true,
+		"isolatedModules": true,
+		"moduleResolution": "node",
+		"strict": true,
+		"noImplicitAny": false,
+		"noImplicitThis": false
+	},
+	"exclude": ["scripts", "test"]
+}

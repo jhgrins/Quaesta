@@ -1,0 +1,65 @@
+type User {
+	name: String
+	avatar: String
+	email: String!
+	username: String
+	password: String
+	friends: [User!]!
+	incomingFriendRequests: [User!]!
+	outgoingFriendRequests: [User!]!
+	games: [Game!]!
+}
+
+type Game {
+	id: ID!
+	name: String!
+	cover: String
+	genres: [String]
+	companies: [String]
+	status: GAME_STATUS
+	dateAdded: DateTime
+	dateCompleted: DateTime
+	userReview: Review
+}
+
+type Review {
+	rating: Int!
+	title: String
+	description: String
+}
+
+enum GAME_STATUS {
+	BACKLOG
+	IN_PROGRESS
+	COMPLETED
+}
+
+type GoogleLoginReponsePayload {
+	token: AuthorizationToken
+	redirectPath: String
+}
+
+scalar DateTime
+scalar AuthorizationToken
+scalar LoginType
+
+type Query {
+	selfLookup: User
+	gameLookup(name: String!): Game
+}
+
+type Mutation {
+	createUser(email: String!, password: String!, username: String!): AuthorizationToken!
+	loginUser(type: LoginType!, value: String!, password: String!): AuthorizationToken
+	googleLogin(token: ID!): GoogleLoginReponsePayload
+	editUser(type: String!, value: String!): User!
+	sendResetPasswordEmail(type: String!, value: String!): Boolean
+	deleteUser: Boolean
+	requestFriend(friendUsername: String!): User
+	resolveRequestFriend(friendUsername: String!, choice: Boolean!): User
+}
+
+type Subscription {
+	newFriendRequest: String!
+	newFriend: String!
+}

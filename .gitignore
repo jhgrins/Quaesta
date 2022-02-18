@@ -1,0 +1,43 @@
+# Docker Files
+
+docker
+
+# IDE Files
+
+.idea
+.vscode
+
+# MacOS Files
+
+.DS_Store
+
+# Node Files
+
+node_modules
+
+# Python files
+
+/venv
+/env
+__pycache__
+
+# Output Files
+
+.build
+build
+coverage
+data
+dist
+lib
+out
+
+# Server Files
+
+.env
+.serverless
+dependency-reduced-pom.xml
+target
+
+# Test Files
+
+.nyc_output
