@@ -6,8 +6,10 @@ on:
       - main
 
 jobs:
-  build-frontend:
-    name: Build Frontend
+
+  deploy-frontend:
+    name: Deploy Frontend
+    needs: build-frontend
     runs-on: ubuntu-latest
 
     steps:
@@ -31,32 +33,6 @@ jobs:
         run: npm run buildFrontend
         env:
           NODE_ENV: production
-
-      - name: Upload dist/ Directory
-        uses: actions/upload-artifact@v2
-        with:
-          name: quaesta-outputs
-          path: dist/
-
-  deploy-frontend:
-    name: Deploy Frontend
-    needs: build-frontend
-    runs-on: ubuntu-latest
-
-    steps:
-      - name: Download dist/ Directory
-        uses: actions/download-artifact@v2
-        with:
-          name: quaesta-outputs
-          path: dist
-
-      # - name: Import GPG key
-      #   uses: crazy-max/ghaction-import-gpg@v3
-      #   with:
-      #     gpg-private-key: ${{ secrets.GPG_PRIVATE_KEY }}
-      #     passphrase: ${{ secrets.PASSPHRASE }}
-      #     git-user-signingkey: true
-      #     git-commit-gpgsign: true
       - name: Checkout 🛎️
         uses: actions/checkout@v2
       - name: Deploy 🚀
