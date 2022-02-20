@@ -58,13 +58,11 @@ jobs:
       #     git-user-signingkey: true
       #     git-commit-gpgsign: true
 
-      - name: Deploy to GitHub Pages
-        uses: crazy-max/ghaction-github-pages@v2
+      - name: "Deploy Site"
+        uses: JamesIves/github-pages-deploy-action@v4.2.5
         with:
-          target_branch: gh-pages
-          build_dir: dist
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          branch: gh-pages
+          folder: dist
 
   deploy-aws-lambda:
     name: Deploy AWS Lambda
