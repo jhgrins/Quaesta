@@ -19,6 +19,7 @@ custom:
     start:
       port: 8080
       migrate: true
+      inMemory: false
   serverless-offline:
     httpPort: 8000
     websocketPort: 8001
@@ -53,8 +54,6 @@ resources:
         KeySchema:
           - AttributeName: id
             KeyType: HASH
-          - AttributeName: username
-            KeyType: RANGE
         AttributeDefinitions:
           - AttributeName: id
             AttributeType: S

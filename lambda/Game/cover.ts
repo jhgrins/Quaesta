@@ -5,7 +5,7 @@ import { Context } from "../index";
 import { callTwitch } from "../utils";
 
 const cover = async (parent: any, args: any, context: Context, info: any) => {
-	const accessToken = (await callTwitch()).data.access_token;
+	const accessToken = (await callTwitch()).access_token;
 	let config = {
 		method: "post",
 		headers: {

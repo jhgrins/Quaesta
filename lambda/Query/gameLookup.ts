@@ -9,7 +9,7 @@ interface Args {
 }
 
 const gameLookup = async (_: any, args: Args, context: Context, info: any) => {
-	const accessToken = (await callTwitch()).data.access_token;
+	const accessToken = (await callTwitch()).access_token;
 	const config = {
 		method: "post",
 		headers: {

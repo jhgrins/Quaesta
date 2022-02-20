@@ -112,8 +112,8 @@ const SignInArea = (props) => {
 			const isEmail = validateEmail(idField);
 			doMutation({
 				variables: {
-					email: isEmail ? idField : undefined,
-					username: isEmail ? undefined : idField,
+					type: isEmail ? "email" : "username",
+					value: idField,
 					password
 				}
 			});

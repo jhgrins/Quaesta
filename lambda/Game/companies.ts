@@ -5,7 +5,7 @@ import { Context } from "../index";
 import { callTwitch } from "../utils";
 
 const companies = async (parent: any, args: any, context: Context, info: any) => {
-	const accessToken = (await callTwitch()).data.access_token;
+	const accessToken = (await callTwitch()).access_token;
 	let config = {
 		method: "post",
 		headers: {
@@ -15,14 +15,12 @@ const companies = async (parent: any, args: any, context: Context, info: any) =>
 		baseURL: BaseGameAPI
 	};
 
-	console.log(parent.involved_companies);
 
 	const resp1 = await apicalypse(config)
 		.fields("*")
 		.where(parent.involved_companies.map((company: any) => `id = ${company}`).join(" | "))
 		.request("/involved_companies");
 
-	console.log(resp1.data);
 
 	const response = await apicalypse(config)
 		.fields("*")

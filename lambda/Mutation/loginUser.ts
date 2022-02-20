@@ -15,9 +15,11 @@ interface Args {
 const loginUser = async (_: any, args: Args, context: Context, info: any): Promise<string> => {
 	validateEnvironmentVariables();
 	const queryOutput = await getItemsByIndex("quaesta-users", args.type, args.value);
-	if (queryOutput.Count && queryOutput.Count === 0) {
+
+	if (queryOutput.Count !== undefined && queryOutput.Count === 0) {
 		throw new UserInputError("User Not Found");
 	}
+
 	const userRecord = getItemFromDynamoDBResult(queryOutput);
 	const bytes = CryptoJS.AES.decrypt(
 		userRecord.password as string,

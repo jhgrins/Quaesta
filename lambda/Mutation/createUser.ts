@@ -30,7 +30,7 @@ const createUser = async (_: any, args: Args, context: Context, info: any): Prom
 	const randomUserId = uuid();
 	await putItem("quaesta-users", { id: randomUserId, ...args });
 
-	sendAccountCreatedEmail(args.email);
+	//sendAccountCreatedEmail(args.email);
 	return generateToken(randomUserId);
 };
 

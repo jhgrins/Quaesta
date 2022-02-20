@@ -4,7 +4,9 @@ import User from "../User/type";
 
 const selfLookup = async (_: any, args: {}, context: Context, info: any): Promise<User | null> => {
 	if (!context.userId) return null;
+	console.log(context.userId);
 	const queryOutput = await getItem("quaesta-users", context.userId);
+	console.log('yoooooooooo', queryOutput);
 	return getItemFromDynamoDBResult(queryOutput);
 };
 
