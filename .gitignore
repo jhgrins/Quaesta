@@ -33,6 +33,7 @@ out
 
 # Server Files
 
+.dynamodb
 .env
 .serverless
 dependency-reduced-pom.xml

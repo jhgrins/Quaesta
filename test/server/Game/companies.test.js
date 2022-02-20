@@ -2,7 +2,7 @@ import chai from "chai";
 
 chai.should();
 
-import companies from "../../../serverless/Game/companies";
+import companies from "../../../lambda/Game/companies";
 
 describe("Game/companies", () => {
 	describe("companies", () => {

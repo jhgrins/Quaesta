@@ -2,7 +2,7 @@ import chai from "chai";
 
 chai.should();
 
-import mocks from "../../serverless/mocking";
+import mocks from "../../lambda/mocking";
 
 describe("mocking", () => {
 	describe("mocks", () => {

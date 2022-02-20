@@ -1,4 +1,4 @@
-const sinon = require("sinon");
+import sinon from "sinon";
 
 // Restores The Default Sandbox After Every Test
 

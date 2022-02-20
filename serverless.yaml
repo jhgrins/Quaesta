@@ -1,27 +1,86 @@
-service: quaesta-backend-lambda
+service: quaesta
 frameworkVersion: "3"
 useDotenv: true
 
 plugins:
-  - serverless-dotenv-plugin  
+  - serverless-dotenv-plugin
   - serverless-plugin-typescript
   - serverless-dynamodb-local
   - serverless-offline
+  - serverless-prune-plugin
 
 custom:
+  stage: ${opt:stage, self:provider.stage}
   serverlessPluginTypescript:
     tsConfigFileLocation: "./tsconfig.json"
+  dynamodb:
+    stages:
+      - ${opt:stage, self:provider.stage}
+    start:
+      port: 8080
+      migrate: true
+  serverless-offline:
+    httpPort: 8000
+    websocketPort: 8001
+    lambdaPort: 8002
+    useWorkerThreads: true
 
 provider:
   name: aws
+  stage: prod
   runtime: nodejs14.x
   region: us-west-2
 
 functions:
   graphql:
-    handler: src/index.graphql
+    handler: lambda/index.graphql
     events:
       - http:
-          path: /
+          path: /graphql
           method: post
           cors: true
+
+package:
+  patterns:
+    - schema.graphql
+
+resources:
+  Resources:
+    usersTable:
+      Type: AWS::DynamoDB::Table
+      Properties:
+        TableName: quaesta-users
+        KeySchema:
+          - AttributeName: id
+            KeyType: HASH
+          - AttributeName: username
+            KeyType: RANGE
+        AttributeDefinitions:
+          - AttributeName: id
+            AttributeType: S
+          - AttributeName: username
+            AttributeType: S
+          - AttributeName: email
+            AttributeType: S
+        ProvisionedThroughput:
+          ReadCapacityUnits: 10
+          WriteCapacityUnits: 10
+        GlobalSecondaryIndexes:
+          - IndexName: email
+            KeySchema:
+              - AttributeName: email
+                KeyType: HASH
+            Projection:
+              ProjectionType: ALL
+            ProvisionedThroughput:
+              ReadCapacityUnits: 10
+              WriteCapacityUnits: 10
+          - IndexName: username
+            KeySchema:
+              - AttributeName: username
+                KeyType: HASH
+            Projection:
+              ProjectionType: ALL
+            ProvisionedThroughput:
+              ReadCapacityUnits: 10
+              WriteCapacityUnits: 10

@@ -67,8 +67,8 @@ const sendAccountCreatedEmail = async (email: string) => {
 	});
 	const filePath =
 		__dirname +
-		(process.env.NODE_ENV === "development"
-			? "/../client/static/email/accountCreated.html"
+		(process.env.IS_OFFLINE
+			? "../frontend/static/email/accountCreated.html"
 			: "/website/email/accountCreated.html");
 	const file = await fs.readFile(filePath);
 	const mailDetails = {

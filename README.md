@@ -60,11 +60,10 @@ GOOGLE_CLIENT_SECRET: The client secret for the Google OAuth2 service.
 
 #### Database
 
-We use DynamoDB for our application. To launch a local database quickly for testing, use the following commands.
+We use DynamoDB for our application. After installing `node_modules`, install dynamodb.
 
 ```
-docker-compose up -d
-node scripts/setupDB.js
+sls dynamodb install
 ```
 
 This can then be connected to using the following URI environment variable.

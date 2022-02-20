@@ -2,7 +2,7 @@ import chai from "chai";
 
 chai.should();
 
-import { typeDefs, resolvers } from "../../serverless/schema";
+import { typeDefs, resolvers } from "../../lambda/schema";
 
 describe("schema", () => {
 	describe("typeDefs", () => {

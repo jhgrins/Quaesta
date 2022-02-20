@@ -2,7 +2,7 @@ import chai from "chai";
 
 chai.should();
 
-import cover from "../../../serverless/Game/cover";
+import cover from "../../../lambda/Game/cover";
 
 describe("Game/cover", () => {
 	describe("cover", () => {

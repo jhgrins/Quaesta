@@ -2,7 +2,7 @@ import chai from "chai";
 
 chai.should();
 
-import newFriendRequest from "../../../serverless/Subscription/newFriendRequest";
+import newFriendRequest from "../../../lambda/Subscription/newFriendRequest";
 
 describe("Subscription/newFriendRequest", () => {
 	describe("newFriendRequest", () => {

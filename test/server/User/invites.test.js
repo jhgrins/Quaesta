@@ -2,7 +2,7 @@ import chai from "chai";
 
 chai.should();
 
-import invites from "../../../serverless/User/friends";
+import invites from "../../../lambda/User/friends";
 
 describe("User/invites", () => {
 	describe("invites", () => {

@@ -16,7 +16,7 @@ import {
 	updateItem,
 	deleteItem,
 	getItemFromDynamoDBResult
-} from "../../serverless/db";
+} from "../../lambda/db";
 
 describe("db", () => {
 	const tableName = "testTable";

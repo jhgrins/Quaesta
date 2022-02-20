@@ -6,7 +6,7 @@ import { AuthenticationError } from "apollo-server-express";
 
 import casual from "casual";
 
-import { generateToken, decryptToken, authenticateHTTPAccessToken } from "../../serverless/auth";
+import { generateToken, decryptToken, authenticateHTTPAccessToken } from "../../lambda/auth";
 
 describe("auth", () => {
 	describe("generateToken", () => {

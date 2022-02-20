@@ -2,7 +2,7 @@ import chai from "chai";
 
 chai.should();
 
-import genres from "../../../serverless/Game/genres";
+import genres from "../../../lambda/Game/genres";
 
 describe("Game/genres", () => {
 	describe("genres", () => {

@@ -7,7 +7,7 @@ chai.use(chaiAsPromised);
 import casual from "casual";
 import sinon from "sinon";
 
-import gameLookup from "../../../serverless/Query/gameLookup";
+import gameLookup from "../../../lambda/Query/gameLookup";
 
 describe("Query/gameLookup", () => {
 	const fakeUserId = casual.id;

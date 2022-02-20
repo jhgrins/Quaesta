@@ -9,8 +9,8 @@ import axios from "axios";
 import casual from "casual";
 import sinon from "sinon";
 
-import { documentClient } from "../../serverless/db";
-import { checkIsLoggedIn, checkIsMe, checkInMyFriends, callTwitch } from "../../serverless/utils";
+import { documentClient } from "../../lambda/db";
+import { checkIsLoggedIn, checkIsMe, checkInMyFriends, callTwitch } from "../../lambda/utils";
 
 describe("utils", () => {
 	const fakeUser = {

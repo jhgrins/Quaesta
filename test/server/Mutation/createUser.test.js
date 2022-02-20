@@ -2,7 +2,7 @@ import chai from "chai";
 
 chai.should();
 
-import createUser from "../../../serverless/Mutation/createUser";
+import createUser from "../../../lambda/Mutation/createUser";
 
 describe("Mutation/createUser", () => {
 	describe("createUser", () => {

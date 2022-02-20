@@ -1,7 +1,6 @@
 import "dotenv/config";
 
 import { ApolloServer } from "apollo-server-lambda";
-import { LambdaContextFunctionParams } from "apollo-server-lambda/dist/ApolloServer";
 
 import { makeExecutableSchema } from "@graphql-tools/schema";
 
@@ -24,16 +23,14 @@ const server = new ApolloServer({
 			if (err.extensions) console.error(`${err.extensions.code}: ${err.message}`);
 			else console.error(err);
 		}
-		if (process.env.NODE_ENV === "development") {
+		if (process.env.IS_OFFLINE) {
 			console.log(err);
 		}
 		return err;
 	},
-	context: ({ express }): Context => {
-		return {
-			userId: authenticateHTTPAccessToken(express.req)
-		};
-	}
+	context: ({ express }): Context => ({
+		userId: authenticateHTTPAccessToken(express.req)
+	})
 });
 
 exports.graphql = server.createHandler();

@@ -24,21 +24,17 @@ const sendResetPasswordEmail = async (_: any, args: Args, context: Context, info
 		}
 	});
 
-	const filePath =
-		process.env.NODE_ENV === "development"
-			? "/../client/static/email/forgotEmail.html"
-			: "/website/email/forgotEmail.html";
+	const filePath = process.env.IS_OFFLINE
+		? "../frontend/static/email/forgotEmail.html"
+		: "/website/email/forgotEmail.html";
 	const file = await fs.readFile(__dirname + filePath);
 	const template = handlebars.compile(file.toString());
 
 	const replacements = {
 		username: userRecord.username,
-		resetLink:
-			process.env.NODE_ENV === "development"
-				? "http://localhost:3000"
-				: "https://quaesta.dev" +
-				  "/forgot-password/?id=" +
-				  generateToken(userRecord.id)
+		resetLink: process.env.IS_OFFLINE
+			? "http://localhost:3000"
+			: "https://quaesta.dev" + "/forgot-password/?id=" + generateToken(userRecord.id)
 	};
 	const mailDetails = {
 		from: process.env.MAIL_USERMAME,

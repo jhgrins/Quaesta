@@ -2,7 +2,7 @@ import chai from "chai";
 
 chai.should();
 
-import password from "../../../serverless/User/password";
+import password from "../../../lambda/User/password";
 
 describe("User/password", () => {
 	describe("password", () => {
