@@ -57,8 +57,9 @@ jobs:
       #     passphrase: ${{ secrets.PASSPHRASE }}
       #     git-user-signingkey: true
       #     git-commit-gpgsign: true
-
-      - name: "Deploy Site"
+      - name: Checkout 🛎️
+        uses: actions/checkout@v2
+      - name: Deploy 🚀
         uses: JamesIves/github-pages-deploy-action@v4.2.5
         with:
           branch: gh-pages
