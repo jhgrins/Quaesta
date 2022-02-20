@@ -9,7 +9,6 @@ jobs:
 
   deploy-frontend:
     name: Deploy Frontend
-    needs: build-frontend
     runs-on: ubuntu-latest
 
     steps:
