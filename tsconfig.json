@@ -5,7 +5,6 @@
 		"outDir": "dist",
 		"sourceMap": true,
 		"esModuleInterop": true,
-		"isolatedModules": true,
 		"moduleResolution": "node",
 		"strict": true,
 		"noImplicitAny": false,

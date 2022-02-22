@@ -3,7 +3,8 @@ import { AuthenticationError, UserInputError } from "apollo-server-errors";
 import axios from "axios";
 
 import { Context } from "./index";
-import { getItem, getItemFromDynamoDBResult } from "./db";
+import { getItem, getItemFromDynamoDBResult } from "../db";
+import { User } from "../../types";
 
 interface Parent {
 	id: string;
@@ -29,8 +30,11 @@ export const checkIsMe = async (parent: Parent, context: Context): Promise<void>
 
 export const checkInMyFriends = async (context: Context, friendUsername: string): Promise<void> => {
 	const queryOutput = await getItem("quaesta-users", context.userId as string);
-	const userRecord = getItemFromDynamoDBResult(queryOutput);
-	if (userRecord.username !== friendUsername && !userRecord.friends.includes(friendUsername)) {
+	const userRecord = getItemFromDynamoDBResult(queryOutput) as User | null;
+	if (
+		!userRecord ||
+		(userRecord.username !== friendUsername && !userRecord.friends.includes(friendUsername))
+	) {
 		throw new UserInputError("Not Friends With Provided User");
 	}
 };

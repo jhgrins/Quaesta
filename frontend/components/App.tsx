@@ -12,12 +12,12 @@ import { grey } from "@mui/material/colors";
 
 import { ApolloClient, ApolloProvider, InMemoryCache } from "@apollo/client";
 import { from, split, HttpLink } from "@apollo/client";
-import { WebSocketLink } from "@apollo/client/link/ws";
 import { getMainDefinition } from "@apollo/client/utilities";
 import { onError } from "@apollo/client/link/error";
 
 import { setContext } from "@apollo/client/link/context";
 
+import WebSocketLink from "./WebSocketLink";
 import Router from "./Router";
 
 import Logo from "../static/images/logo.png";
@@ -88,19 +88,15 @@ const FullApp = (props: any) => {
 	});
 
 	const wsLink = new WebSocketLink({
-		uri:
+		url:
 			!process.env.NODE_ENV || process.env.NODE_ENV === "development"
-				? "ws://localhost:3000/graphql"
-				: "wss://quaesta.dev/graphql",
-		options: {
-			timeout: 30000,
-			reconnect: true,
-			connectionParams: () => {
-				const token = localStorage.getItem("token");
-				return {
-					authorization: token ? `Bearer ${token}` : ""
-				};
-			}
+				? "ws://localhost:8001"
+				: "wss://quaesta.dev",
+		connectionParams: () => {
+			const token = localStorage.getItem("token");
+			return {
+				Authorization: token ? `Bearer ${token}` : ""
+			};
 		}
 	});
 

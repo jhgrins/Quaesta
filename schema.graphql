@@ -57,9 +57,14 @@ type Mutation {
 	deleteUser: Boolean
 	requestFriend(friendUsername: String!): User
 	resolveRequestFriend(friendUsername: String!, choice: Boolean!): User
+	testMutation: Boolean
+}
+
+type Test {
+	test: String
 }
 
 type Subscription {
-	newFriendRequest: String!
+	newFriendRequest: Test!
 	newFriend: String!
 }

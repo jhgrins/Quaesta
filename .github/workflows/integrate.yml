@@ -31,6 +31,6 @@ jobs:
       - name: Run Tests
         run: npm test
         env:
-          AUTH_KEY: "Hello World"
+          AUTH_KEY: "AUTH"
           MONGO_URI: ${{ secrets.MONGO_URI }}
           PASSWORD_KEY: "PASSWORD"

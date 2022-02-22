@@ -3,8 +3,11 @@ import path from "path";
 
 import { gql } from "apollo-server-express";
 
-const schema: any = [fs.readFileSync(path.join(__dirname, "../schema.graphql"), "utf8")];
-const typeDefs: any = gql(schema);
+import { buildSchema } from "graphql";
+
+const schema = fs.readFileSync(path.join(__dirname, "../../schema.graphql"), "utf8");
+export const typeDefs = gql(schema);
+export const gqlSchema = buildSchema(schema);
 
 import selfLookup from "./Query/selfLookup";
 import gameLookup from "./Query/gameLookup";
@@ -14,8 +17,7 @@ import deleteUser from "./Mutation/deleteUser";
 import editUser from "./Mutation/editUser";
 import loginUser from "./Mutation/loginUser";
 import sendResetPasswordEmail from "./Mutation/sendResetPasswordEmail";
-
-import newFriendRequest from "./Subscription/newFriendRequest";
+import testMutation from "./Mutation/testMutation";
 
 import email from "./User/email";
 import friends from "./User/friends";
@@ -25,18 +27,16 @@ import cover from "./Game/cover";
 import genres from "./Game/genres";
 import companies from "./Game/companies";
 
-const resolvers = {
+export const resolvers = {
 	Query: { selfLookup, gameLookup },
 	Mutation: {
 		createUser,
 		deleteUser,
 		editUser,
 		loginUser,
-		sendResetPasswordEmail
+		sendResetPasswordEmail,
+		testMutation
 	},
-	Subscription: { newFriendRequest },
 	User: { email, friends, password },
 	Game: { cover, genres, companies }
 };
-
-export { typeDefs, resolvers };

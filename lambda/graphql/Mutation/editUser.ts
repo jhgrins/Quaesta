@@ -2,7 +2,7 @@ import CryptoJS from "crypto-js";
 
 import { UserInputError } from "apollo-server-errors";
 
-import { getItemFromDynamoDBResult, getItemsByIndex, updateItem } from "../db";
+import { getItemFromDynamoDBResult, getItemsByIndex, updateItem } from "../../db";
 import { Context } from "../index";
 import { checkIsLoggedIn } from "../utils";
 
@@ -12,7 +12,6 @@ interface Args {
 }
 
 const editUser = async (_: any, args: Args, context: Context, info: any) => {
-	validateEnvironmentVariables();
 	await checkIsLoggedIn(context);
 	if (args.type === "email") {
 		await validateEmail(args.value);
@@ -23,17 +22,16 @@ const editUser = async (_: any, args: Args, context: Context, info: any) => {
 	if (args.type === "password") {
 		args.value = CryptoJS.AES.encrypt(
 			args.value,
-			process.env.PASSWORD_KEY as string
+			(process.env.PASSWORD_KEY as string) || "PASSWORD"
 		).toString();
 	}
-	const queryOutput = await updateItem("quaesta-users", context.userId as string, args.type, args.value);
+	const queryOutput = await updateItem(
+		"quaesta-users",
+		context.userId as string,
+		args.type,
+		args.value
+	);
 	return getItemFromDynamoDBResult(queryOutput);
-};
-
-const validateEnvironmentVariables = () => {
-	if (!process.env.PASSWORD_KEY) {
-		throw Error("PASSWORD_KEY Is Not Defined");
-	}
 };
 
 const validateEmail = async (email: string) => {

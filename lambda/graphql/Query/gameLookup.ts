@@ -1,6 +1,6 @@
 import apicalypse from "apicalypse";
 
-import { BaseGameAPI } from "../db";
+import { BaseGameAPI } from "../../db";
 import { Context } from "../index";
 import { callTwitch } from "../utils";
 

@@ -1,6 +1,6 @@
 import { Context } from "../index";
 import { checkIsMe } from "../utils";
-import { getItemFromDynamoDBResult, getItemsByIndex } from "../db";
+import { getItemFromDynamoDBResult, getItemsByIndex } from "../../db";
 
 interface Parent {
 	id: string;

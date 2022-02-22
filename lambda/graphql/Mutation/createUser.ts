@@ -7,7 +7,7 @@ import { promises as fs } from "fs";
 import NodeMailer from "nodemailer";
 
 import { generateToken } from "../auth";
-import { getItemsByIndex, putItem } from "../db";
+import { getItemsByIndex, putItem } from "../../db";
 import { Context } from "../index";
 
 interface Args {
@@ -23,7 +23,7 @@ const createUser = async (_: any, args: Args, context: Context, info: any): Prom
 	if (args.password) {
 		args.password = CryptoJS.AES.encrypt(
 			args.password,
-			process.env.PASSWORD_KEY as string
+			(process.env.PASSWORD_KEY as string) || "PASSWORD"
 		).toString();
 	}
 
@@ -35,9 +35,6 @@ const createUser = async (_: any, args: Args, context: Context, info: any): Prom
 };
 
 const validateEnvironmentVariables = () => {
-	if (!process.env.PASSWORD_KEY) {
-		throw Error("PASSWORD_KEY Is Not Defined");
-	}
 	if (!process.env.MAIL_USERNAME || !process.env.MAIL_PASSWORD) {
 		throw Error("Must Define MAIL_USERNAME and MAIL_PASSWORD");
 	}
@@ -68,7 +65,7 @@ const sendAccountCreatedEmail = async (email: string) => {
 	const filePath =
 		__dirname +
 		(process.env.IS_OFFLINE
-			? "../frontend/static/email/accountCreated.html"
+			? "/../../../frontend/static/email/accountCreated.html"
 			: "/website/email/accountCreated.html");
 	const file = await fs.readFile(filePath);
 	const mailDetails = {

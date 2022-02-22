@@ -8,7 +8,6 @@ import { useMutation, useQuery } from "@apollo/client";
 import { GetGameDetails } from "../../../graphql/query";
 
 const Game = (props) => {
-
 	const { gameName } = useParams() as any;
 	const { loading, error, data } = useQuery(GetGameDetails, {
 		variables: { name: gameName }

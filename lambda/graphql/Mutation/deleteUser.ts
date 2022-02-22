@@ -1,4 +1,4 @@
-import { deleteItem } from "../db";
+import { deleteItem } from "../../db";
 import { Context } from "../index";
 import { checkIsLoggedIn } from "../utils";
 

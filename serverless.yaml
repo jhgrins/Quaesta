@@ -3,11 +3,12 @@ frameworkVersion: "3"
 useDotenv: true
 
 plugins:
+  - serverless-prune-plugin
   - serverless-dotenv-plugin
   - serverless-plugin-typescript
   - serverless-dynamodb-local
+  - serverless-offline-sns
   - serverless-offline
-  - serverless-prune-plugin
 
 custom:
   stage: ${opt:stage, self:provider.stage}
@@ -18,6 +19,7 @@ custom:
       - ${opt:stage, self:provider.stage}
     start:
       port: 8080
+      inMemory: false
       migrate: true
       inMemory: false
   serverless-offline:
@@ -25,25 +27,54 @@ custom:
     websocketPort: 8001
     lambdaPort: 8002
     useWorkerThreads: true
+  serverless-offline-sns:
+    port: 4002
+  dotenv:
+    exclude:
+      - AWS_ACCESS_KEY_ID
+      - AWS_SECRET_ACCESS_KEY
+    required:
+      env:
+        - AWS_REGION
+        - MAIL_USERNAME
+        - MAIL_PASSWORD
+        - TWITCH_CLIENT_ID
+        - TWITCH_CLIENT_SECRET
 
 provider:
   name: aws
   stage: prod
   runtime: nodejs14.x
-  region: us-west-2
+  region: ${env:AWS_REGION}
+  logs:
+    websocket: true
 
 functions:
   graphql:
-    handler: lambda/index.graphql
+    description: GraphQL API
+    handler: lambda/graphql/index.graphql
     events:
       - http:
           path: /graphql
           method: post
           cors: true
+  socketSubscribe:
+    description: Websocket Subscription Handler
+    handler: lambda/subscription/subscribe.subscribe
+    events:
+      - websocket: $connect
+      - websocket: $default
+  snsRecieve:
+    description: SNS Recieve Handler
+    handler: lambda/subscription/publish.publish
+    events:
+      - sns:
+          topicName: Subscription
 
 package:
   patterns:
     - schema.graphql
+    - frontend/static
 
 resources:
   Resources:
@@ -62,8 +93,8 @@ resources:
           - AttributeName: email
             AttributeType: S
         ProvisionedThroughput:
-          ReadCapacityUnits: 10
-          WriteCapacityUnits: 10
+          ReadCapacityUnits: 1
+          WriteCapacityUnits: 1
         GlobalSecondaryIndexes:
           - IndexName: email
             KeySchema:
@@ -72,8 +103,8 @@ resources:
             Projection:
               ProjectionType: ALL
             ProvisionedThroughput:
-              ReadCapacityUnits: 10
-              WriteCapacityUnits: 10
+              ReadCapacityUnits: 1
+              WriteCapacityUnits: 1
           - IndexName: username
             KeySchema:
               - AttributeName: username
@@ -81,5 +112,46 @@ resources:
             Projection:
               ProjectionType: ALL
             ProvisionedThroughput:
-              ReadCapacityUnits: 10
-              WriteCapacityUnits: 10
+              ReadCapacityUnits: 1
+              WriteCapacityUnits: 1
+    sockets:
+      Type: AWS::DynamoDB::Table
+      Properties:
+        TableName: quaesta-sockets
+        KeySchema:
+          - AttributeName: connectionId # API Gateway
+            KeyType: HASH
+          - AttributeName: operationId
+            KeyType: RANGE
+        AttributeDefinitions:
+          - AttributeName: connectionId
+            AttributeType: S
+          - AttributeName: operationId
+            AttributeType: S
+          - AttributeName: subscription
+            AttributeType: S
+        ProvisionedThroughput:
+          ReadCapacityUnits: 1
+          WriteCapacityUnits: 1
+        GlobalSecondaryIndexes:
+          - IndexName: operationId
+            KeySchema:
+              - AttributeName: operationId
+                KeyType: HASH
+            Projection:
+              ProjectionType: ALL
+            ProvisionedThroughput:
+              ReadCapacityUnits: 1
+              WriteCapacityUnits: 1
+          - IndexName: subscription
+            KeySchema:
+              - AttributeName: subscription
+                KeyType: HASH
+            Projection:
+              ProjectionType: ALL
+            ProvisionedThroughput:
+              ReadCapacityUnits: 1
+              WriteCapacityUnits: 1
+        TimeToLiveSpecification:
+          AttributeName: ttl
+          Enabled: true

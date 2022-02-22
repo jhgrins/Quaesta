@@ -10,10 +10,7 @@ interface Parent {
 
 const password = (parent: Parent, args: any, context: Context, info: any) => {
 	checkIsMe(parent, context);
-	if (!process.env.PASSWORD_KEY) {
-		throw Error("PASSWORD_KEY Is Not Defined");
-	}
-	const bytes = CryptoJS.AES.decrypt(parent.password, process.env.PASSWORD_KEY);
+	const bytes = CryptoJS.AES.decrypt(parent.password, process.env.PASSWORD_KEY || "PASSWORD");
 	return bytes.toString(CryptoJS.enc.Utf8);
 };
 

@@ -4,8 +4,9 @@ import NodeMailer from "nodemailer";
 import handlebars from "handlebars";
 
 import { generateToken } from "../auth";
-import { getItemFromDynamoDBResult, getItemsByIndex } from "../db";
+import { getItemFromDynamoDBResult, getItemsByIndex } from "../../db";
 import { Context } from "../index";
+import { User } from "../../../types";
 
 interface Args {
 	email: string;
@@ -14,7 +15,7 @@ interface Args {
 const sendResetPasswordEmail = async (_: any, args: Args, context: Context, info: any) => {
 	validateEnvironmentVariables();
 	const queryOutput = await getItemsByIndex("quaesta-users", "email", args.email);
-	const userRecord = getItemFromDynamoDBResult(queryOutput);
+	const userRecord = getItemFromDynamoDBResult(queryOutput) as User | null;
 	if (!userRecord) return false;
 	let mailTransporter = NodeMailer.createTransport({
 		service: "gmail",
@@ -25,7 +26,7 @@ const sendResetPasswordEmail = async (_: any, args: Args, context: Context, info
 	});
 
 	const filePath = process.env.IS_OFFLINE
-		? "../frontend/static/email/forgotEmail.html"
+		? "/../../../frontend/static/email/forgotEmail.html"
 		: "/website/email/forgotEmail.html";
 	const file = await fs.readFile(__dirname + filePath);
 	const template = handlebars.compile(file.toString());

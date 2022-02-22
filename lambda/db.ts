@@ -11,7 +11,7 @@ import {
 	UpdateItemOutput
 } from "aws-sdk/clients/dynamodb";
 
-import User from "./User/type";
+import { User, Socket } from "../types";
 
 export const BaseGameAPI = "https://api.igdb.com/v4";
 
@@ -23,11 +23,10 @@ type DynamoDBResult =
 	| DeleteItemOutput;
 
 if (!process.env.AWS_REGION) throw new Error("AWS_REGION Is Not Defined");
-if (!process.env.DDB_ENDPOINT) throw new Error("DDB_ENDPOINT Is Not Defined");
 
-let serviceConfigOptions: ServiceConfigurationOptions = {
+const serviceConfigOptions: ServiceConfigurationOptions = {
 	region: process.env.AWS_REGION,
-	endpoint: process.env.DDB_ENDPOINT
+	endpoint: process.env.DDB_ENDPOINT || "http://localhost:8080"
 };
 
 export const documentClient = new AWS.DynamoDB.DocumentClient(serviceConfigOptions);
@@ -107,15 +106,15 @@ export const deleteItem = async (table: string, id: string): Promise<DeleteItemO
 	}
 };
 
-export const getItemFromDynamoDBResult = (dynamodbResult: DynamoDBResult): User => {
+export const getItemFromDynamoDBResult = (dynamodbResult: DynamoDBResult): User | Socket | null => {
 	if ("Item" in dynamodbResult && dynamodbResult.Item) {
-		return dynamodbResult.Item as unknown as User;
+		return dynamodbResult.Item as unknown as User | Socket;
 	}
 	if ("Items" in dynamodbResult && dynamodbResult.Items) {
-		return dynamodbResult.Items[0] as unknown as User;
+		return dynamodbResult.Items[0] as unknown as User | Socket;
 	}
 	if ("Attributes" in dynamodbResult && dynamodbResult.Attributes) {
-		return dynamodbResult.Attributes as unknown as User;
+		return dynamodbResult.Attributes as unknown as User | Socket;
 	}
-	throw Error("Invalid Parameter To GetItemFromDynamoDBResult");
+	return null;
 };
