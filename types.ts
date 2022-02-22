@@ -33,10 +33,10 @@ export type DateTime = string;
 export type GAME_STATUS = "BACKLOG" | "IN_PROGRESS" | "COMPLETED";
 
 export interface Socket {
+	callbackUrlForAWS: string;
 	connectionId: string;
 	operationId?: string;
-	connectedAt: number;
-	ttl: number;
+	subscription: string;
 	userId: string | null;
-	method: string | undefined;
+	ttl: number;
 }

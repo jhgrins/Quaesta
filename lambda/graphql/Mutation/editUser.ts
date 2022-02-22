@@ -26,7 +26,7 @@ const editUser = async (_: any, args: Args, context: Context, info: any) => {
 		).toString();
 	}
 	const queryOutput = await updateItem(
-		"quaesta-users",
+		"users",
 		context.userId as string,
 		args.type,
 		args.value
@@ -35,7 +35,7 @@ const editUser = async (_: any, args: Args, context: Context, info: any) => {
 };
 
 const validateEmail = async (email: string) => {
-	const queryOutput = await getItemsByIndex("quaesta-users", "email", email);
+	const queryOutput = await getItemsByIndex("users", "email", email);
 	if (queryOutput.Count && queryOutput.Count > 0) {
 		throw new UserInputError("User Already Exists");
 	}
@@ -45,7 +45,7 @@ const validateUsername = async (username: string) => {
 	if (username.length > 12) {
 		throw new UserInputError("Username Longer Than 12 Characters");
 	}
-	const queryOutput = await getItemsByIndex("quaesta-users", "username", username);
+	const queryOutput = await getItemsByIndex("users", "username", username);
 	if (queryOutput.Count && queryOutput.Count > 0) {
 		throw new UserInputError("User Already Exists");
 	}

@@ -1,6 +1,8 @@
 import "dotenv/config";
 
-import { AuthenticationError } from "apollo-server-express";
+import { AuthenticationError, ExpressContext } from "apollo-server-express";
+import { APIGatewayEvent } from "aws-lambda";
+
 import jwt from "jsonwebtoken";
 
 import { User } from "../../types";
@@ -13,10 +15,12 @@ export const decryptToken = (token: string): User => {
 	return jwt.verify(token, process.env.AUTH_KEY || "AUTH") as User;
 };
 
-export const authenticateHTTPAccessToken = (req: any): string | null => {
+export const authenticateHTTPAccessToken = (
+	req: ExpressContext["req"] | APIGatewayEvent
+): string | null => {
 	const authHeader = req.headers.authorization;
 	if (!authHeader) return null;
-	
+
 	const token = authHeader.split(" ")[1];
 	if (!token) throw new AuthenticationError("Authentication Token Not Specified");
 

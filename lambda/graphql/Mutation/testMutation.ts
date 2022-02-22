@@ -1,9 +1,9 @@
 import { Context } from "../index";
-import { publish } from "../../sns";
+import { publishToSubscribers } from "../../sns";
 
-const testMutation = async (_: any, args: {}, context: Context, info: any) => {
-	await publish("Subscription", "newFriendRequest", { test: "Hello World!" });
+const subscriptionShowcase = async (_: any, args: {}, context: Context, info: any) => {
+	await publishToSubscribers("Hello World!", { subscription: "subscriptionShowcase" });
 	return true;
 };
 
-export default testMutation;
+export default subscriptionShowcase;

@@ -14,7 +14,7 @@ interface Args {
 }
 
 const loginUser = async (_: any, args: Args, context: Context, info: any): Promise<string> => {
-	const queryOutput = await getItemsByIndex("quaesta-users", args.type, args.value);
+	const queryOutput = await getItemsByIndex("users", args.type, args.value);
 	const userRecord = getItemFromDynamoDBResult(queryOutput) as User | null;
 	if (!userRecord) {
 		throw new UserInputError("User Not Found");

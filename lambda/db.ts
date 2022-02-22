@@ -40,6 +40,21 @@ export const getItem = async (table: string, id: string): Promise<GetItemOutput>
 	}
 };
 
+export const getSocket = async (
+	table: string,
+	connectionId: string,
+	operationId: string
+): Promise<GetItemOutput> => {
+	try {
+		return await documentClient
+			.get({ TableName: table, Key: { connectionId, operationId } })
+			.promise();
+	} catch (err) {
+		console.error(err);
+		throw Error("DynamoDB Get Call Failed");
+	}
+};
+
 export const getItemsByIndex = async (
 	table: string,
 	key: string,

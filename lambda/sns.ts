@@ -14,15 +14,23 @@ const snsServiceConfigOptions: ServiceConfigurationOptions = {
 
 const sns = new AWS.SNS(snsServiceConfigOptions);
 
-export const publish = async (
-	topicName: string,
-	subscription: string,
-	message: any
+export interface SubscriptionMessage {
+	message: any;
+	filters: {
+		subscription: string;
+		userId?: string;
+	};
+}
+
+export const publishToSubscribers = async (
+	message: any,
+	filters: { subscription: string; userId?: string }
 ): Promise<PromiseResult<AWS.SNS.PublishResponse, AWS.AWSError>> => {
+	const subscriptionMessage: SubscriptionMessage = { message, filters };
 	return await sns
 		.publish({
-			Message: JSON.stringify({ subscription, message }),
-			TopicArn: "arn:aws:sns:us-west-2:123456789012:" + topicName
+			Message: JSON.stringify(subscriptionMessage),
+			TopicArn: `arn:aws:sns:${process.env.AWS_REGION}:123456789012:subscription`
 		})
 		.promise();
 };

@@ -10,9 +10,17 @@ export const sendMessageToSocket = async (
 		endpoint: process.env.IS_OFFLINE ? "http://localhost:8001" : endpoint
 	});
 	await apiGateway
-		.postToConnection({
-			ConnectionId: connectionId,
-			Data: JSON.stringify(payload)
-		})
+		.postToConnection({ ConnectionId: connectionId, Data: JSON.stringify(payload) })
 		.promise();
 };
+
+export const deleteSocketConnection = async (endpoint: string, connectionId: string) => {
+	const apiGateway = new AWS.ApiGatewayManagementApi({
+		endpoint: process.env.IS_OFFLINE ? "http://localhost:8001" : endpoint
+	});
+	await apiGateway.deleteConnection({ ConnectionId: connectionId }).promise();
+};
+
+export const HTTP_SUCCESS = 200;
+export const HTTP_SERVER_BAD_REQUEST = 400;
+export const HTTP_SERVER_ERROR = 500;

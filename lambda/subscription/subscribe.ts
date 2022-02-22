@@ -1,11 +1,34 @@
 import { APIGatewayEvent, APIGatewayProxyResult } from "aws-lambda";
-import { parse, getOperationAST, buildSchema, specifiedRules, validate } from "graphql";
+import {
+	parse,
+	getOperationAST,
+	specifiedRules,
+	validate,
+	OperationDefinitionNode,
+	FieldNode,
+	DocumentNode
+} from "graphql";
 
-import { HTTP_SERVER_BAD_REQUEST, HTTP_SERVER_ERROR, HTTP_SUCCESS } from "../constants";
-import { getItem, updateItem, deleteItem, getItemFromDynamoDBResult, putItem } from "../db";
+import { deleteItem, getItemFromDynamoDBResult, putItem, getSocket } from "../db";
+import {
+	deleteSocketConnection,
+	sendMessageToSocket,
+	HTTP_SERVER_BAD_REQUEST,
+	HTTP_SERVER_ERROR,
+	HTTP_SUCCESS
+} from "./utils";
+
 import { authenticateHTTPAccessToken } from "../graphql/auth";
 import { gqlSchema } from "../graphql/schema";
-import { sendMessageToSocket } from "./utils";
+
+interface SubscriptionEventBody {
+	id: string;
+	type: string;
+	payload: {
+		query: string;
+		operationName: string;
+	};
+}
 
 export const subscribe = async (event: APIGatewayEvent): Promise<APIGatewayProxyResult> => {
 	if (!event.body) {
@@ -18,8 +41,8 @@ export const subscribe = async (event: APIGatewayEvent): Promise<APIGatewayProxy
 		return { statusCode: HTTP_SERVER_ERROR, body: "" };
 	}
 
-	const { type } = JSON.parse(event.body);
-	switch (type) {
+	const body: SubscriptionEventBody = JSON.parse(event.body);
+	switch (body.type) {
 		case "connection_init":
 			await sendMessageToSocket(callbackUrlForAWS, connectionId, { type: "connection_ack" });
 			break;
@@ -27,10 +50,10 @@ export const subscribe = async (event: APIGatewayEvent): Promise<APIGatewayProxy
 			await sendMessageToSocket(callbackUrlForAWS, connectionId, { type: "pong" });
 			break;
 		case "subscribe":
-			await subscribeProtocol(callbackUrlForAWS, event);
+			await subscribeProtocol(callbackUrlForAWS, connectionId, body, event);
 			break;
 		case "complete":
-			await deleteItem("quaesta-sockets", connectionId);
+			await deleteItem("sockets", connectionId);
 			break;
 	}
 	return { statusCode: HTTP_SUCCESS, body: "" };
@@ -38,21 +61,35 @@ export const subscribe = async (event: APIGatewayEvent): Promise<APIGatewayProxy
 
 const subscribeProtocol = async (
 	callbackUrlForAWS: string,
+	connectionId: string,
+	body: SubscriptionEventBody,
 	event: APIGatewayEvent
 ): Promise<APIGatewayProxyResult | void> => {
-	const { connectionId } = event.requestContext;
-	const { id, payload } = JSON.parse(event.body as string);
-	await putItem("quaesta-sockets", {
-		connectionId,
-		operationId: id,
-		subscription: "newFriendRequest",
-		ttl: Math.floor(Date.now() / 1000) + 60 * 60 * 2
-	});
+	const { id, payload } = body;
+	const queryOutput = await getSocket("sockets", connectionId, id);
+	const socketRecord = getItemFromDynamoDBResult(queryOutput);
+	if (socketRecord) {
+		deleteSocketConnection(callbackUrlForAWS, connectionId);
+		return { statusCode: HTTP_SERVER_BAD_REQUEST, body: "" };
+	}
+
+	const parsedQuery = parse(payload.query);
+	const definition = parsedQuery.definitions[0] as OperationDefinitionNode;
+	const selection = definition.selectionSet.selections[0] as FieldNode;
+	const name = selection.name.value;
 
 	try {
-		validateGraphQL(callbackUrlForAWS, connectionId as string, id, payload);
+		validateGraphQL(callbackUrlForAWS, connectionId, id, parsedQuery, payload.operationName);
+		await putItem("sockets", {
+			callbackUrlForAWS,
+			connectionId,
+			operationId: id,
+			subscription: name,
+			userId: authenticateHTTPAccessToken(event),
+			ttl: Math.floor(Date.now() / 1000) + 60 * 60 * 2
+		});
 	} catch (err) {
-		return { statusCode: HTTP_SERVER_BAD_REQUEST, body: "" };
+		return { statusCode: HTTP_SERVER_BAD_REQUEST, body: err as string };
 	}
 };
 
@@ -60,11 +97,10 @@ const validateGraphQL = async (
 	callbackUrlForAWS: string,
 	connectionId: string,
 	operationId: string,
-	payload: any
+	parsedQuery: DocumentNode,
+	operationName: string
 ): Promise<void> => {
-	const { query, operationName } = payload;
-	const document = parse(query);
-	const operationAST = getOperationAST(document, operationName || "");
+	const operationAST = getOperationAST(parsedQuery, operationName || "");
 	if (!operationAST || operationAST.operation !== "subscription") {
 		await sendMessageToSocket(callbackUrlForAWS, connectionId, {
 			id: operationId,
@@ -73,7 +109,7 @@ const validateGraphQL = async (
 		});
 		throw new Error("Only Subscriptions are Supported");
 	}
-	const validationErrors = validate(gqlSchema, document, specifiedRules);
+	const validationErrors = validate(gqlSchema, parsedQuery, specifiedRules);
 	if (validationErrors.length > 0) {
 		await sendMessageToSocket(callbackUrlForAWS, connectionId, {
 			id: operationId,

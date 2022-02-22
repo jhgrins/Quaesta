@@ -60,11 +60,6 @@ type Mutation {
 	testMutation: Boolean
 }
 
-type Test {
-	test: String
-}
-
 type Subscription {
-	newFriendRequest: Test!
-	newFriend: String!
+	subscriptionShowcase: String
 }

@@ -21,7 +21,6 @@ custom:
       port: 8080
       inMemory: false
       migrate: true
-      inMemory: false
   serverless-offline:
     httpPort: 8000
     websocketPort: 8001
@@ -69,7 +68,7 @@ functions:
     handler: lambda/subscription/publish.publish
     events:
       - sns:
-          topicName: Subscription
+          topicName: subscription
 
 package:
   patterns:
@@ -81,7 +80,7 @@ resources:
     usersTable:
       Type: AWS::DynamoDB::Table
       Properties:
-        TableName: quaesta-users
+        TableName: users
         KeySchema:
           - AttributeName: id
             KeyType: HASH
@@ -117,9 +116,9 @@ resources:
     sockets:
       Type: AWS::DynamoDB::Table
       Properties:
-        TableName: quaesta-sockets
+        TableName: sockets
         KeySchema:
-          - AttributeName: connectionId # API Gateway
+          - AttributeName: connectionId
             KeyType: HASH
           - AttributeName: operationId
             KeyType: RANGE
@@ -134,15 +133,6 @@ resources:
           ReadCapacityUnits: 1
           WriteCapacityUnits: 1
         GlobalSecondaryIndexes:
-          - IndexName: operationId
-            KeySchema:
-              - AttributeName: operationId
-                KeyType: HASH
-            Projection:
-              ProjectionType: ALL
-            ProvisionedThroughput:
-              ReadCapacityUnits: 1
-              WriteCapacityUnits: 1
           - IndexName: subscription
             KeySchema:
               - AttributeName: subscription

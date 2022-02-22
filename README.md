@@ -27,8 +27,6 @@ npm install && npm start
 We currently support the following variables in a `.env` file with key=value pairs.
 
 ```
-AWS_ACCESS_KEY_ID: AWS IAM credentials with access to deploy to AWS (CloudFormationFullAccess, S3FullAccess)
-AWS_SECRET_ACCESS_KEY: AWS IAM credentials secret
 AWS_REGION: AWS region to deploy service and dynamodb tables to
 DDB_ENDPOINT: Endpoint of DynamoDB service to connect to
 SNS_ENDPOINT: Endpoint of SNS service to connect to
@@ -43,6 +41,13 @@ PASSWORD_KEY: The key used to encrypt and decrypt the user's password
 MOCKS: Controls whether or not the lambda operates in mocking mode
 ```
 
+You will also need the following to deploy to AWS
+
+```
+AWS_ACCESS_KEY_ID: AWS IAM credentials with access to deploy to AWS (CloudFormationFullAccess, S3FullAccess)
+AWS_SECRET_ACCESS_KEY: AWS IAM credentials secret
+```
+
 ### Database
 
 We use DynamoDB for our application. After installing `node_modules`, install dynamodb-local.
@@ -50,4 +55,31 @@ We use DynamoDB for our application. After installing `node_modules`, install dy
 ```
 npm install -g serverless
 sls dynamodb install
+```
+
+### GraphQL Subscriptions
+
+If you take this repository out of the box, graphql subscriptions are available using the serverless framework and lambda.
+To create a subscription, start by adding a valid subscription to your schema.
+
+```
+type Subscription {
+	subscriptionShowcase: String
+}
+```
+
+Then, simply call the `publishToSubscribers` function to publish a message to any active subscribers.
+
+```
+await publishToSubscribers("Hello World!", { subscription: "subscriptionShowcase" });
+```
+
+The first parameter is the message to publish, and the second parameter is the subscription to publish to. You 
+can also pass in a `userId` parameter to filter publishes to specific users.
+
+```
+await publishToSubscribers("Hello World!", { 
+    subscription: "subscriptionShowcase", 
+    userId: "1234" 
+});
 ```

@@ -1,28 +1,30 @@
 import { SNSEvent, APIGatewayProxyResult } from "aws-lambda";
-import { User, Socket } from "../../types";
+import { Socket } from "../../types";
 
-import { HTTP_SUCCESS } from "../constants";
 import { getItemFromDynamoDBResult, getItemsByIndex } from "../db";
-import { sendMessageToSocket } from "./utils";
+import { SubscriptionMessage } from "../sns";
+import { sendMessageToSocket, HTTP_SUCCESS, HTTP_SERVER_ERROR } from "./utils";
 
 const publish = async (event: SNSEvent): Promise<APIGatewayProxyResult> => {
-	const { subscription, message } = JSON.parse(event.Records[0].Sns.Message);
+	const { message, filters }: SubscriptionMessage = JSON.parse(event.Records[0].Sns.Message);
 
-	const queryOutput = await getItemsByIndex("quaesta-sockets", "subscription", subscription);
-	const socketRecord = getItemFromDynamoDBResult(queryOutput) as Socket;
-	if (!socketRecord) {
-		console.error("Socket Not Found");
+	const queryOutput = await getItemsByIndex("sockets", "subscription", filters.subscription);
+	if (queryOutput.Count === 0 || !queryOutput.Items) {
+		return { statusCode: HTTP_SUCCESS, body: "" };
 	}
 
-	await sendMessageToSocket("", socketRecord.connectionId, {
-		id: socketRecord.operationId,
-		payload: {
-			data: {
-				[subscription]: message
-			}
-		},
-		type: "next"
-	});
+	let sockets = queryOutput.Items as unknown as Socket[];
+	if (filters.userId) {
+		sockets = sockets.filter((item) => item.userId === filters.userId);
+	}
+
+	for (const socket of sockets) {
+		await sendMessageToSocket(socket.callbackUrlForAWS, socket.connectionId, {
+			id: socket.operationId,
+			payload: { data: { [socket.subscription]: message } },
+			type: "next"
+		});
+	}
 	return { statusCode: HTTP_SUCCESS, body: "" };
 };
 
