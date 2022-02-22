@@ -60,6 +60,8 @@ sls dynamodb install
 ### GraphQL Subscriptions
 
 If you take this repository out of the box, graphql subscriptions are available using the serverless framework and lambda.
+The service uses the [graphql-ws](https://github.com/enisdenjo/graphql-ws/blob/master/PROTOCOL.md) protocol to support subscriptions.
+
 To create a subscription, start by adding a valid subscription to your schema.
 
 ```
