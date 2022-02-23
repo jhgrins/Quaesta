@@ -30,7 +30,7 @@ const createUser = async (_: any, args: Args, context: Context, info: any): Prom
 	const randomUserId = uuid();
 	await putItem("users", { id: randomUserId, ...args });
 
-	//sendAccountCreatedEmail(args.email);
+	sendAccountCreatedEmail(args.email);
 	return generateToken(randomUserId);
 };
 
@@ -58,6 +58,7 @@ const validateUsername = async (username: string) => {
 };
 
 const sendAccountCreatedEmail = async (email: string) => {
+	console.error(process.env.MAIL_USERNAME, process.env.MAIL_PASSWORD);
 	const mailTransporter: any = NodeMailer.createTransport({
 		service: "gmail",
 		auth: { user: process.env.MAIL_USERNAME, pass: process.env.MAIL_PASSWORD }
