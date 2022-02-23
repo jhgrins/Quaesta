@@ -38,7 +38,6 @@ custom:
         - MAIL_PASSWORD
         - TWITCH_CLIENT_ID
         - TWITCH_CLIENT_SECRET
-      file: true
 
 provider:
   name: aws

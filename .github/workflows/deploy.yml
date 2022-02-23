@@ -53,21 +53,7 @@ jobs:
         with:
           aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
           aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
-          aws-region: ${{ secrets.AWS_REGION }}
-
-      - name: Create Quaesta .env File
-        uses: DeveloperRic/action-create-env@v1.0.4
-        with:
-          full_text: |
-            AUTH_KEY=${{ secrets.AUTH_KEY }}
-            DDB_ENDPOINT=${{ secrets.DDB_ENDPOINT }}
-            GOOGLE_CLIENT_ID=${{ secrets.GOOGLE_CLIENT_ID }}
-            GOOGLE_CLIENT_SECRET=${{ secrets.GOOGLE_CLIENT_SECRET }}
-            MAIL_USERNAME=${{ secrets.MAIL_USERNAME }}
-            MAIL_PASSWORD=${{ secrets.MAIL_PASSWORD }}
-            PASSWORD_KEY=${{ secrets.PASSWORD_KEY }}
-            TWITCH_CLIENT_ID=${{ secrets.TWITCH_CLIENT_ID }}
-            TWITCH_CLIENT_SECRET=${{ secrets.TWITCH_CLIENT_SECRET }}
+          aws-region: ${{ secrets.AWS_REGION }}            
 
       - name: Cache Node Modules
         uses: actions/cache@v2
@@ -84,3 +70,13 @@ jobs:
 
       - name: Deploy
         run: npm run deployLambda
+        env: 
+          DDB_ENDPOINT: ${{ secrets.DDB_ENDPOINT }}
+          GOOGLE_CLIENT_ID: ${{ secrets.GOOGLE_CLIENT_ID }}
+          GOOGLE_CLIENT_SECRET: ${{ secrets.GOOGLE_CLIENT_SECRET }}
+          MAIL_USERNAME: ${{ secrets.MAIL_USERNAME }}
+          MAIL_PASSWORD: ${{ secrets.MAIL_PASSWORD }}
+          TWITCH_CLIENT_ID: ${{ secrets.TWITCH_CLIENT_ID }}
+          TWITCH_CLIENT_SECRET: ${{ secrets.TWITCH_CLIENT_SECRET }}
+          AUTH_KEY: ${{ secrets.AUTH_KEY }}
+          PASSWORD_KEY: ${{ secrets.PASSWORD_KEY }}
