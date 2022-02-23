@@ -73,7 +73,7 @@ const App = () => {
 
 const FullApp = (props: any) => {
 	const httpLink = new HttpLink({
-		uri: "/graphql",
+		uri: GRAPHQL_ENDPOINT,
 		credentials: "same-origin"
 	});
 
@@ -88,10 +88,7 @@ const FullApp = (props: any) => {
 	});
 
 	const wsLink = new WebSocketLink({
-		url:
-			!process.env.NODE_ENV || process.env.NODE_ENV === "development"
-				? "ws://localhost:8001"
-				: "wss://quaesta.dev",
+		url: WEBSOCKET_ENDPOINT,
 		connectionParams: () => {
 			const token = localStorage.getItem("token");
 			return {

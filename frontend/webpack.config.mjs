@@ -4,10 +4,12 @@ import { fileURLToPath } from "url";
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 
+import webpack from "webpack";
 import HtmlWebpackPlugin from "html-webpack-plugin";
 import CopyPlugin from "copy-webpack-plugin";
 
 const outputDirectory = "../dist";
+const mode = process.env.NODE_ENV || "development";
 
 export default {
 	entry: "./frontend/index.tsx",
@@ -32,7 +34,7 @@ export default {
 		proxy: { "/graphql": "http://localhost:8000/dev" }
 	},
 	devtool: "eval-source-map",
-	mode: process.env.NODE_ENV || "development",
+	mode: mode,
 	module: {
 		rules: [
 			{
@@ -73,6 +75,13 @@ export default {
 				{ from: "./frontend/static/images", to: "./images" },
 				{ from: "./frontend/static/email", to: "./email" }
 			]
+		}),
+		new webpack.DefinePlugin({
+			IS_OFFLINE: mode === "development",
+			GRAPHQL_ENDPOINT: JSON.stringify(process.env.GRAPHQL_ENDPOINT || "/graphql"),
+			WEBSOCKET_ENDPOINT: JSON.stringify(
+				process.env.WEBSOCKET_ENDPOINT || "ws://localhost:8001"
+			)
 		})
 	],
 	resolve: {

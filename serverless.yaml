@@ -47,7 +47,7 @@ provider:
   runtime: nodejs14.x
   logs:
     websocket: true
-    role: arn:aws:iam::170267588697:role/APIGatewayCloudWatchRole
+    role: arn:aws:iam::${env:AWS_ACCOUNT_ID}:role/APIGatewayCloudWatchRole
 
 functions:
   graphql:
