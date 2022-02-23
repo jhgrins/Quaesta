@@ -70,7 +70,8 @@ jobs:
 
       - name: Deploy
         run: npm run deployLambda
-        env: 
+        env:
+          AWS_ACCOUNT_ID: ${{ secrets.AWS_ACCOUNT_ID }}
           DDB_ENDPOINT: ${{ secrets.DDB_ENDPOINT }}
           GOOGLE_CLIENT_ID: ${{ secrets.GOOGLE_CLIENT_ID }}
           GOOGLE_CLIENT_SECRET: ${{ secrets.GOOGLE_CLIENT_SECRET }}
