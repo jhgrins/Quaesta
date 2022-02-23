@@ -34,17 +34,16 @@ custom:
       - AWS_SECRET_ACCESS_KEY
     required:
       env:
-        - AWS_REGION
         - MAIL_USERNAME
         - MAIL_PASSWORD
         - TWITCH_CLIENT_ID
         - TWITCH_CLIENT_SECRET
+      file: true
 
 provider:
   name: aws
   stage: prod
   runtime: nodejs14.x
-  region: ${env:AWS_REGION}
   logs:
     websocket: true
 

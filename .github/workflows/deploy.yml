@@ -59,7 +59,6 @@ jobs:
         with:
           full_text: |
             AUTH_KEY=${{ secrets.AUTH_KEY }}
-            AWS_REGION=${{ secrets.AWS_REGION }}
             DDB_ENDPOINT=${{ secrets.DDB_ENDPOINT }}
             GOOGLE_CLIENT_ID=${{ secrets.GOOGLE_CLIENT_ID }}
             GOOGLE_CLIENT_SECRET=${{ secrets.GOOGLE_CLIENT_SECRET }}

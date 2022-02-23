@@ -79,13 +79,20 @@ const subscribeProtocol = async (
 	const name = selection.name.value;
 
 	try {
-		validateGraphQL(callbackUrlForAWS, connectionId, id, parsedQuery, payload.operationName);
+		await validateGraphQL(
+			callbackUrlForAWS,
+			connectionId,
+			id,
+			parsedQuery,
+			payload.operationName
+		);
+		const token = authenticateHTTPAccessToken(event);
 		await putItem("sockets", {
 			callbackUrlForAWS,
 			connectionId,
 			operationId: id,
 			subscription: name,
-			userId: authenticateHTTPAccessToken(event),
+			...(token && { userId: token }),
 			ttl: Math.floor(Date.now() / 1000) + 60 * 60 * 2
 		});
 	} catch (err) {
@@ -113,10 +120,10 @@ const validateGraphQL = async (
 	if (validationErrors.length > 0) {
 		await sendMessageToSocket(callbackUrlForAWS, connectionId, {
 			id: operationId,
-			payload: { errors: validationErrors },
+			payload: validationErrors,
 			type: "error"
 		});
-		throw new Error("Invalid GraphQL");
+		throw new Error("GraphQL Validation Error");
 	}
 };
 
