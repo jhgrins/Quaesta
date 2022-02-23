@@ -43,6 +43,7 @@ custom:
 provider:
   name: aws
   stage: prod
+  region: us-west-2
   runtime: nodejs14.x
   logs:
     websocket: true
