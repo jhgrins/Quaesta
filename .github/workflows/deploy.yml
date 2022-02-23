@@ -6,7 +6,6 @@ on:
       - main
 
 jobs:
-
   deploy-frontend:
     name: Deploy Frontend
     runs-on: ubuntu-latest
@@ -32,7 +31,9 @@ jobs:
         run: npm run buildFrontend
         env:
           NODE_ENV: production
-      
+          GRAPHQL_ENDPOINT: ${{ secrets.GRAPHQL_ENDPOINT }}
+          WEBSOCKET_ENDPOINT: ${{ secrets.WEBSOCKET_ENDPOINT }}
+
       - name: Deploy 🚀
         uses: JamesIves/github-pages-deploy-action@v4.2.5
         with:
