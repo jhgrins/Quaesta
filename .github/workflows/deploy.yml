@@ -32,13 +32,12 @@ jobs:
         run: npm run buildFrontend
         env:
           NODE_ENV: production
-      - name: Checkout 🛎️
-        uses: actions/checkout@v2
+      
       - name: Deploy 🚀
         uses: JamesIves/github-pages-deploy-action@v4.2.5
         with:
           branch: gh-pages
-          folder: dist
+          folder: dist/
 
   deploy-aws-lambda:
     name: Deploy AWS Lambda
