@@ -5,9 +5,8 @@ chai.should();
 chai.use(chaiAsPromised);
 
 import casual from "casual";
-import sinon from "sinon";
 
-import gameLookup from "../../../lambda/Query/gameLookup";
+import gameLookup from "../../../../lambda/graphql/Query/gameLookup";
 
 describe("Query/gameLookup", () => {
 	const fakeUserId = casual.id;

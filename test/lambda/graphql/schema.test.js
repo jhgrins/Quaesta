@@ -2,7 +2,7 @@ import chai from "chai";
 
 chai.should();
 
-import { typeDefs, resolvers } from "../../lambda/schema";
+import { typeDefs, resolvers } from "../../../lambda/graphql/schema";
 
 describe("schema", () => {
 	describe("typeDefs", () => {

@@ -11,7 +11,7 @@
 		"deployLambda": "serverless deploy",
 		"start": "concurrently --kill-others-on-fail \"npm:startFrontend\" \"npm:startLambda\"",
 		"unitTests": "mocha --require ts-node/register --require test/hooks.js --recursive",
-		"test": "c8 --all --check-coverage --lines 50 --include 'server/' npm run unitTests"
+		"test": "c8 --all --check-coverage --lines 25 --include 'lambda/' npm run unitTests"
 	},
 	"dependencies": {
 		"@apollo/client": "^3.5.9",

@@ -1,9 +1,9 @@
 import { SNSEvent, APIGatewayProxyResult } from "aws-lambda";
 import { Socket } from "../../types";
 
-import { getItemFromDynamoDBResult, getItemsByIndex } from "../db";
+import { getItemsByIndex } from "../db";
 import { SubscriptionMessage } from "../sns";
-import { sendMessageToSocket, HTTP_SUCCESS, HTTP_SERVER_ERROR } from "./utils";
+import { sendMessageToSocket, HTTP_SUCCESS } from "./utils";
 
 const publish = async (event: SNSEvent): Promise<APIGatewayProxyResult> => {
 	const { message, filters }: SubscriptionMessage = JSON.parse(event.Records[0].Sns.Message);

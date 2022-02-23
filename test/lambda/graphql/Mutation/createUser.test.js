@@ -2,7 +2,7 @@ import chai from "chai";
 
 chai.should();
 
-import createUser from "../../../lambda/Mutation/createUser";
+import createUser from "../../../../lambda/graphql/Mutation/createUser";
 
 describe("Mutation/createUser", () => {
 	describe("createUser", () => {

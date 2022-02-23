@@ -2,7 +2,7 @@ import chai from "chai";
 
 chai.should();
 
-import sendResetPasswordEmail from "../../../lambda/Mutation/sendResetPasswordEmail";
+import sendResetPasswordEmail from "../../../../lambda/graphql/Mutation/sendResetPasswordEmail";
 
 describe("Mutation/sendResetPasswordEmail", () => {
 	describe("sendResetPasswordEmail", () => {

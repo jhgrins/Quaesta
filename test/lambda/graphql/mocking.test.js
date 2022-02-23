@@ -2,7 +2,7 @@ import chai from "chai";
 
 chai.should();
 
-import mocks from "../../lambda/mocking";
+import mocks from "../../../lambda/graphql/mocking";
 
 describe("mocking", () => {
 	describe("mocks", () => {

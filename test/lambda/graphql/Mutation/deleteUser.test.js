@@ -2,7 +2,7 @@ import chai from "chai";
 
 chai.should();
 
-import deleteUser from "../../../lambda/Mutation/deleteUser";
+import deleteUser from "../../../../lambda/graphql/Mutation/deleteUser";
 
 describe("Mutation/deleteSatellite", () => {
 	describe("deleteUser", () => {
