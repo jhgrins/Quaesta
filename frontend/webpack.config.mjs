@@ -78,10 +78,8 @@ export default {
 		}),
 		new webpack.DefinePlugin({
 			IS_OFFLINE: mode === "development",
-			GRAPHQL_ENDPOINT: JSON.stringify(process.env.GRAPHQL_ENDPOINT || "/graphql"),
-			WEBSOCKET_ENDPOINT: JSON.stringify(
-				process.env.WEBSOCKET_ENDPOINT || "ws://localhost:8001"
-			)
+			GRAPHQL_ENDPOINT: process.env.GRAPHQL_ENDPOINT || "/graphql",
+			WEBSOCKET_ENDPOINT: process.env.WEBSOCKET_ENDPOINT || "ws://localhost:8001"
 		})
 	],
 	resolve: {
