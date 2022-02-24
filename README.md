@@ -27,6 +27,7 @@ npm install && npm start
 We currently support the following variables in a `.env` file with key=value pairs.
 
 ```
+AWS_ACCOUNT_ID: Your AWS account ID
 AWS_REGION: AWS region to deploy service and dynamodb tables to
 DDB_ENDPOINT: Endpoint of DynamoDB service to connect to
 SNS_ENDPOINT: Endpoint of SNS service to connect to
@@ -66,7 +67,7 @@ To create a subscription, start by adding a valid subscription to your schema.
 
 ```
 type Subscription {
-	subscriptionShowcase: String
+    subscriptionShowcase: String
 }
 ```
 
