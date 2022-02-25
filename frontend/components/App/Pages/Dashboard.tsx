@@ -1,5 +1,3 @@
-import React from "react";
-
 import { Box, Skeleton, Typography } from "@mui/material";
 
 import { useQuery } from "@apollo/client";
@@ -7,7 +5,7 @@ import { useQuery } from "@apollo/client";
 
 import SatelliteCard from "../../UI/SatelliteCard";
 
-const DashBoard = (props: any) => {
+const DashBoard = () => {
 	return (
 		<Box height={"100%"} display={"flex"} flexDirection={"column"}>
 			<Typography sx={{ fontSize: 40, fontWeight: 500 }}>Dashboard</Typography>
@@ -18,7 +16,7 @@ const DashBoard = (props: any) => {
 	);
 };
 
-const Satellites = (props: any) => {
+const Satellites = () => {
 	const GetSatellitesOverview: any = null;
 	const { loading, error, data } = useQuery(GetSatellitesOverview);
 	return (

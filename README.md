@@ -8,7 +8,7 @@ Built on the Apollo Framework for GraphQL, this project implements a portal for 
 
 ### Node
 
-We are currently using Node version `17.0.1`. This version add support for package level module enforcement. If you are using `nvm`, use the following command to activate the correct Node version.
+We are currently using Node version `17.6.0`. This version add support for package level module enforcement. If you are using `nvm`, use the following command to activate the correct Node version.
 
 ```bash
 nvm use

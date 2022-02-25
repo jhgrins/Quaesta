@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import { useState } from "react";
 
 // import { useHistory } from "react-router-dom";
 import {
@@ -7,7 +7,6 @@ import {
 	Box,
 	IconButton,
 	InputAdornment,
-	Paper,
 	TextField,
 	Typography
 } from "@mui/material";
@@ -19,7 +18,7 @@ import VisibilityOff from "@mui/icons-material/VisibilityOff";
 
 import { useQuery, useMutation } from "@apollo/client";
 // import { GetFullProfile } from "../../../graphql/query.js";
-import { EditUser, DeleteUser } from "../../../graphql/mutation.js";
+import { EditUser, DeleteUser } from "../../../graphql/mutation";
 
 const Profile = () => {
 	return (
@@ -34,7 +33,7 @@ const Profile = () => {
 	);
 };
 
-const UserDetails = (props: any) => {
+const UserDetails = () => {
 	const GetFullProfile: any = null;
 	const { loading, error, data } = useQuery(GetFullProfile);
 	const [editUser] = useMutation(EditUser, { refetchQueries: [GetFullProfile] });
@@ -45,10 +44,10 @@ const UserDetails = (props: any) => {
 		const fileReader = new FileReader();
 		fileReader.readAsDataURL(event.target.files[0]);
 		fileReader.onload = (event: any) => {
-			let img = document.createElement("img");
+			const img = document.createElement("img");
 			img.onload = function () {
-				let canvas = document.createElement("canvas");
-				let ctx = canvas.getContext("2d");
+				const canvas = document.createElement("canvas");
+				const ctx = canvas.getContext("2d");
 
 				const dimension = 200;
 				canvas.width = dimension;
@@ -175,7 +174,7 @@ const Field = (props: any) => {
 	);
 };
 
-const InviteLinks = (props: any) => {
+const InviteLinks = () => {
 	const [email, setEmail] = useState("");
 	const GetFullProfile: any = null;
 	const { loading, error, data } = useQuery(GetFullProfile);
@@ -219,7 +218,7 @@ const InviteLinks = (props: any) => {
 	);
 };
 
-const AccountSettings = (props: any) => {
+const AccountSettings = () => {
 	// const history = useHistory();
 	const [deleteUser] = useMutation(DeleteUser, {
 		// onCompleted: () => history.push("/login")

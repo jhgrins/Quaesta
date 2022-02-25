@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import { useState, useEffect } from "react";
 
 import { Link, useLocation } from "react-router-dom";
 
@@ -13,7 +13,7 @@ import { red } from "@mui/material/colors";
 import clsx from "clsx";
 
 import { useMutation } from "@apollo/client";
-import { EditUser, SendResetPasswordEmail } from "../../graphql/mutation.js";
+import { EditUser, SendResetPasswordEmail } from "../../graphql/mutation";
 
 import { SignInButton } from "../UI/Buttons";
 import Logo from "../UI/Logo";
@@ -41,7 +41,7 @@ const useStyles = makeStyles((theme) => ({
 
 const validateEmail = (text: any) => /\S+@\S+\.\S+/.test(text);
 
-const ForgotPassword = (props: any) => {
+const ForgotPassword = () => {
 	const authToken = new URLSearchParams(useLocation().search);
 	return !authToken.get("id") ? (
 		<ForgotPasswordEntry />
@@ -50,7 +50,7 @@ const ForgotPassword = (props: any) => {
 	);
 };
 
-const ForgotPasswordEntry = (props: any) => {
+const ForgotPasswordEntry = () => {
 	const classes = useStyles();
 	const [emailSent, setEmailSent] = useState(false);
 	const [alertText, setAlertText] = useState("");
@@ -87,7 +87,7 @@ const ForgotPasswordEntry = (props: any) => {
 							align={"center"}
 							className={classes.textFieldPadding}
 						>
-							Don't worry, it happens to the best of us.
+							{"Don't worry, it happens to the best of us."}
 						</Typography>
 						{alertText && <ForgotPasswordAlert>{alertText}</ForgotPasswordAlert>}
 						<ForgotPasswordArea
@@ -212,7 +212,7 @@ const NewPassowrdArea = (props: any) => {
 	const classes = useStyles();
 	const [idField, setIdField] = useState("");
 	const [doMutation, { loading }] = useMutation(EditUser, {
-		onCompleted: (data) => {
+		onCompleted: () => {
 			props.setNewPasswordEmail(true);
 		}
 	});
@@ -337,7 +337,7 @@ const PasswordField = (props: any) => {
 	);
 };
 
-const BackToSignInArea = (prop: any) => {
+const BackToSignInArea = () => {
 	const classes = useStyles();
 	return (
 		<Box

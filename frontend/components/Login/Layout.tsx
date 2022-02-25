@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 
 import { Outlet } from "react-router-dom";
 
@@ -30,7 +30,7 @@ const useStyles = makeStyles((theme) => ({
 	}
 }));
 
-const Layout = (props: any) => {
+const Layout = () => {
 	const classes = useStyles();
 	const loginAreaWidth = 475;
 	return (
@@ -59,13 +59,13 @@ const Layout = (props: any) => {
 	);
 };
 
-const ImageCarousel = (props: any) => {
+const ImageCarousel = () => {
 	const [carouselActiveIndex, setCarouselActiveIndex] = useState(0);
 
-	let images = [Carousel1, Carousel2, Carousel3, Carousel4];
+	const images = [Carousel1, Carousel2, Carousel3, Carousel4];
 
 	useEffect(() => {
-		let nextImageTimer = setInterval(() => {
+		const nextImageTimer = setInterval(() => {
 			setCarouselActiveIndex((prevIndex) => {
 				if (prevIndex < images.length - 1) return prevIndex + 1;
 				else return 0;

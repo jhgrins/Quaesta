@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 
 import { Link, useNavigate } from "react-router-dom";
 
@@ -10,8 +10,8 @@ import AccountCircleIcon from "@mui/icons-material/AccountCircle";
 import clsx from "clsx";
 
 import { useMutation, useQuery } from "@apollo/client";
-// import { GetHeaderProfile } from ".//../../graphql/query.js";
-import { EditUser } from "../../graphql/mutation.js";
+// import { GetHeaderProfile } from "../../graphql/query";
+import { EditUser } from "../../graphql/mutation";
 
 import { SignInButton } from "../UI/Buttons";
 import Logo from "../UI/Logo";
@@ -37,7 +37,7 @@ const useStyles = makeStyles((theme) => ({
 	}
 }));
 
-const FinalizeAccount = (props: any) => {
+const FinalizeAccount = () => {
 	const classes = useStyles();
 	const [alertText, setAlertText] = useState("");
 
@@ -94,10 +94,10 @@ const FinalizeAccountArea = (props: any) => {
 	const navigate = useNavigate();
 
 	const [doMutation, { loading }] = useMutation(EditUser, {
-		onCompleted: (data) => {
+		onCompleted: () => {
 			navigate("/app");
 		},
-		onError: (data) => {
+		onError: () => {
 			props.setAlertText("Username Already Exists");
 		}
 	});
@@ -195,7 +195,7 @@ const Fields = (props: any) => {
 	);
 };
 
-const BackToSignInArea = (props: any) => {
+const BackToSignInArea = () => {
 	const classes = useStyles();
 	return (
 		<Box

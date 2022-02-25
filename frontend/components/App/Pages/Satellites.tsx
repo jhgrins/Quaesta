@@ -1,18 +1,16 @@
-import React from "react";
-
-import { useHistory } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 
 import { Box, Grid, Paper, Typography } from "@mui/material";
 import makeStyles from "@mui/styles/makeStyles";
 import AddIcon from "@mui/icons-material/Add";
 
 import { useQuery, useMutation } from "@apollo/client";
-import { GetSatellitesOverview } from "../../../graphql/query";
-import { CreateSatellite } from "../../../graphql/mutation.js";
+import { GetSideBarProfile } from "../../../graphql/query";
+import { CreateSatellite } from "../../../graphql/mutation";
 
 import SatelliteCard from "../../UI/SatelliteCard";
 
-const useStyles = makeStyles((theme) => ({
+const useStyles = makeStyles(() => ({
 	hoverPaper: {
 		cursor: "pointer",
 		borderRadius: "20px",
@@ -23,14 +21,14 @@ const useStyles = makeStyles((theme) => ({
 	}
 }));
 
-const Satellites = (props) => {
+const Satellites = () => {
 	const classes = useStyles();
-	const history = useHistory();
+	const navigate = useNavigate();
 
-	const { loading, error, data } = useQuery(GetSatellitesOverview);
+	const { loading, error, data } = useQuery(GetSideBarProfile);
 
 	const [createSatellite] = useMutation(CreateSatellite, {
-		onCompleted: (data) => history.replace({ pathname: "/app/satellites/" + data.createSatellite.id })
+		onCompleted: (data) => navigate("/app/satellites/" + data.createSatellite.id)
 	});
 
 	if (loading || error) return null;
@@ -40,7 +38,7 @@ const Satellites = (props) => {
 			<Typography sx={{ fontSize: 40, fontWeight: 500 }}>Satellites</Typography>
 			<Box mt={4} p={1} flexGrow={1} minHeight={500} className={"verticalScrollDiv"}>
 				<Grid container spacing={4}>
-					{data.selfLookup.satellites.map((satellite, index) => (
+					{data.selfLookup.satellites.map((satellite: any, index: number) => (
 						<Grid item key={index}>
 							<SatelliteCard satellite={satellite} />
 						</Grid>

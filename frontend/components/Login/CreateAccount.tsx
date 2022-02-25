@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 
 import { Link, useLocation } from "react-router-dom";
 
@@ -11,7 +11,7 @@ import AccountCircleIcon from "@mui/icons-material/AccountCircle";
 import clsx from "clsx";
 
 import { useMutation } from "@apollo/client";
-import { CreateUser } from "../../graphql/mutation.js";
+import { CreateUser } from "../../graphql/mutation";
 
 import { SignInButton } from "../UI/Buttons";
 import Logo from "../UI/Logo";
@@ -37,7 +37,7 @@ const useStyles = makeStyles((theme) => ({
 	}
 }));
 
-const CreateAccount = (props: any) => {
+const CreateAccount = () => {
 	const classes = useStyles();
 	const [alertText, setAlertText] = useState("");
 
@@ -211,8 +211,7 @@ const Fields = (props: any) => {
 	);
 };
 
-const BackToSignInArea = (props: any) => {
-	const classes = useStyles();
+const BackToSignInArea = () => {
 	return (
 		<Box display={"flex"} justifyContent={"center"} alignItems={"center"} mt={6}>
 			<Typography variant={"body2"}>Already have an account?</Typography>

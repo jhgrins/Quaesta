@@ -1,6 +1,6 @@
-import React, { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 
-import { useHistory } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 
 import { Box, TextField, Typography } from "@mui/material";
 import { LoadingButton } from "@mui/lab";
@@ -10,8 +10,8 @@ import CheckIcon from "@mui/icons-material/Check";
 import { useMutation } from "@apollo/client";
 import { ChangeSatelliteKey, DeleteSatellite } from "../../../graphql/mutation";
 
-const Settings = (props) => {
-	const history = useHistory();
+const Settings = (props: any) => {
+	const navigate = useNavigate();
 
 	const [newPublicKey, setNewPublicKey] = useState("");
 	const [showKeyChangeSuccess, setShowKeyChangeSuccess] = useState(false);
@@ -21,7 +21,7 @@ const Settings = (props) => {
 	});
 
 	const [deleteSatellite] = useMutation(DeleteSatellite, {
-		onCompleted: () => history.replace({ pathname: "/app/satellites" })
+		onCompleted: () => navigate("/app/satellites")
 	});
 
 	useEffect(() => {

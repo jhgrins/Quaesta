@@ -23,6 +23,7 @@ __pycache__
 
 # Output Files
 
+.parcel-cache
 .build
 build
 coverage

@@ -1,4 +1,3 @@
-import React from "react";
 import { useState } from "react";
 
 import { useNavigate, Navigate, Outlet, useLocation } from "react-router-dom";
@@ -56,7 +55,7 @@ const ProtectedRoute = (props: any) => {
 	return <Navigate to={"/login"} state={{ from: location }} />;
 };
 
-const Notifications = (props: any) => {
+const Notifications = () => {
 	return (
 		<Paper elevation={0} sx={{ width: 40, height: 40, borderRadius: 20 }}>
 			<Box
@@ -72,7 +71,7 @@ const Notifications = (props: any) => {
 	);
 };
 
-const Search = (props: any) => {
+const Search = () => {
 	const [searchText, setSearchText] = useState("");
 	const navigate = useNavigate();
 	const onChangeHandler = (event: any) => {

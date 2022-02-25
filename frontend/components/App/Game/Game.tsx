@@ -1,13 +1,11 @@
-import React, { useEffect } from "react";
-
 import { useParams } from "react-router-dom";
 
-import { Box, Skeleton, Typography } from "@mui/material";
+import { Box, Typography } from "@mui/material";
 
-import { useMutation, useQuery } from "@apollo/client";
+import { useQuery } from "@apollo/client";
 import { GetGameDetails } from "../../../graphql/query";
 
-const Game = (props: any) => {
+const Game = () => {
 	const { gameName } = useParams() as any;
 	const { loading, error, data } = useQuery(GetGameDetails, {
 		variables: { name: gameName }
@@ -40,7 +38,7 @@ const Game = (props: any) => {
 				className={"verticalScrollDiv"}
 				display={"flex"}
 				flexDirection={"column"}
-			>	
+			>
 				<p>{data.gameLookup.genres.join(", ")}</p>
 				<p>Made by {data.gameLookup.companies.join(", ")}</p>
 			</Box>

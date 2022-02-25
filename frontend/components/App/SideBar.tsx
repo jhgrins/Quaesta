@@ -1,5 +1,3 @@
-import React from "react";
-
 import { useLocation, Link } from "react-router-dom";
 
 import { Avatar, Box, IconButton } from "@mui/material";
@@ -7,7 +5,7 @@ import { makeStyles } from "@mui/styles";
 import SettingsIcon from "@mui/icons-material/Settings";
 
 import { useQuery } from "@apollo/client";
-import { GetSideBarProfile } from "../../graphql/query.js";
+import { GetSideBarProfile } from "../../graphql/query";
 
 const useStyles = makeStyles((theme: any) => ({
 	avatar: {
@@ -16,7 +14,7 @@ const useStyles = makeStyles((theme: any) => ({
 	}
 }));
 
-const SideBar = (props: any) => {
+const SideBar = () => {
 	return (
 		<Box
 			sx={{
@@ -47,7 +45,7 @@ const SideBar = (props: any) => {
 	);
 };
 
-const MiniProfile = (props: any) => {
+const MiniProfile = () => {
 	const classes = useStyles();
 	const { loading, error, data } = useQuery(GetSideBarProfile);
 
@@ -62,7 +60,7 @@ const MiniProfile = (props: any) => {
 	);
 };
 
-const Apps = (props: any) => {
+const Apps = () => {
 	const location = useLocation();
 	return (
 		<Box
@@ -127,7 +125,7 @@ const NavMenuItem = (props: any) => {
 	);
 };
 
-const Settings = (props: any) => {
+const Settings = () => {
 	return (
 		<Box>
 			<IconButton>

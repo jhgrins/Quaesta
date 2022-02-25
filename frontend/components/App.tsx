@@ -1,5 +1,3 @@
-import React from "react";
-
 import { Box, CssBaseline, Typography } from "@mui/material";
 import {
 	createTheme,
@@ -8,10 +6,10 @@ import {
 	Theme,
 	StyledEngineProvider
 } from "@mui/material/styles";
+import type { Palette } from "@mui/material/styles/createPalette";
 import { grey } from "@mui/material/colors";
 
-import { ApolloClient, ApolloProvider, InMemoryCache } from "@apollo/client";
-import { from, split, HttpLink } from "@apollo/client";
+import { ApolloClient, ApolloProvider, InMemoryCache, from, split, HttpLink } from "@apollo/client";
 import { getMainDefinition } from "@apollo/client/utilities";
 import { onError } from "@apollo/client/link/error";
 
@@ -22,22 +20,23 @@ import Router from "./Router";
 
 import Logo from "../static/images/logo.png";
 
+/* eslint-disable no-unused-vars */
 declare module "@mui/styles/defaultTheme" {
 	interface DefaultTheme extends Theme {}
 }
 
 declare module "@mui/material/styles/createPalette" {
-	interface NeutralPaletteOptions {
-		main: Palette["primary"]["main"];
-		light: Palette["primary"]["main"];
-		medium: Palette["primary"]["main"];
-		mediumDark: Palette["primary"]["main"];
-		dark: Palette["primary"]["main"];
-	}
 	interface PaletteOptions {
-		neutral?: NeutralPaletteOptions;
+		neutral?: {
+			main: Palette["primary"]["main"];
+			light: Palette["primary"]["main"];
+			medium: Palette["primary"]["main"];
+			mediumDark: Palette["primary"]["main"];
+			dark: Palette["primary"]["main"];
+		};
 	}
 }
+/* eslint-enable no-unused-vars */
 
 const App = () => {
 	let theme = createTheme({
@@ -71,9 +70,9 @@ const App = () => {
 	);
 };
 
-const FullApp = (props: any) => {
+const FullApp = () => {
 	const httpLink = new HttpLink({
-		uri: GRAPHQL_ENDPOINT,
+		uri: process.env.GRAPHQL_ENDPOINT || "http://localhost:8000/dev/graphql",
 		credentials: "same-origin"
 	});
 
@@ -88,7 +87,7 @@ const FullApp = (props: any) => {
 	});
 
 	const wsLink = new WebSocketLink({
-		url: WEBSOCKET_ENDPOINT,
+		url: process.env.WEBSOCKET_ENDPOINT || "ws://localhost:8001",
 		connectionParams: () => {
 			const token = localStorage.getItem("token");
 			return {
@@ -141,7 +140,7 @@ const FullApp = (props: any) => {
 	);
 };
 
-const MobileApp = (props: any) => {
+const MobileApp = () => {
 	return (
 		<Box
 			sx={{
@@ -169,7 +168,7 @@ const MobileApp = (props: any) => {
 				</Typography>
 				<Box sx={{ pt: 4 }}>
 					<Typography align={"center"} style={{ fontWeight: 400, fontSize: 17 }}>
-						Backlog for all the games you'll never play
+						{"A Portal For Gamers"}
 					</Typography>
 				</Box>
 				<Box sx={{ pt: 8 }}>

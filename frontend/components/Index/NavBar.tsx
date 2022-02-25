@@ -1,21 +1,11 @@
-import React from "react";
-
 import { Link } from "react-router-dom";
 
 import { Box, Grid, Typography } from "@mui/material";
-import makeStyles from '@mui/styles/makeStyles';
 
 import Logo from "../UI/Logo";
 import { HomePageSmallButton } from "../UI/Buttons";
 
-const useStyles = makeStyles((theme) => ({
-	avatar: {
-		width: theme.spacing(5),
-		height: theme.spacing(5)
-	}
-}));
-
-const NavBar = (props) => {
+const NavBar = () => {
 	return (
         <Box pl={8} pr={8} ml={8} mr={8}>
 			<Grid container justifyContent={"space-between"} alignItems={"center"}>
@@ -35,7 +25,7 @@ const NavBar = (props) => {
     );
 };
 
-const LogoHeader = (props) => {
+const LogoHeader = () => {
 	return (
         <Box p={2}>
 			<Grid item container justifyContent={"center"} alignItems={"center"}>
@@ -47,7 +37,7 @@ const LogoHeader = (props) => {
     );
 };
 
-const NavLinks = (props) => {
+const NavLinks = () => {
 	return (
         <Box p={2}>
 			<Grid container spacing={6} justifyContent={"center"}>

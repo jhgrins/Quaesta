@@ -1,9 +1,8 @@
 {
 	"extends": "@tsconfig/create-react-app/tsconfig.json",
 	"compilerOptions": {
-		"outDir": "dist",
 		"sourceMap": true,
-		"noEmit": false
+		"jsx": "react-jsx"
 	},
 	"exclude": ["coverage", "dist", "test"]
 }

@@ -6,9 +6,7 @@ on:
       - main
 
 jobs:
-
   test:
-
     name: Test
     runs-on: ubuntu-latest
 
@@ -23,14 +21,13 @@ jobs:
           key: ${{ runner.os }}-node-${{ hashFiles('**/package.json') }}
           restore-keys: |
             ${{ runner.os }}-node-
-      
+
       - name: Install Node Modules
         if: steps.cache.outputs.cache-hit != 'true'
         run: npm install --legacy-peer-deps
 
       - name: Run Tests
+        run: npm check
+
+      - name: Run Tests
         run: npm test
-        env:
-          AUTH_KEY: "AUTH"
-          MONGO_URI: ${{ secrets.MONGO_URI }}
-          PASSWORD_KEY: "PASSWORD"

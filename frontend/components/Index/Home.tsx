@@ -1,5 +1,3 @@
-import React from "react";
-
 import { Link } from "react-router-dom";
 
 import { Box, Typography } from "@mui/material";
@@ -7,7 +5,7 @@ import { Box, Typography } from "@mui/material";
 import NavBar from "./NavBar";
 import { HomePageLargeButton } from "../UI/Buttons";
 
-const Home = (props: any) => {
+const Home = () => {
 	return (
 		<Box width={"100vw"} height={"100vh"}>
 			<Box width={"100%"} height={"100%"}>
@@ -60,7 +58,7 @@ const Home = (props: any) => {
 	);
 };
 
-const AppOptions = (props: any) => {
+const AppOptions = () => {
 	return (
 		<Box flexGrow={1} display={"flex"} justifyContent={"center"} alignItems={"center"}>
 			<Box>

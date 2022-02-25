@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 
 import { Link, useNavigate, useLocation } from "react-router-dom";
 
@@ -11,18 +11,15 @@ import { grey, red } from "@mui/material/colors";
 import clsx from "clsx";
 
 import { useMutation } from "@apollo/client";
-import {
-	Login as LoginMutation,
-	GoogleLogin as GoogleLoginMutation
-} from "../../graphql/mutation.js";
+import { Login as LoginMutation, GoogleLogin as GoogleLoginMutation } from "../../graphql/mutation";
 
 import Logo from "../UI/Logo";
 import { OAuthButton, SignInButton } from "../UI/Buttons";
 
 import { GoogleLogin } from "react-google-login";
-const GoogleClientID = "358595367659-2qlsasdtkdbml8gvfca105gaaq0kkvh4.apps.googleusercontent.com";
-
 import AppleLogin from "react-apple-login";
+
+const GoogleClientID = "358595367659-2qlsasdtkdbml8gvfca105gaaq0kkvh4.apps.googleusercontent.com";
 
 const useStyles = makeStyles((theme) => ({
 	textFieldPadding: {
@@ -45,7 +42,7 @@ const useStyles = makeStyles((theme) => ({
 	}
 }));
 
-const Login = (props: any) => {
+const Login = () => {
 	const classes = useStyles();
 	const [alertText, setAlertText] = useState("");
 
@@ -76,7 +73,7 @@ const Login = (props: any) => {
 				</Typography>
 				{alertText && <LoginAlert>{alertText}</LoginAlert>}
 				<SignInArea setAlertText={setAlertText} />
-				<DividerArea style={{ width: "90%" }} />
+				<DividerArea />
 				<OAuthArea />
 				<CreateAccountArea />
 			</Box>
@@ -96,7 +93,7 @@ const SignInArea = (props: any) => {
 			localStorage.setItem("token", data.loginUser);
 			navigate("/app/game/animal crossing new horizons");
 		},
-		onError: (err) => {
+		onError: () => {
 			props.setAlertText("Incorrect Username or Password");
 		}
 	});
@@ -215,7 +212,7 @@ const Fields = (props: any) => {
 	);
 };
 
-const DividerArea = (props: any) => {
+const DividerArea = () => {
 	return (
 		<Box
 			width={"90%"}
@@ -239,7 +236,7 @@ const DividerArea = (props: any) => {
 	);
 };
 
-const OAuthArea = (props: any) => {
+const OAuthArea = () => {
 	const navigate = useNavigate();
 	const location = useLocation();
 	const [redirectInProgress, setRedirectInProgress] = useState(false);
@@ -295,7 +292,9 @@ const OAuthArea = (props: any) => {
 					cookiePolicy={"single_host_origin"}
 					uxMode={"redirect"}
 					redirectUri={
-						IS_OFFLINE ? "http://localhost:3000/login" : "https://quaesta.dev/login"
+						process.env.IS_OFFLINE
+							? "http://localhost:3000/login"
+							: "https://quaesta.dev/login"
 					}
 					onFailure={(err) => console.log(err)}
 					render={(props) => (
@@ -313,7 +312,7 @@ const OAuthArea = (props: any) => {
 	);
 };
 
-const AppleIcon = (props: any) => {
+const AppleIcon = () => {
 	return (
 		<Box m={-1} style={{ marginRight: -10, paddingTop: 4 }}>
 			<svg
@@ -333,7 +332,7 @@ const AppleIcon = (props: any) => {
 	);
 };
 
-const GoogleIcon = (props: any) => {
+const GoogleIcon = () => {
 	return (
 		<Box style={{ paddingTop: 7 }}>
 			<svg width="18" height="18" xmlns="http://www.w3.org/2000/svg">
@@ -361,7 +360,7 @@ const GoogleIcon = (props: any) => {
 	);
 };
 
-const CreateAccountArea = (props: any) => {
+const CreateAccountArea = () => {
 	const classes = useStyles();
 	return (
 		<Box

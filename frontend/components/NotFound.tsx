@@ -1,5 +1,3 @@
-import React from "react";
-
 import { Link } from "react-router-dom";
 
 import { Grid, Typography } from "@mui/material";
@@ -55,7 +53,7 @@ const NotFound = (props: any) => {
     );
 };
 
-const BackToSignInArea = (props: any) => {
+const BackToSignInArea = () => {
 	return (
         <Grid
 			container
