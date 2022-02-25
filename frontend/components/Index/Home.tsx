@@ -32,7 +32,7 @@ const Home = () => {
 							align={"center"}
 							style={{ color: "white", fontWeight: 600 }}
 						>
-							Welcome To The Future Of Cloud Computing
+							Welcome To A Portal For Gamers
 						</Typography>
 						<Box pt={4} pl={14} pr={14}>
 							<Typography
@@ -40,9 +40,8 @@ const Home = () => {
 								align={"center"}
 								style={{ color: "white", fontWeight: 400 }}
 							>
-								Discover what Hypergate has to offer you. From hosted servers to
-								serverless functions, we have it at all. Contact us for more
-								details, or stop on by.
+								Discover what Quaesta has to offer you. From organized game lists to curated recommendations,
+								Quaesta is your one-stop-shop for all your gaming needs.
 							</Typography>
 						</Box>
 					</Box>
