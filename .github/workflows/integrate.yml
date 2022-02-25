@@ -30,7 +30,7 @@ jobs:
         run: npm run types
 
       - name: Run Linter
-        run: npm lint
+        run: npm run lint
 
       - name: Run Tests
         run: npm test
