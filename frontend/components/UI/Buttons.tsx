@@ -80,7 +80,7 @@ const useStyles = makeStyles((theme) => ({
 	}
 }));
 
-export const HomePageSmallButton = (props) => {
+export const HomePageSmallButton = (props: any) => {
 	const classes = useStyles();
 	return (
 		<Button
@@ -92,7 +92,7 @@ export const HomePageSmallButton = (props) => {
 	);
 };
 
-export const HomePageLargeButton = (props) => {
+export const HomePageLargeButton = (props: any) => {
 	const classes = useStyles();
 	return (
 		<Button
@@ -104,7 +104,7 @@ export const HomePageLargeButton = (props) => {
 	);
 };
 
-export const SignInButton = (props) => {
+export const SignInButton = (props: any) => {
 	const classes = useStyles();
 	return (
 		<Button
@@ -122,7 +122,7 @@ export const SignInButton = (props) => {
 	);
 };
 
-export const OAuthButton = (props) => {
+export const OAuthButton = (props: any) => {
 	const classes = useStyles();
 	return (
 		<Button className={classes.OAuth} {...props}>

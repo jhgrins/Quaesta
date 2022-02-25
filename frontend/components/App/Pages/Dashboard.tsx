@@ -7,7 +7,7 @@ import { useQuery } from "@apollo/client";
 
 import SatelliteCard from "../../UI/SatelliteCard";
 
-const DashBoard = (props) => {
+const DashBoard = (props: any) => {
 	return (
 		<Box height={"100%"} display={"flex"} flexDirection={"column"}>
 			<Typography sx={{ fontSize: 40, fontWeight: 500 }}>Dashboard</Typography>
@@ -18,7 +18,7 @@ const DashBoard = (props) => {
 	);
 };
 
-const Satellites = (props) => {
+const Satellites = (props: any) => {
 	const GetSatellitesOverview: any = null;
 	const { loading, error, data } = useQuery(GetSatellitesOverview);
 	return (
@@ -38,7 +38,7 @@ const Satellites = (props) => {
 								<Skeleton width={280} height={250} />
 							</Box>
 					  ))
-					: data.selfLookup.satellites.map((satellite) => (
+					: data.selfLookup.satellites.map((satellite: any) => (
 							<Box key={satellite.id} mr={4}>
 								<SatelliteCard satellite={satellite} />
 							</Box>

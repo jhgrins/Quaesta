@@ -37,7 +37,7 @@ const useStyles = makeStyles((theme) => ({
 	}
 }));
 
-const CreateAccount = (props) => {
+const CreateAccount = (props: any) => {
 	const classes = useStyles();
 	const [alertText, setAlertText] = useState("");
 
@@ -77,7 +77,7 @@ const CreateAccount = (props) => {
 	);
 };
 
-const CreateAccountArea = (props) => {
+const CreateAccountArea = (props: any) => {
 	const classes = useStyles();
 	const inviteToken = new URLSearchParams(useLocation().search).get("id");
 
@@ -138,9 +138,9 @@ const CreateAccountArea = (props) => {
 	);
 };
 
-const Fields = (props) => {
+const Fields = (props: any) => {
 	const classes = useStyles();
-	const moveDown = (currentInputIndex) => {
+	const moveDown = (currentInputIndex: any) => {
 		document.getElementsByTagName("input")[currentInputIndex + 1].focus();
 	};
 
@@ -211,7 +211,7 @@ const Fields = (props) => {
 	);
 };
 
-const BackToSignInArea = (props) => {
+const BackToSignInArea = (props: any) => {
 	const classes = useStyles();
 	return (
 		<Box display={"flex"} justifyContent={"center"} alignItems={"center"} mt={6}>
@@ -225,7 +225,7 @@ const BackToSignInArea = (props) => {
 	);
 };
 
-const CreateAccountAlert = (props) => {
+const CreateAccountAlert = (props: any) => {
 	const classes = useStyles();
 	return (
 		<Box className={clsx(classes.alertPadding, classes.loginFailedAlert)}>{props.children}</Box>

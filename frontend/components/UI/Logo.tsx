@@ -4,7 +4,7 @@ import { Link } from "react-router-dom";
 
 import Image from "../../static/images/logo.png";
 
-const Logo = (props) => {
+const Logo = (props: any) => {
 	return (
 		<Link to={"/"}>
 			<img

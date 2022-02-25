@@ -30,7 +30,7 @@ const useStyles = makeStyles((theme) => ({
 	}
 }));
 
-const Layout = (props) => {
+const Layout = (props: any) => {
 	const classes = useStyles();
 	const loginAreaWidth = 475;
 	return (
@@ -59,7 +59,7 @@ const Layout = (props) => {
 	);
 };
 
-const ImageCarousel = (props) => {
+const ImageCarousel = (props: any) => {
 	const [carouselActiveIndex, setCarouselActiveIndex] = useState(0);
 
 	let images = [Carousel1, Carousel2, Carousel3, Carousel4];
@@ -108,7 +108,7 @@ const ImageCarousel = (props) => {
 	);
 };
 
-const CarouselIndicator = (props) => {
+const CarouselIndicator = (props: any) => {
 	const variants = {
 		active: { width: 30, backgroundColor: "#FFFFFF" },
 		other: { width: 10, backgroundColor: grey[300] }

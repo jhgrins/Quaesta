@@ -1,16 +1,9 @@
 {
-	"compileOnSave": false,
+	"extends": "@tsconfig/create-react-app/tsconfig.json",
 	"compilerOptions": {
-		"target": "ES3",
 		"outDir": "dist",
 		"sourceMap": true,
-		"esModuleInterop": true,
-		"moduleResolution": "node",
-		"strict": true,
-		"noImplicitAny": false,
-		"noImplicitThis": false,
-		"allowJs": true,
-		"jsx": "react"
+		"noEmit": false
 	},
 	"exclude": ["coverage", "dist", "test"]
 }

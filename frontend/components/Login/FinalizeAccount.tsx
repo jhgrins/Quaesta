@@ -37,7 +37,7 @@ const useStyles = makeStyles((theme) => ({
 	}
 }));
 
-const FinalizeAccount = (props) => {
+const FinalizeAccount = (props: any) => {
 	const classes = useStyles();
 	const [alertText, setAlertText] = useState("");
 
@@ -85,7 +85,7 @@ const FinalizeAccount = (props) => {
 	);
 };
 
-const FinalizeAccountArea = (props) => {
+const FinalizeAccountArea = (props: any) => {
 	const classes = useStyles();
 
 	const [username, setUsername] = useState("");
@@ -139,9 +139,9 @@ const FinalizeAccountArea = (props) => {
 	);
 };
 
-const Fields = (props) => {
+const Fields = (props: any) => {
 	const classes = useStyles();
-	const moveDown = (currentInputIndex) => {
+	const moveDown = (currentInputIndex: any) => {
 		document.getElementsByTagName("input")[currentInputIndex + 1].focus();
 	};
 
@@ -195,7 +195,7 @@ const Fields = (props) => {
 	);
 };
 
-const BackToSignInArea = (props) => {
+const BackToSignInArea = (props: any) => {
 	const classes = useStyles();
 	return (
 		<Box
@@ -214,7 +214,7 @@ const BackToSignInArea = (props) => {
 	);
 };
 
-const FinalizeAccountAlert = (props) => {
+const FinalizeAccountAlert = (props: any) => {
 	const classes = useStyles();
 	return (
 		<Box className={clsx(classes.alertPadding, classes.loginFailedAlert)}>{props.children}</Box>

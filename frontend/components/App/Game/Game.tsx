@@ -7,7 +7,7 @@ import { Box, Skeleton, Typography } from "@mui/material";
 import { useMutation, useQuery } from "@apollo/client";
 import { GetGameDetails } from "../../../graphql/query";
 
-const Game = (props) => {
+const Game = (props: any) => {
 	const { gameName } = useParams() as any;
 	const { loading, error, data } = useQuery(GetGameDetails, {
 		variables: { name: gameName }

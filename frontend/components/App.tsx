@@ -141,7 +141,7 @@ const FullApp = (props: any) => {
 	);
 };
 
-const MobileApp = (props) => {
+const MobileApp = (props: any) => {
 	return (
 		<Box
 			sx={{

@@ -45,7 +45,7 @@ const useStyles = makeStyles((theme) => ({
 	}
 }));
 
-const Login = (props) => {
+const Login = (props: any) => {
 	const classes = useStyles();
 	const [alertText, setAlertText] = useState("");
 
@@ -84,7 +84,7 @@ const Login = (props) => {
 	);
 };
 
-const SignInArea = (props) => {
+const SignInArea = (props: any) => {
 	const classes = useStyles();
 	const navigate = useNavigate();
 
@@ -101,7 +101,7 @@ const SignInArea = (props) => {
 		}
 	});
 
-	const validateEmail = (text) => /\S+@\S+\.\S+/.test(text);
+	const validateEmail = (text: any) => /\S+@\S+\.\S+/.test(text);
 
 	const login = () => {
 		if (!idField) {
@@ -145,11 +145,11 @@ const SignInArea = (props) => {
 	);
 };
 
-const Fields = (props) => {
+const Fields = (props: any) => {
 	const classes = useStyles();
 	const [showPassword, setShowPassword] = useState(false);
 
-	const moveDown = (currentInputIndex) => {
+	const moveDown = (currentInputIndex: any) => {
 		document.getElementsByTagName("input")[currentInputIndex + 1].focus();
 	};
 
@@ -215,7 +215,7 @@ const Fields = (props) => {
 	);
 };
 
-const DividerArea = (props) => {
+const DividerArea = (props: any) => {
 	return (
 		<Box
 			width={"90%"}
@@ -239,7 +239,7 @@ const DividerArea = (props) => {
 	);
 };
 
-const OAuthArea = (props) => {
+const OAuthArea = (props: any) => {
 	const navigate = useNavigate();
 	const location = useLocation();
 	const [redirectInProgress, setRedirectInProgress] = useState(false);
@@ -254,7 +254,7 @@ const OAuthArea = (props) => {
 	if (location.hash && !redirectInProgress) {
 		const pairsInString = location.hash.slice(1).split("&");
 		const pairsInArray = pairsInString.map((pair) => pair.split("="));
-		const pairsInObject = pairsInArray.reduce((prev, curr) => {
+		const pairsInObject = pairsInArray.reduce((prev: any, curr: any) => {
 			prev[curr[0]] = curr[1];
 			return prev;
 		}, {});
@@ -313,7 +313,7 @@ const OAuthArea = (props) => {
 	);
 };
 
-const AppleIcon = (props) => {
+const AppleIcon = (props: any) => {
 	return (
 		<Box m={-1} style={{ marginRight: -10, paddingTop: 4 }}>
 			<svg
@@ -333,7 +333,7 @@ const AppleIcon = (props) => {
 	);
 };
 
-const GoogleIcon = (props) => {
+const GoogleIcon = (props: any) => {
 	return (
 		<Box style={{ paddingTop: 7 }}>
 			<svg width="18" height="18" xmlns="http://www.w3.org/2000/svg">
@@ -361,7 +361,7 @@ const GoogleIcon = (props) => {
 	);
 };
 
-const CreateAccountArea = (props) => {
+const CreateAccountArea = (props: any) => {
 	const classes = useStyles();
 	return (
 		<Box
@@ -380,7 +380,7 @@ const CreateAccountArea = (props) => {
 	);
 };
 
-const LoginAlert = (props) => {
+const LoginAlert = (props: any) => {
 	const classes = useStyles();
 	return (
 		<Box className={clsx(classes.alertPadding, classes.loginFailedAlert)}>{props.children}</Box>

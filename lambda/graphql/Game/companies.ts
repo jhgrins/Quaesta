@@ -1,4 +1,4 @@
-import apicalypse from "apicalypse";
+import apicalypse, { ApicalypseConfig } from "apicalypse";
 
 import { BaseGameAPI } from "../../db";
 import { Context } from "../index";
@@ -6,7 +6,7 @@ import { callTwitch } from "../utils";
 
 const companies = async (parent: any, args: any, context: Context, info: any) => {
 	const accessToken = (await callTwitch()).access_token;
-	let config = {
+	const config: ApicalypseConfig = {
 		method: "post",
 		headers: {
 			"Client-ID": process.env.TWITCH_CLIENT_ID,

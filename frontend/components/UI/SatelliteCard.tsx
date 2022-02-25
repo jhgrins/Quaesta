@@ -16,7 +16,7 @@ const useStyles = makeStyles((theme) => ({
 	}
 }));
 
-const SatelliteCard = (props) => {
+const SatelliteCard = (props: any) => {
 	const classes = useStyles();
 	return (
 		<Link to={"/app/satellites/" + props.satellite.id} className={"no-line"}>

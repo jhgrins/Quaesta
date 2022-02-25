@@ -34,17 +34,17 @@ const Profile = () => {
 	);
 };
 
-const UserDetails = (props) => {
+const UserDetails = (props: any) => {
 	const GetFullProfile: any = null;
 	const { loading, error, data } = useQuery(GetFullProfile);
 	const [editUser] = useMutation(EditUser, { refetchQueries: [GetFullProfile] });
 
 	if (loading || error) return null;
 
-	const handleCapture = ({ target }) => {
+	const handleCapture = (event: any) => {
 		const fileReader = new FileReader();
-		fileReader.readAsDataURL(target.files[0]);
-		fileReader.onload = (e) => {
+		fileReader.readAsDataURL(event.target.files[0]);
+		fileReader.onload = (event: any) => {
 			let img = document.createElement("img");
 			img.onload = function () {
 				let canvas = document.createElement("canvas");
@@ -61,8 +61,8 @@ const UserDetails = (props) => {
 					});
 				}
 			};
-			if (e.target) {
-				img.src = e.target.result as string;
+			if (event.target) {
+				img.src = event.target.result as string;
 			}
 		};
 	};
@@ -100,10 +100,10 @@ const UserDetails = (props) => {
 	);
 };
 
-const Fields = (props) => {
+const Fields = (props: any) => {
 	const [showPassword, setShowPassword] = useState(false);
 	const handleClickShowPassword = () => setShowPassword(!showPassword);
-	const handleMouseDownPassword = (event) => event.preventDefault();
+	const handleMouseDownPassword = (event: any) => event.preventDefault();
 
 	return (
 		<>
@@ -138,7 +138,7 @@ const Fields = (props) => {
 	);
 };
 
-const Field = (props) => {
+const Field = (props: any) => {
 	const [value, setValue] = useState(props.value);
 	const [disabled, setDisabled] = useState(true);
 	return (
@@ -175,7 +175,7 @@ const Field = (props) => {
 	);
 };
 
-const InviteLinks = (props) => {
+const InviteLinks = (props: any) => {
 	const [email, setEmail] = useState("");
 	const GetFullProfile: any = null;
 	const { loading, error, data } = useQuery(GetFullProfile);
@@ -188,7 +188,7 @@ const InviteLinks = (props) => {
 			<Box mt={4} display={"flex"}>
 				<Box p={4} display={"flex"} alignItems={"center"}>
 					<Box display={"flex"} flexDirection={"column"}>
-						{data.selfLookup.invites.map((invite, index) => (
+						{data.selfLookup.invites.map((invite: any, index: any) => (
 							<Box key={index}>
 								<Typography sx={{ fontSize: 12, fontWeight: 400 }}>
 									{invite.email}
@@ -219,7 +219,7 @@ const InviteLinks = (props) => {
 	);
 };
 
-const AccountSettings = (props) => {
+const AccountSettings = (props: any) => {
 	// const history = useHistory();
 	const [deleteUser] = useMutation(DeleteUser, {
 		// onCompleted: () => history.push("/login")

@@ -9,14 +9,14 @@ import SettingsIcon from "@mui/icons-material/Settings";
 import { useQuery } from "@apollo/client";
 import { GetSideBarProfile } from "../../graphql/query.js";
 
-const useStyles = makeStyles((theme) => ({
+const useStyles = makeStyles((theme: any) => ({
 	avatar: {
 		width: theme.spacing(6),
 		height: theme.spacing(6)
 	}
 }));
 
-const SideBar = (props) => {
+const SideBar = (props: any) => {
 	return (
 		<Box
 			sx={{
@@ -47,7 +47,7 @@ const SideBar = (props) => {
 	);
 };
 
-const MiniProfile = (props) => {
+const MiniProfile = (props: any) => {
 	const classes = useStyles();
 	const { loading, error, data } = useQuery(GetSideBarProfile);
 
@@ -62,7 +62,7 @@ const MiniProfile = (props) => {
 	);
 };
 
-const Apps = (props) => {
+const Apps = (props: any) => {
 	const location = useLocation();
 	return (
 		<Box
@@ -86,7 +86,7 @@ const Apps = (props) => {
 	);
 };
 
-const NavMenuItem = (props) => {
+const NavMenuItem = (props: any) => {
 	const classes = useStyles();
 	return (
 		<>
@@ -127,7 +127,7 @@ const NavMenuItem = (props) => {
 	);
 };
 
-const Settings = (props) => {
+const Settings = (props: any) => {
 	return (
 		<Box>
 			<IconButton>

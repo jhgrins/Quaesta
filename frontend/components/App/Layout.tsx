@@ -17,7 +17,7 @@ const useStyles = makeStyles((theme) => ({
 	}
 }));
 
-const Layout = (props) => {
+const Layout = (props: any) => {
 	const classes = useStyles();
 	return (
 		<>
@@ -56,7 +56,7 @@ const ProtectedRoute = (props: any) => {
 	return <Navigate to={"/login"} state={{ from: location }} />;
 };
 
-const Notifications = (props) => {
+const Notifications = (props: any) => {
 	return (
 		<Paper elevation={0} sx={{ width: 40, height: 40, borderRadius: 20 }}>
 			<Box
@@ -72,7 +72,7 @@ const Notifications = (props) => {
 	);
 };
 
-const Search = (props) => {
+const Search = (props: any) => {
 	const [searchText, setSearchText] = useState("");
 	const navigate = useNavigate();
 	const onChangeHandler = (event: any) => {

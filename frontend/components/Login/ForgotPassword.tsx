@@ -39,9 +39,9 @@ const useStyles = makeStyles((theme) => ({
 	}
 }));
 
-const validateEmail = (text) => /\S+@\S+\.\S+/.test(text);
+const validateEmail = (text: any) => /\S+@\S+\.\S+/.test(text);
 
-const ForgotPassword = (props) => {
+const ForgotPassword = (props: any) => {
 	const authToken = new URLSearchParams(useLocation().search);
 	return !authToken.get("id") ? (
 		<ForgotPasswordEntry />
@@ -50,7 +50,7 @@ const ForgotPassword = (props) => {
 	);
 };
 
-const ForgotPasswordEntry = (props) => {
+const ForgotPasswordEntry = (props: any) => {
 	const classes = useStyles();
 	const [emailSent, setEmailSent] = useState(false);
 	const [alertText, setAlertText] = useState("");
@@ -110,7 +110,7 @@ const ForgotPasswordEntry = (props) => {
 	);
 };
 
-const ForgotPasswordArea = (props) => {
+const ForgotPasswordArea = (props: any) => {
 	const classes = useStyles();
 	const [idField, setIdField] = useState("");
 
@@ -162,7 +162,7 @@ const ForgotPasswordArea = (props) => {
 	);
 };
 
-const ForgotPasswordAuthToken = (props) => {
+const ForgotPasswordAuthToken = (props: any) => {
 	const classes = useStyles();
 	const [newPasswordEmail, setNewPasswordEmail] = useState(false);
 
@@ -208,7 +208,7 @@ const ForgotPasswordAuthToken = (props) => {
 	);
 };
 
-const NewPassowrdArea = (props) => {
+const NewPassowrdArea = (props: any) => {
 	const classes = useStyles();
 	const [idField, setIdField] = useState("");
 	const [doMutation, { loading }] = useMutation(EditUser, {
@@ -245,7 +245,7 @@ const NewPassowrdArea = (props) => {
 	);
 };
 
-const EmailSentConfirmation = (props) => {
+const EmailSentConfirmation = (props: any) => {
 	return (
 		<>
 			<Typography variant={"h5"} align={"center"}>
@@ -262,7 +262,7 @@ const EmailSentConfirmation = (props) => {
 	);
 };
 
-const EmailField = (props) => {
+const EmailField = (props: any) => {
 	return (
 		<Box
 			width={"90%"}
@@ -294,7 +294,7 @@ const EmailField = (props) => {
 	);
 };
 
-const PasswordField = (props) => {
+const PasswordField = (props: any) => {
 	const [showPassword, setShowPassword] = useState(false);
 
 	return (
@@ -337,7 +337,7 @@ const PasswordField = (props) => {
 	);
 };
 
-const BackToSignInArea = (props) => {
+const BackToSignInArea = (prop: any) => {
 	const classes = useStyles();
 	return (
 		<Box
@@ -356,7 +356,7 @@ const BackToSignInArea = (props) => {
 	);
 };
 
-const ForgotPasswordAlert = (props) => {
+const ForgotPasswordAlert = (props: any) => {
 	const classes = useStyles();
 	return (
 		<Box className={clsx(classes.alertPadding, classes.loginFailedAlert)}>{props.children}</Box>
