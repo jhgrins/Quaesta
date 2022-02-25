@@ -292,9 +292,9 @@ const OAuthArea = () => {
 					cookiePolicy={"single_host_origin"}
 					uxMode={"redirect"}
 					redirectUri={
-						process.env.IS_OFFLINE
-							? "http://localhost:3000/login"
-							: "https://quaesta.dev/login"
+						process.env.NODE_ENV === "production"
+							? "https://quaesta.dev/login"
+							: "http://localhost:3000/login"
 					}
 					onFailure={(err) => console.log(err)}
 					render={(props) => (
