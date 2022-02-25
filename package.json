@@ -5,7 +5,8 @@
 	"repository": "https://github.com/jhgrins/Quaesta",
 	"license": "MIT",
 	"scripts": {
-		"check": "tsc && eslint **/*.ts **/*.tsx",
+		"types": "tsc",
+		"lint": "eslint **/*.ts **/*.tsx",
 		"startFrontend": "parcel frontend/index.html -p 3000 --open",
 		"startLambda": "serverless offline start --stage dev",
 		"start": "concurrently --kill-others-on-fail \"npm:startFrontend\" \"npm:startLambda\"",

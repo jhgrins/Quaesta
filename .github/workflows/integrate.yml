@@ -26,8 +26,11 @@ jobs:
         if: steps.cache.outputs.cache-hit != 'true'
         run: npm install --legacy-peer-deps
 
-      - name: Run Tests
-        run: npm check
+      - name: Run Type Checker
+        run: npm run types
+
+      - name: Run Linter
+        run: npm lint
 
       - name: Run Tests
         run: npm test
