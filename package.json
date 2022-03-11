@@ -7,6 +7,7 @@
 	"scripts": {
 		"types": "tsc",
 		"lint": "eslint **/*.ts **/*.tsx",
+		"check": "npm run types && npm run lint",
 		"startFrontend": "parcel frontend/index.html -p 3000 --open",
 		"startLambda": "serverless offline start --stage dev",
 		"start": "concurrently --kill-others-on-fail \"npm:startFrontend\" \"npm:startLambda\"",
