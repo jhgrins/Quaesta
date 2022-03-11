@@ -28,7 +28,7 @@ const createUser = async (_: any, args: Args, context: Context, info: any): Prom
 	}
 
 	const randomUserId = uuid();
-	await putItem("users", { id: randomUserId, ...args });
+	await putItem("quaesta-users", { id: randomUserId, ...args });
 
 	sendAccountCreatedEmail(args.email);
 	return generateToken(randomUserId);
@@ -41,7 +41,7 @@ const validateEnvironmentVariables = () => {
 };
 
 const validateEmail = async (email: string) => {
-	const queryOutput = await getItemsByIndex("users", "email", email);
+	const queryOutput = await getItemsByIndex("quaesta-users", "email", email);
 	if (queryOutput.Count && queryOutput.Count > 0) {
 		throw new UserInputError("User Already Exists");
 	}
@@ -51,7 +51,7 @@ const validateUsername = async (username: string) => {
 	if (username.length > 12) {
 		throw new UserInputError("Username Longer Than 12 Characters");
 	}
-	const queryOutput = await getItemsByIndex("users", "username", username);
+	const queryOutput = await getItemsByIndex("quaesta-users", "username", username);
 	if (queryOutput.Count && queryOutput.Count > 0) {
 		throw new UserInputError("User Already Exists");
 	}

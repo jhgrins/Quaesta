@@ -4,7 +4,7 @@ import { checkIsLoggedIn } from "../utils";
 
 const deleteUser = async (_: any, args: {}, context: Context, info: any) => {
 	await checkIsLoggedIn(context);
-	deleteItem("users", context.userId as string);
+	deleteItem("quaesta-users", context.userId as string);
 	return true;
 };
 

@@ -15,7 +15,7 @@ export const checkIsLoggedIn = async (context: Context): Promise<void> => {
 	if (!context.userId) {
 		throw new AuthenticationError("Must Be Logged In");
 	}
-	const queryOutput = await getItem("users", context.userId);
+	const queryOutput = await getItem("quaesta-users", context.userId);
 	const userRecord = getItemFromDynamoDBResult(queryOutput);
 	if (!userRecord) {
 		throw new AuthenticationError("User Does Not Exist");
@@ -29,7 +29,7 @@ export const checkIsMe = async (parent: Parent, context: Context): Promise<void>
 };
 
 export const checkInMyFriends = async (context: Context, friendUsername: string): Promise<void> => {
-	const queryOutput = await getItem("users", context.userId as string);
+	const queryOutput = await getItem("quaesta-users", context.userId as string);
 	const userRecord = getItemFromDynamoDBResult(queryOutput) as User | null;
 	if (
 		!userRecord ||

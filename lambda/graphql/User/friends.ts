@@ -11,7 +11,7 @@ const friends = (parent: Parent, args: any, context: Context, info: any) => {
 	checkIsMe(parent, context);
 	return Promise.all(
 		parent.friends.map(async (email) => {
-			const queryOutput = await getItemsByIndex("users", "email", email);
+			const queryOutput = await getItemsByIndex("quaesta-users", "email", email);
 			return getItemFromDynamoDBResult(queryOutput);
 		})
 	);

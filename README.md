@@ -1,4 +1,4 @@
-# Quaesta-Serverless
+# Quaesta
 
 ### A Portal For Gamers
 
@@ -24,7 +24,7 @@ npm install && npm start
 
 ### Environment Variables
 
-We currently support the following variables in a `.env` file with key=value pairs.
+We currently support the following variables in a `.env` file with key=value pairs. Do not include AWS_REGION for production builds (required for development).
 
 ```
 AWS_ACCOUNT_ID: Your AWS account ID
@@ -45,7 +45,7 @@ MOCKS: Controls whether or not the lambda operates in mocking mode
 You will also need the following to deploy to AWS
 
 ```
-AWS_ACCESS_KEY_ID: AWS IAM credentials with access to deploy to AWS (CloudFormationFullAccess, S3FullAccess)
+AWS_ACCESS_KEY_ID: AWS IAM credentials with access to deploy to AWS (Admin)
 AWS_SECRET_ACCESS_KEY: AWS IAM credentials secret
 ```
 

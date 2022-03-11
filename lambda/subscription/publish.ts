@@ -8,7 +8,7 @@ import { sendMessageToSocket, HTTP_SUCCESS } from "./utils";
 const publish = async (event: SNSEvent): Promise<APIGatewayProxyResult> => {
 	const { message, filters }: SubscriptionMessage = JSON.parse(event.Records[0].Sns.Message);
 
-	const queryOutput = await getItemsByIndex("sockets", "subscription", filters.subscription);
+	const queryOutput = await getItemsByIndex("quaesta-sockets", "subscription", filters.subscription);
 	if (queryOutput.Count === 0 || !queryOutput.Items) {
 		return { statusCode: HTTP_SUCCESS, body: "" };
 	}

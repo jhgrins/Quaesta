@@ -5,7 +5,8 @@
 	"repository": "https://github.com/jhgrins/Quaesta",
 	"license": "MIT",
 	"scripts": {
-		"check": "tsc && eslint **/*.ts **/*.tsx",
+		"types": "tsc",
+		"lint": "eslint **/*.ts **/*.tsx",
 		"startFrontend": "parcel frontend/index.html -p 3000 --open",
 		"startLambda": "serverless offline start --stage dev",
 		"start": "concurrently --kill-others-on-fail \"npm:startFrontend\" \"npm:startLambda\"",
@@ -53,7 +54,6 @@
 		"@types/jsonwebtoken": "^8.5.8",
 		"@types/nodemailer": "^6.4.4",
 		"@types/react-dom": "^17.0.11",
-		"@types/sinon": "^10.0.11",
 		"@types/uuid": "^8.3.4",
 		"@typescript-eslint/eslint-plugin": "^5.12.1",
 		"@typescript-eslint/parser": "^5.12.1",
