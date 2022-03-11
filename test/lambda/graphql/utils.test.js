@@ -10,7 +10,12 @@ import casual from "casual";
 import sinon from "sinon";
 
 import { documentClient } from "../../../lambda/db";
-import { checkIsLoggedIn, checkIsMe, checkInMyFriends, callTwitch } from "../../../lambda/graphql/utils";
+import {
+	checkIsLoggedIn,
+	checkIsMe,
+	checkInMyFriends,
+	callTwitch
+} from "../../../lambda/graphql/utils";
 
 describe("utils", () => {
 	const fakeUser = {

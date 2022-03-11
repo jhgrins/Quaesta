@@ -137,7 +137,7 @@ describe("db", () => {
 			deleteItem(tableName, fakeUser.id).should.eventually.deep.equal(fakeReturn);
 		});
 	});
-	
+
 	describe("getItemFromDynamoDBResult", () => {
 		const fakeGetItemOutput = { Item: fakeUser };
 		const fakeQueryOutput = { Count: 1, Items: [fakeUser] };

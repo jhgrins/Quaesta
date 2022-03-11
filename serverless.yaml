@@ -80,7 +80,7 @@ resources:
     usersTable:
       Type: AWS::DynamoDB::Table
       Properties:
-        TableName: users
+        TableName: quaesta-users
         KeySchema:
           - AttributeName: id
             KeyType: HASH
@@ -116,7 +116,7 @@ resources:
     sockets:
       Type: AWS::DynamoDB::Table
       Properties:
-        TableName: sockets
+        TableName: quaesta-sockets
         KeySchema:
           - AttributeName: connectionId
             KeyType: HASH

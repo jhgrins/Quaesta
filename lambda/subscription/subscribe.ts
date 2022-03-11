@@ -53,7 +53,7 @@ export const subscribe = async (event: APIGatewayEvent): Promise<APIGatewayProxy
 			await subscribeProtocol(callbackUrlForAWS, connectionId, body, event);
 			break;
 		case "complete":
-			await deleteItem("sockets", connectionId);
+			await deleteItem("quaesta-sockets", connectionId);
 			break;
 	}
 	return { statusCode: HTTP_SUCCESS, body: "" };
@@ -66,7 +66,7 @@ const subscribeProtocol = async (
 	event: APIGatewayEvent
 ): Promise<APIGatewayProxyResult | void> => {
 	const { id, payload } = body;
-	const queryOutput = await getSocket("sockets", connectionId, id);
+	const queryOutput = await getSocket("quaesta-sockets", connectionId, id);
 	const socketRecord = getItemFromDynamoDBResult(queryOutput);
 	if (socketRecord) {
 		deleteSocketConnection(callbackUrlForAWS, connectionId);
@@ -87,7 +87,7 @@ const subscribeProtocol = async (
 			payload.operationName
 		);
 		const token = authenticateHTTPAccessToken(event);
-		await putItem("sockets", {
+		await putItem("quaesta-sockets", {
 			callbackUrlForAWS,
 			connectionId,
 			operationId: id,
