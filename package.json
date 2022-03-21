@@ -16,6 +16,12 @@
 		"unitTests": "TS_NODE_PROJECT='test/tsconfig.commonjs.json' mocha -r ts-node/register -r test/hooks.js --recursive",
 		"test": "c8 --all --check-coverage --lines 25 --include 'lambda/' npm run unitTests"
 	},
+	"staticFiles": {
+		"staticPath": [
+			"frontend/404.html",
+			"frontend/static"
+		]
+	},
 	"dependencies": {
 		"@apollo/client": "^3.5.9",
 		"@emotion/react": "^11.8.1",
@@ -70,6 +76,7 @@
 		"eslint-plugin-react": "^7.29.1",
 		"mocha": "^9.2.1",
 		"parcel": "^2.3.2",
+		"parcel-plugin-static-files-copy": "^2.6.0",
 		"process": "^0.11.10",
 		"serverless": "^3.4.0",
 		"serverless-dotenv-plugin": "^3.12.2",
