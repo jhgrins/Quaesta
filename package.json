@@ -18,9 +18,6 @@
 		"unitTests": "TS_NODE_PROJECT='test/tsconfig.commonjs.json' mocha -r ts-node/register -r test/hooks.js --recursive",
 		"test": "c8 --all --check-coverage --lines 25 --include 'lambda/' npm run unitTests"
 	},
-	"staticFiles": {
-		"staticPath": "frontend/static"
-	},
 	"dependencies": {
 		"@apollo/client": "^3.5.9",
 		"@emotion/react": "^11.8.1",
