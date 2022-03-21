@@ -1,3 +1,5 @@
+import { useEffect } from "react";
+
 import { BrowserRouter, Routes, Route, Outlet, useNavigate, useLocation } from "react-router-dom";
 
 import LoginLayout from "./Login/Layout";
@@ -12,7 +14,6 @@ import DashBoard from "./App/Pages/Dashboard";
 import Game from "./App/Game/Game";
 import Profile from "./App/Pages/Profile";
 import NotFound from "./NotFound";
-import { useEffect } from "react";
 
 const Router = () => {
 	return (
