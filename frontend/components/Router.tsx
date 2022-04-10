@@ -1,4 +1,6 @@
-import { BrowserRouter, Routes, Route } from "react-router-dom";
+import { useEffect } from "react";
+
+import { BrowserRouter, Routes, Route, Outlet, useNavigate, useLocation } from "react-router-dom";
 
 import LoginLayout from "./Login/Layout";
 import CreateAccount from "./Login/CreateAccount";
@@ -17,24 +19,40 @@ const Router = () => {
 	return (
 		<BrowserRouter>
 			<Routes>
-				<Route path={"/"} element={<LoginLayout />}>
-					<Route index element={<Login />} />
-					<Route path={"create-account"} element={<CreateAccount />} />
-					<Route path={"login"} element={<Login />} />
-					<Route path={"finalize-account"} element={<FinalizeAccount />} />
-					<Route path={"forgot-password"} element={<ForgotPassword />} />
-					<Route path={"forgot-password/:authToken"} element={<ForgotPassword />} />
+				<Route path={"/"} element={<Router404Inject />}>
+					<Route element={<LoginLayout />}>
+						<Route index element={<Login />} />
+						<Route path={"create-account"} element={<CreateAccount />} />
+						<Route path={"login"} element={<Login />} />
+						<Route path={"finalize-account"} element={<FinalizeAccount />} />
+						<Route path={"forgot-password"} element={<ForgotPassword />} />
+						<Route path={"forgot-password/:authToken"} element={<ForgotPassword />} />
+					</Route>
+					<Route path={"/app"} element={<AppLayout />}>
+						<Route index element={<DashBoard />} />
+						<Route path={"profile"} element={<Profile />} />
+						<Route path={"dashboard"} element={<DashBoard />} />
+						<Route path={"game/:gameName"} element={<Game />} />
+					</Route>
+					<Route path={"*"} element={<NotFound />} />
 				</Route>
-				<Route path={"/app"} element={<AppLayout />}>
-					<Route index element={<DashBoard />} />
-					<Route path={"profile"} element={<Profile />} />
-					<Route path={"dashboard"} element={<DashBoard />} />
-					<Route path={"game/:gameName"} element={<Game />} />
-				</Route>
-				<Route path={"*"} element={<NotFound />} />
 			</Routes>
 		</BrowserRouter>
 	);
+};
+
+const Router404Inject = () => {
+	const navigate = useNavigate();
+	const location = useLocation();
+
+	useEffect(() => {
+		const splitPath = location.search.split("/");
+		if (splitPath[0] === "?") {
+			navigate(splitPath[1]);
+		}
+	}, [location]);
+
+	return <Outlet />;
 };
 
 export default Router;

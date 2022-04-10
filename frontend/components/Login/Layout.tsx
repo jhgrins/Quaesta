@@ -32,6 +32,7 @@ const useStyles = makeStyles((theme) => ({
 
 const Layout = () => {
 	const classes = useStyles();
+
 	const loginAreaWidth = 475;
 	return (
 		<Box

@@ -11,7 +11,9 @@
 		"startFrontend": "parcel frontend/index.html -p 3000 --open",
 		"startLambda": "serverless offline start --stage dev",
 		"start": "concurrently --kill-others-on-fail \"npm:startFrontend\" \"npm:startLambda\"",
-		"buildFrontend": "npm run check && parcel build frontend/index.html --dist-dir dist",
+		"buildFrontendIndex": "parcel build frontend/index.html --dist-dir dist",
+		"buildFrontend404": "parcel build frontend/404.html --dist-dir dist",
+		"buildFrontend": "npm run check && concurrently --kill-others-on-fail \"npm:buildFrontendIndex\" \"npm:buildFrontend404\"",
 		"deployLambda": "npm run check && serverless deploy",
 		"unitTests": "TS_NODE_PROJECT='test/tsconfig.commonjs.json' mocha -r ts-node/register -r test/hooks.js --recursive",
 		"test": "c8 --all --check-coverage --lines 25 --include 'lambda/' npm run unitTests"
