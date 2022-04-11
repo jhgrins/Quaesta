@@ -28,4 +28,4 @@ const publish = async (event: SNSEvent): Promise<APIGatewayProxyResult> => {
 	return { statusCode: HTTP_SUCCESS, body: "" };
 };
 
-module.exports.publish = publish;
+exports.handler = publish;
