@@ -13,7 +13,7 @@ plugins:
 custom:
   stage: ${opt:stage, self:provider.stage}
   serverlessPluginTypescript:
-    tsConfigFileLocation: "./tsconfig.json"
+    tsConfigFileLocation: "./lambda/tsconfig.lambda.json"
   dynamodb:
     stages:
       - ${opt:stage, self:provider.stage}
@@ -51,7 +51,7 @@ provider:
 functions:
   graphql:
     description: GraphQL API
-    handler: lambda/graphql/index.graphql
+    handler: lambda/graphql/index.handler
     events:
       - http:
           path: /graphql
@@ -59,13 +59,13 @@ functions:
           cors: true
   socketSubscribe:
     description: Websocket Subscription Handler
-    handler: lambda/subscription/subscribe.subscribe
+    handler: lambda/subscription/subscribe.handler
     events:
       - websocket: $connect
       - websocket: $default
   snsRecieve:
     description: SNS Recieve Handler
-    handler: lambda/subscription/publish.publish
+    handler: lambda/subscription/publish.handler
     events:
       - sns:
           topicName: subscription

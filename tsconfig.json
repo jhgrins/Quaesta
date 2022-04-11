@@ -4,5 +4,6 @@
 		"sourceMap": true,
 		"jsx": "react-jsx"
 	},
-	"exclude": ["coverage", "dist", "test"]
+	"exclude": ["coverage", "dist", "test"],
+	"$schema": "https://json.schemastore.org/tsconfig"
 }

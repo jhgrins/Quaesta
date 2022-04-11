@@ -127,4 +127,4 @@ const validateGraphQL = async (
 	}
 };
 
-exports.subscribe = subscribe;
+exports.handler = subscribe;
