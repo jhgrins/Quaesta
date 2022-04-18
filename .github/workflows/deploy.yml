@@ -68,8 +68,10 @@ jobs:
         if: steps.cache.outputs.cache-hit != 'true'
         run: npm install --legacy-peer-deps
 
-      - name: Deploy
-        run: npm run deployLambda
+      - name: Create Quaesta .env File
+        uses: DeveloperRic/action-create-env@v1.0.4
+        with:
+          include_env_vars: true
         env:
           AWS_ACCOUNT_ID: ${{ secrets.AWS_ACCOUNT_ID }}
           DDB_ENDPOINT: ${{ secrets.DDB_ENDPOINT }}
@@ -81,3 +83,6 @@ jobs:
           TWITCH_CLIENT_SECRET: ${{ secrets.TWITCH_CLIENT_SECRET }}
           AUTH_KEY: ${{ secrets.AUTH_KEY }}
           PASSWORD_KEY: ${{ secrets.PASSWORD_KEY }}
+
+      - name: Deploy
+        run: npm run deployLambda
