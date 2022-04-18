@@ -8,10 +8,12 @@ import jwt from "jsonwebtoken";
 import { User } from "../../types";
 
 export const generateToken = (id: string): string => {
+	console.log(`Generating token for user with id ${id}`);
 	return jwt.sign({ id }, process.env.AUTH_KEY || "AUTH");
 };
 
 export const decryptToken = (token: string): User => {
+	console.log(`Decrypting token for user with token ${token}`);
 	return jwt.verify(token, process.env.AUTH_KEY || "AUTH") as User;
 };
 

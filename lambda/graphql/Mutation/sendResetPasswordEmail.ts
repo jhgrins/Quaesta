@@ -17,7 +17,7 @@ const sendResetPasswordEmail = async (_: any, args: Args, context: Context, info
 	const queryOutput = await getItemsByIndex("quaesta-users", "email", args.email);
 	const userRecord = getItemFromDynamoDBResult(queryOutput) as User | null;
 	if (!userRecord) return false;
-	let mailTransporter = NodeMailer.createTransport({
+	const mailTransporter = NodeMailer.createTransport({
 		service: "gmail",
 		auth: {
 			user: process.env.MAIL_USERNAME,

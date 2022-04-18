@@ -58,7 +58,7 @@ const validateUsername = async (username: string) => {
 };
 
 const sendAccountCreatedEmail = async (email: string) => {
-	console.error(process.env.MAIL_USERNAME, process.env.MAIL_PASSWORD);
+	console.log(`Sending Account Created Email to ${email}`);
 	const mailTransporter: any = NodeMailer.createTransport({
 		service: "gmail",
 		auth: { user: process.env.MAIL_USERNAME, pass: process.env.MAIL_PASSWORD }
