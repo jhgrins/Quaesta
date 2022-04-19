@@ -6,6 +6,7 @@ export const sendMessageToSocket = async (
 	connectionId: string,
 	payload: Record<string, unknown> | ExecutionResult | GraphQLError[]
 ) => {
+	console.log(`Sending message to connectionId ${connectionId}`);
 	const apiGateway = new AWS.ApiGatewayManagementApi({
 		endpoint: process.env.IS_OFFLINE ? "http://localhost:8001" : endpoint
 	});
@@ -15,6 +16,7 @@ export const sendMessageToSocket = async (
 };
 
 export const deleteSocketConnection = async (endpoint: string, connectionId: string) => {
+	console.log(`Deleting socket with connectionId ${connectionId}`);
 	const apiGateway = new AWS.ApiGatewayManagementApi({
 		endpoint: process.env.IS_OFFLINE ? "http://localhost:8001" : endpoint
 	});

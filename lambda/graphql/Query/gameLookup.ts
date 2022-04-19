@@ -2,14 +2,14 @@ import apicalypse, { ApicalypseConfig } from "apicalypse";
 
 import { BaseGameAPI } from "../../db";
 import { Context } from "../index";
-import { callTwitch } from "../utils";
+import { getTwitchAccessToken } from "../utils";
 
 interface Args {
 	name: string;
 }
 
 const gameLookup = async (_: any, args: Args, context: Context, info: any) => {
-	const accessToken = (await callTwitch()).access_token;
+	const accessToken = (await getTwitchAccessToken()).access_token;
 	const config: ApicalypseConfig = {
 		method: "post",
 		headers: {

@@ -28,16 +28,6 @@ custom:
     useWorkerThreads: true
   serverless-offline-sns:
     port: 4002
-  dotenv:
-    exclude:
-      - AWS_ACCESS_KEY_ID
-      - AWS_SECRET_ACCESS_KEY
-    required:
-      env:
-        - MAIL_USERNAME
-        - MAIL_PASSWORD
-        - TWITCH_CLIENT_ID
-        - TWITCH_CLIENT_SECRET
 
 provider:
   name: aws

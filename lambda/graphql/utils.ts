@@ -39,13 +39,13 @@ export const checkInMyFriends = async (context: Context, friendUsername: string)
 	}
 };
 
-export const callTwitch = async (): Promise<any> => {
-	if (!process.env.TWITCH_CLIENT_ID || !process.env.TWITCH_CLIENT_SECRET) {
+export const getTwitchAccessToken = async (): Promise<any> => {
+	const { TWITCH_CLIENT_ID, TWITCH_CLIENT_SECRET } = process.env;
+	if (!TWITCH_CLIENT_ID || !TWITCH_CLIENT_SECRET) {
 		throw Error("Must Define TWITCH_CLIENT_ID and TWITCH_CLIENT_SECRET");
 	}
-	const { data } = await axios.post(
-		`https://id.twitch.tv/oauth2/token?client_id=${process.env.TWITCH_CLIENT_ID}&client_secret=${process.env.TWITCH_CLIENT_SECRET}&grant_type=client_credentials`
+	const response = await axios.post(
+		`https://id.twitch.tv/oauth2/token?client_id=${TWITCH_CLIENT_ID}&client_secret=${TWITCH_CLIENT_SECRET}&grant_type=client_credentials`
 	);
-
-	return data;
+	return response.data;
 };

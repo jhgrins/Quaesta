@@ -38,10 +38,12 @@ export const subscribe = async (event: APIGatewayEvent): Promise<APIGatewayProxy
 	const { connectionId, domainName, stage } = event.requestContext;
 	const callbackUrlForAWS = `http://${domainName}/${stage}`;
 	if (!connectionId) {
+		console.log("No connectionId in requestBody");
 		return { statusCode: HTTP_SERVER_ERROR, body: "" };
 	}
 
 	const body: SubscriptionEventBody = JSON.parse(event.body);
+	console.log("Got message of type " + body.type);
 	switch (body.type) {
 		case "connection_init":
 			await sendMessageToSocket(callbackUrlForAWS, connectionId, { type: "connection_ack" });
@@ -69,6 +71,7 @@ const subscribeProtocol = async (
 	const queryOutput = await getSocket("quaesta-sockets", connectionId, id);
 	const socketRecord = getItemFromDynamoDBResult(queryOutput);
 	if (socketRecord) {
+		console.log("Socket already exists, can't re-subscribe");
 		deleteSocketConnection(callbackUrlForAWS, connectionId);
 		return { statusCode: HTTP_SERVER_BAD_REQUEST, body: "" };
 	}

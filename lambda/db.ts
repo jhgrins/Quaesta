@@ -33,6 +33,7 @@ export const documentClient = new AWS.DynamoDB.DocumentClient(serviceConfigOptio
 
 export const getItem = async (table: string, id: string): Promise<GetItemOutput> => {
 	try {
+		console.log(`Getting item from table ${table} with id ${id}`);
 		return await documentClient.get({ TableName: table, Key: { id } }).promise();
 	} catch (err) {
 		console.error(err);
@@ -46,6 +47,9 @@ export const getSocket = async (
 	operationId: string
 ): Promise<GetItemOutput> => {
 	try {
+		console.log(
+			`Getting socket from table ${table} with connectionId ${connectionId} and operationId ${operationId}`
+		);
 		return await documentClient
 			.get({ TableName: table, Key: { connectionId, operationId } })
 			.promise();
@@ -61,6 +65,7 @@ export const getItemsByIndex = async (
 	value: string
 ): Promise<QueryOutput> => {
 	try {
+		console.log(`Getting item from table ${table} with ${key} ${value}`);
 		return await documentClient
 			.query({
 				TableName: table,
@@ -78,6 +83,7 @@ export const getItemsByIndex = async (
 
 export const putItem = async (table: string, item: Object): Promise<PutItemOutput> => {
 	try {
+		console.log(`Putting item into table ${table}`);
 		return await documentClient
 			.put({ TableName: table, Item: item, ReturnValues: "ALL_OLD" })
 			.promise();
@@ -94,6 +100,7 @@ export const updateItem = async (
 	value: string
 ): Promise<UpdateItemOutput> => {
 	try {
+		console.log(`Updating item in table ${table} with id ${id}. New ${key} is ${value}`);
 		return await documentClient
 			.update({
 				TableName: table,
@@ -112,6 +119,7 @@ export const updateItem = async (
 
 export const deleteItem = async (table: string, id: string): Promise<DeleteItemOutput> => {
 	try {
+		console.log(`Deleting item from table ${table} with id ${id}`);
 		return await documentClient
 			.delete({ TableName: table, Key: { id }, ReturnValues: "ALL_OLD" })
 			.promise();

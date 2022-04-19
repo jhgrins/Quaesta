@@ -2,10 +2,10 @@ import apicalypse, { ApicalypseConfig } from "apicalypse";
 
 import { BaseGameAPI } from "../../db";
 import { Context } from "../index";
-import { callTwitch } from "../utils";
+import { getTwitchAccessToken } from "../utils";
 
 const companies = async (parent: any, args: any, context: Context, info: any) => {
-	const accessToken = (await callTwitch()).access_token;
+	const accessToken = (await getTwitchAccessToken()).access_token;
 	const config: ApicalypseConfig = {
 		method: "post",
 		headers: {
