@@ -24,13 +24,11 @@ npm install && npm start
 
 ### Environment Variables
 
-We currently support the following variables in a `.env` file with key=value pairs. Do not include AWS_REGION for production builds (required for development).
+We currently support the following variables in a `.env` file with key=value pairs. Do not include AWS_REGION for production builds (required for development). To use the CD, add them as GitHub secrets.
 
 ```
-AWS_ACCOUNT_ID: Your AWS account ID
 AWS_REGION: AWS region to deploy service and dynamodb tables to
 DDB_ENDPOINT: Endpoint of DynamoDB service to connect to
-SNS_ENDPOINT: Endpoint of SNS service to connect to
 MAIL_USERNAME: The username for the mail service
 MAIL_PASSWORD: The password for the mail service
 GOOGLE_CLIENT_ID: The client ID for the Google OAuth2 service
@@ -42,9 +40,10 @@ PASSWORD_KEY: The key used to encrypt and decrypt the user's password
 MOCKS: Controls whether or not the lambda operates in mocking mode
 ```
 
-You will also need the following to deploy to AWS
+You will also need the following secrets to deploy to AWS
 
 ```
+AWS_ACCOUNT_ID: Your AWS account ID
 AWS_ACCESS_KEY_ID: AWS IAM credentials with access to deploy to AWS (Admin)
 AWS_SECRET_ACCESS_KEY: AWS IAM credentials secret
 ```
