@@ -3,45 +3,24 @@ import { useState } from "react";
 import { useNavigate, Navigate, Outlet, useLocation } from "react-router-dom";
 
 import { Box, Paper, TextField, IconButton } from "@mui/material";
-import { makeStyles } from "@mui/styles";
+import { grey } from "@mui/material/colors";
 import NotificationsIcon from "@mui/icons-material/Notifications";
-import SearchIcon from '@mui/icons-material/Search';
+import SearchIcon from "@mui/icons-material/Search";
 
-import SideBar from "./SideBar";
-
-const useStyles = makeStyles((theme) => ({
-	topRight: {
-		top: theme.spacing(4),
-		right: theme.spacing(4)
-	}
-}));
+import NavBar from "./NavBar";
 
 const Layout = (props: any) => {
-	const classes = useStyles();
 	return (
-		<>
-			<Box width={"100vw"} minHeight={"100vh"} display={"flex"}>
-				<Box minWidth={100}>
-					<SideBar {...props} />
-				</Box>
-				<Box flexGrow={1} p={6} bgcolor={"neutral.light"} className={"app"}>
-					<ProtectedRoute>
-						<Outlet />
-					</ProtectedRoute>
-				</Box>
+		<Box width={"100vw"} minHeight={"100vh"} display={"flex"} flexDirection={"column"}>
+			<Box minHeight={80} sx={{ bgcolor: grey[200] }}>
+				<NavBar {...props} />
 			</Box>
-			<Box
-				sx={{
-					position: "absolute",
-					display: "flex",
-					alignItems: "center"
-				}}
-				className={classes.topRight}
-			>
-				<Notifications />
-				<Search />
+			<Box flexGrow={1} p={6} bgcolor={"neutral.light"} className={"app"}>
+				<ProtectedRoute>
+					<Outlet />
+				</ProtectedRoute>
 			</Box>
-		</>
+		</Box>
 	);
 };
 
@@ -80,8 +59,8 @@ const Search = () => {
 		}
 	};
 	const onSubmit = () => {
-		navigate("/app/game/" + searchText)
-	}
+		navigate("/app/game/" + searchText);
+	};
 	return (
 		<Paper elevation={0} sx={{ ml: 2, p: 1, pl: 2, width: 300, height: 60, borderRadius: 20 }}>
 			<TextField
@@ -90,7 +69,6 @@ const Search = () => {
 				color="primary"
 				onChange={onChangeHandler}
 				size="small"
-				
 			/>
 			<IconButton onClick={onSubmit}>
 				<SearchIcon />

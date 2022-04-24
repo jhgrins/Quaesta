@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 
-import { Link, useLocation } from "react-router-dom";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 
 import { Box, InputAdornment, TextField, Typography } from "@mui/material";
 import makeStyles from "@mui/styles/makeStyles";
@@ -79,6 +79,8 @@ const CreateAccount = () => {
 
 const CreateAccountArea = (props: any) => {
 	const classes = useStyles();
+	const navigate = useNavigate();
+
 	const inviteToken = new URLSearchParams(useLocation().search).get("id");
 
 	const [email, setEmail] = useState("");
@@ -90,7 +92,7 @@ const CreateAccountArea = (props: any) => {
 	const [doMutation, { loading }] = useMutation(CreateUser, {
 		onCompleted: (data) => {
 			localStorage.setItem("token", data.createUser);
-			// history.replace({ pathname: "/app" });
+			navigate("/app");
 		},
 		onError: () => {
 			props.setAlertText("Username Already Exists");

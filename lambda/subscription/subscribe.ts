@@ -18,8 +18,8 @@ import {
 	HTTP_SUCCESS
 } from "./utils";
 
-import { authenticateHTTPAccessToken } from "../graphql/auth";
-import { gqlSchema } from "../graphql/schema";
+import { authenticateHTTPAccessToken } from "../resolvers/auth";
+import { gqlSchema } from "../resolvers/schema";
 
 interface SubscriptionEventBody {
 	id: string;
@@ -57,6 +57,9 @@ export const subscribe = async (event: APIGatewayEvent): Promise<APIGatewayProxy
 		case "complete":
 			await deleteItem("quaesta-sockets", connectionId);
 			break;
+		default:
+			console.error("Unknown subscription protocol message type");
+			return { statusCode: HTTP_SERVER_ERROR, body: "" };
 	}
 	return { statusCode: HTTP_SUCCESS, body: "" };
 };
