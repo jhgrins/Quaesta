@@ -41,7 +41,7 @@ provider:
 functions:
   graphql:
     description: GraphQL API
-    handler: lambda/graphql/index.handler
+    handler: lambda/resolvers/index.handler
     events:
       - http:
           path: /graphql
