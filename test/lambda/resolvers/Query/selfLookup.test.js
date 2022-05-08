@@ -6,7 +6,7 @@ chai.use(chaiAsPromised);
 
 import casual from "casual";
 
-import selfLookup from "../../../../lambda/graphql/Query/selfLookup";
+import selfLookup from "../../../../lambda/resolvers/Query/selfLookup";
 
 describe("Query/selfLookup", () => {
 	const fakeUserId = casual.id;

@@ -5,7 +5,11 @@ const should = chai.should();
 import { AuthenticationError } from "apollo-server-express";
 import casual from "casual";
 
-import { generateToken, decryptToken, authenticateHTTPAccessToken } from "../../../lambda/graphql/auth";
+import {
+    generateToken,
+    decryptToken,
+    authenticateHTTPAccessToken
+} from "../../../lambda/resolvers/auth";
 
 describe("auth", () => {
 	describe("generateToken", () => {

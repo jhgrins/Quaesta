@@ -2,7 +2,7 @@ import chai from "chai";
 
 chai.should();
 
-import cover from "../../../../lambda/graphql/Game/cover";
+import cover from "../../../../lambda/resolvers/Game/cover";
 
 describe("Game/cover", () => {
 	describe("cover", () => {

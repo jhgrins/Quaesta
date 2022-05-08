@@ -2,7 +2,7 @@ import chai from "chai";
 
 chai.should();
 
-import genres from "../../../../lambda/graphql/Game/genres";
+import genres from "../../../../lambda/resolvers/Game/genres";
 
 describe("Game/genres", () => {
 	describe("genres", () => {

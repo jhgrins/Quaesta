@@ -17,6 +17,7 @@ interface Args {
 }
 
 const createUser = async (_: any, args: Args, context: Context, info: any): Promise<string> => {
+	console.log(process.env);
 	validateEnvironmentVariables();
 	await validateEmail(args.email);
 	if (args.username) await validateUsername(args.username);
