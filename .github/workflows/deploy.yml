@@ -83,6 +83,9 @@ jobs:
           AUTH_KEY: ${{ secrets.AUTH_KEY }}
           PASSWORD_KEY: ${{ secrets.PASSWORD_KEY }}
 
+      - name: Get Directory Contents
+        run: ls -la && pwd
+
       - name: Deploy
         run: npm run deployLambda
         env:
