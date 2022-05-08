@@ -2,7 +2,7 @@ import chai from "chai";
 
 chai.should();
 
-import password from "../../../../lambda/graphql/User/password";
+import password from "../../../../lambda/resolvers/User/password";
 
 describe("User/password", () => {
 	describe("password", () => {

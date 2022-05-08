@@ -2,7 +2,7 @@ import chai from "chai";
 
 chai.should();
 
-import invites from "../../../../lambda/graphql/User/friends";
+import invites from "../../../../lambda/resolvers/User/friends";
 
 describe("User/invites", () => {
 	describe("invites", () => {

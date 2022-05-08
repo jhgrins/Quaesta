@@ -2,7 +2,7 @@ import chai from "chai";
 
 chai.should();
 
-import email from "../../../../lambda/graphql/User/email";
+import email from "../../../../lambda/resolvers/User/email";
 
 describe("User/email", () => {
 	describe("email", () => {

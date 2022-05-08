@@ -11,11 +11,11 @@ import sinon from "sinon";
 
 import { documentClient } from "../../../lambda/db";
 import {
-	checkIsLoggedIn,
-	checkIsMe,
-	checkInMyFriends,
-	callTwitch
-} from "../../../lambda/graphql/utils";
+    checkIsLoggedIn,
+    checkIsMe,
+    checkInMyFriends,
+    callTwitch
+} from "../../../lambda/resolvers/utils";
 
 describe("utils", () => {
 	const fakeUser = {
