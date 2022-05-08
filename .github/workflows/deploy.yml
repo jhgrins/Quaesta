@@ -69,10 +69,7 @@ jobs:
         run: npm install --legacy-peer-deps
 
       - name: Create Quaesta .env File
-        uses: DeveloperRic/action-create-env@v1.0.4
-        with:
-          full_text: ""
-          include_env_vars: true
+        uses: iamsauravsharma/create-dotenv@v1.2.1
         env:
           DDB_ENDPOINT: ${{ secrets.DDB_ENDPOINT }}
           GOOGLE_CLIENT_ID: ${{ secrets.GOOGLE_CLIENT_ID }}
