@@ -71,6 +71,7 @@ jobs:
       - name: Create Quaesta .env File
         uses: DeveloperRic/action-create-env@v1.0.4
         with:
+          full_text: ""
           include_env_vars: true
         env:
           DDB_ENDPOINT: ${{ secrets.DDB_ENDPOINT }}
