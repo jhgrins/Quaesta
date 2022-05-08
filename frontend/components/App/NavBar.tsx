@@ -1,8 +1,7 @@
-import { useLocation, Link } from "react-router-dom";
+import { Link } from "react-router-dom";
 
-import { Avatar, Box, IconButton, Typography } from "@mui/material";
+import { Avatar, Box, Typography } from "@mui/material";
 import { makeStyles } from "@mui/styles";
-import SettingsIcon from "@mui/icons-material/Settings";
 
 import { useQuery } from "@apollo/client";
 import { GetSideBarProfile } from "../../graphql/query";
@@ -29,8 +28,8 @@ const Navigation = () => {
 	const links = [{ name: "Home", to: "/app" }];
 	return (
 		<Box sx={{ display: "flex", alignContent: "center", pl: 2 }}>
-			{links.map((link) => (
-				<Link to={link.to}>
+			{links.map((link, index) => (
+				<Link key={index} to={link.to}>
 					<Typography variant={"h6"}>{link.name}</Typography>
 				</Link>
 			))}

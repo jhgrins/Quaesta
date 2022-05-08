@@ -1,9 +1,4 @@
-import { Box, Skeleton, Typography } from "@mui/material";
-
-import { useQuery } from "@apollo/client";
-// import { GetSatellitesOverview } from "../../../graphql/query.js";
-
-import SatelliteCard from "../../UI/SatelliteCard";
+import { Box, Typography } from "@mui/material";
 
 const DashBoard = () => {
 	return (
