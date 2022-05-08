@@ -4,7 +4,6 @@ import CryptoJS from "crypto-js";
 import { v4 as uuid } from "uuid";
 
 import { promises as fs } from "fs";
-import NodeMailer from "nodemailer";
 
 import { generateToken } from "../auth";
 import { getItemsByIndex, putItem } from "../../db";
@@ -60,23 +59,7 @@ const validateUsername = async (username: string) => {
 
 const sendAccountCreatedEmail = async (email: string) => {
 	console.log(`Sending Account Created Email to ${email}`);
-	const mailTransporter: any = NodeMailer.createTransport({
-		service: "gmail",
-		auth: { user: process.env.MAIL_USERNAME, pass: process.env.MAIL_PASSWORD }
-	});
-	const filePath =
-		__dirname +
-		(process.env.IS_OFFLINE
-			? "/../../../frontend/static/email/accountCreated.html"
-			: "/website/email/accountCreated.html");
-	const file = await fs.readFile(filePath);
-	const mailDetails = {
-		from: process.env.MAIL_USERMAME,
-		to: email,
-		subject: "Quaesta Account Created",
-		html: file
-	};
-	mailTransporter.sendMail(mailDetails);
+	
 };
 
 export default createUser;
