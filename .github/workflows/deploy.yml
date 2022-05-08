@@ -70,19 +70,18 @@ jobs:
 
       - name: Create Quaesta .env File
         uses: iamsauravsharma/create-dotenv@v1.2.1
+        with:
+          env-prefix: 'ENV_'
         env:
-          DDB_ENDPOINT: ${{ secrets.DDB_ENDPOINT }}
-          GOOGLE_CLIENT_ID: ${{ secrets.GOOGLE_CLIENT_ID }}
-          GOOGLE_CLIENT_SECRET: ${{ secrets.GOOGLE_CLIENT_SECRET }}
-          MAIL_USERNAME: ${{ secrets.MAIL_USERNAME }}
-          MAIL_PASSWORD: ${{ secrets.MAIL_PASSWORD }}
-          TWITCH_CLIENT_ID: ${{ secrets.TWITCH_CLIENT_ID }}
-          TWITCH_CLIENT_SECRET: ${{ secrets.TWITCH_CLIENT_SECRET }}
-          AUTH_KEY: ${{ secrets.AUTH_KEY }}
-          PASSWORD_KEY: ${{ secrets.PASSWORD_KEY }}
-
-      - name: Get Directory Contents
-        run: ls -la && pwd && cat .env
+          ENV_DDB_ENDPOINT: ${{ secrets.DDB_ENDPOINT }}
+          ENV_GOOGLE_CLIENT_ID: ${{ secrets.GOOGLE_CLIENT_ID }}
+          ENV_GOOGLE_CLIENT_SECRET: ${{ secrets.GOOGLE_CLIENT_SECRET }}
+          ENV_MAIL_USERNAME: ${{ secrets.MAIL_USERNAME }}
+          ENV_MAIL_PASSWORD: ${{ secrets.MAIL_PASSWORD }}
+          ENV_TWITCH_CLIENT_ID: ${{ secrets.TWITCH_CLIENT_ID }}
+          ENV_TWITCH_CLIENT_SECRET: ${{ secrets.TWITCH_CLIENT_SECRET }}
+          ENV_AUTH_KEY: ${{ secrets.AUTH_KEY }}
+          ENV_PASSWORD_KEY: ${{ secrets.PASSWORD_KEY }}
 
       - name: Deploy
         run: npm run deployLambda
