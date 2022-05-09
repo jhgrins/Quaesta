@@ -8,6 +8,7 @@ plugins:
   - serverless-plugin-typescript
   - serverless-dynamodb-local
   - serverless-offline-sns
+  - serverless-offline-ses
   - serverless-offline
 
 custom:
@@ -28,10 +29,13 @@ custom:
     useWorkerThreads: true
   serverless-offline-sns:
     port: 4002
+  ses:
+    stages:
+      - dev
 
 provider:
   name: aws
-  stage: prod
+  stage: dev
   region: us-west-2
   runtime: nodejs14.x
   logs:

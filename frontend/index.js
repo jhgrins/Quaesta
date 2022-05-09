@@ -1,7 +1,7 @@
-import ReactDOM from "react-dom";
-
-import "./static/styles/global.scss";
+import { createRoot } from "react-dom/client";
 
 import App from "./components/App";
 
-ReactDOM.render(<App />, document.getElementById("root"));
+import "./static/styles/global.scss";
+
+createRoot(document.getElementById("root")).render(<App />);

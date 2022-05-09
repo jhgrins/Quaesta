@@ -1,0 +1,6 @@
+Subject: Quaesta Account Successfully Created
+To Address: me@maxrosoff.com
+Cc Address: undefined
+Bcc Address: undefined
+Reply To Address: me@maxrosoff.com
+Source: team.quaesta.dev
