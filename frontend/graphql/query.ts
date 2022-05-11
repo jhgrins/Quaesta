@@ -18,3 +18,12 @@ export const GetGameDetails = gql`
 		}
 	}
 `;
+
+export const GetCurrentUserName = gql`
+	query GetSelfLookUp {
+		selfLookup {
+			username
+			name
+		}
+	}
+`;
