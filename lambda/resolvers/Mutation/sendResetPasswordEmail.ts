@@ -1,31 +1,38 @@
-import { promises as fs } from "fs";
+import { UserInputError } from "apollo-server-lambda";
 
-import { generateToken } from "../auth";
 import { getItemFromDynamoDBResult, getItemsByIndex } from "../../db";
 import { Context } from "../index";
 import { User } from "../../../types";
+import { sendForgotPasswordEmail } from "../../ses";
+import { generateToken } from "../auth";
 
 interface Args {
-	email: string;
+    type: string;
+    value: string;
 }
 
 const sendResetPasswordEmail = async (_: any, args: Args, context: Context, info: any) => {
-	validateEnvironmentVariables();
-	const queryOutput = await getItemsByIndex("quaesta-users", "email", args.email);
-	const userRecord = getItemFromDynamoDBResult(queryOutput) as User | null;
-	if (!userRecord) return false;
-	sendEmail(args.email);
-	return true;
+    validateEnvironmentVariables();
+
+    const queryOutput = await getItemsByIndex("quaesta-users", args.type, args.value);
+    const userRecord = getItemFromDynamoDBResult(queryOutput) as User | null;
+    if (!userRecord) {
+        throw new UserInputError("User Not Found");
+    }
+
+    console.log(`Sending Forgot Password Email to ${userRecord.email}`);
+    sendForgotPasswordEmail(
+        userRecord.email,
+        userRecord.username,
+        `https://quaesta.dev/forgot-password/?id=${generateToken(userRecord.id)}`
+    );
+    return true;
 };
 
 const validateEnvironmentVariables = () => {
-	if (!process.env.MAIL_USERNAME || !process.env.MAIL_PASSWORD) {
-		throw Error("Must Define MAIL_USERNAME and MAIL_PASSWORD");
-	}
-};
-
-const sendEmail = async (email: string) => {
-    console.log(`Sending Account Created Email to ${email}`);
+    if (!process.env.MAIL_USERNAME || !process.env.MAIL_PASSWORD) {
+        throw Error("Must Define MAIL_USERNAME and MAIL_PASSWORD");
+    }
 };
 
 export default sendResetPasswordEmail;
