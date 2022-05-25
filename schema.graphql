@@ -34,14 +34,14 @@ enum GAME_STATUS {
 	COMPLETED
 }
 
-type GoogleLoginReponsePayload {
-	token: AuthorizationToken
-	redirectPath: String
+input UserValuePayload {
+	type: UserValue!
+	value: String!
 }
 
 scalar DateTime
 scalar AuthorizationToken
-scalar LoginType
+scalar UserValue
 
 type Query {
 	selfLookup: User
@@ -50,9 +50,8 @@ type Query {
 
 type Mutation {
 	createUser(email: String!, password: String!, username: String!): AuthorizationToken!
-	loginUser(type: LoginType!, value: String!, password: String!): AuthorizationToken
-	googleLogin(token: ID!): GoogleLoginReponsePayload
-	editUser(type: String!, value: String!): User!
+	loginUser(userValue: UserValuePayload!, password: String!): AuthorizationToken
+	editUser(userValues: [UserValuePayload!]!): User!
 	sendResetPasswordEmail(type: String!, value: String!): Boolean
 	deleteUser: Boolean
 	requestFriend(friendUsername: String!): User

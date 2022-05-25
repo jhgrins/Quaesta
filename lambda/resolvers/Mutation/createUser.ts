@@ -10,8 +10,10 @@ import { sendAccountCreatedEmail } from "../../ses";
 
 interface Args {
     email: string;
-    username: string;
-    password: string;
+    username?: string;
+    password?: string;
+    avatar?: string;
+    name?: string;
 }
 
 const createUser = async (_: any, args: Args, context: Context, info: any): Promise<string> => {
@@ -29,7 +31,7 @@ const createUser = async (_: any, args: Args, context: Context, info: any): Prom
     await putItem("quaesta-users", { id: randomUserId, ...args });
 
     console.log(`Sending Account Created Email to ${args.email}`);
-    sendAccountCreatedEmail(args.email, args.username);
+    sendAccountCreatedEmail(args.email, args.username as string);
     return generateToken(randomUserId);
 };
 

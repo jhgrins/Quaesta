@@ -4,8 +4,6 @@ import chaiAsPromised from "chai-as-promised";
 chai.should();
 chai.use(chaiAsPromised);
 
-import { APIGatewayEvent } from "aws-lambda";
-
 import { subscribe } from "../../../lambda/subscription/subscribe";
 import { HTTP_SERVER_ERROR, HTTP_SUCCESS } from "../../../lambda/subscription/utils";
 

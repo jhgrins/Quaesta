@@ -33,6 +33,7 @@ jobs:
           NODE_ENV: production
           GRAPHQL_ENDPOINT: ${{ secrets.GRAPHQL_ENDPOINT }}
           WEBSOCKET_ENDPOINT: ${{ secrets.WEBSOCKET_ENDPOINT }}
+          GOOGLE_LOGIN_ENDPOINT: ${{ secrets.GOOGLE_LOGIN_ENDPOINT }}
 
       - name: Deploy 🚀
         uses: JamesIves/github-pages-deploy-action@v4.2.5

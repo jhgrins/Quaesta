@@ -4,13 +4,15 @@ import chaiAsPromised from "chai-as-promised";
 chai.should();
 chai.use(chaiAsPromised);
 
-import { publish } from "../../../lambda/subscription/publish";
-import { HTTP_SUCCESS } from "../../../lambda/subscription/utils";
+import casual from "casual";
+import sinon from "sinon";
 
-describe("subscription/publish", () => {
-    describe("publish", () => {
+import googleLogin from "../../../lambda/loginHandlers/googleLogin";
+
+describe("loginHandlers/googleLogin", () => {
+    describe("googleLogin", () => {
         it("should be a function", () => {
-            publish.should.be.a("function");
+            googleLogin.should.be.a("function");
         });
 
         it("should return success if no body is provided", () => {
