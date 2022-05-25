@@ -238,6 +238,7 @@ const DividerArea = () => {
 
 const OAuthArea = () => {
     useEffect(() => {
+        // eslint-disable-next-line no-undef
         google.accounts.id.initialize({
             client_id: GoogleClientID,
             auto_select: true,
@@ -245,10 +246,9 @@ const OAuthArea = () => {
                 process.env.GOOGLE_LOGIN_ENDPOINT || "http://localhost:8000/dev/google-login",
             ux_mode: "redirect"
         });
-        google.accounts.id.renderButton(document.getElementById("googleLoginButton"), {
-            theme: "outline",
-            size: "large"
-        });
+
+        // eslint-disable-next-line no-undef
+        google.accounts.id.renderButton(document.getElementById("googleLoginButton"));
     }, []);
 
     return (
