@@ -16,8 +16,8 @@
         "buildFrontend404": "parcel build frontend/404.html --dist-dir dist",
         "buildFrontend": "npm run check && concurrently --kill-others-on-fail \"npm:buildFrontendIndex\" \"npm:buildFrontend404\"",
         "deployLambda": "npm run check && serverless deploy --stage production",
-        "unitTests": "TS_NODE_PROJECT='test/tsconfig.commonjs.json' mocha -r ts-node/register -r test/hooks.js --recursive",
-        "test": "c8 --all --check-coverage --lines 25 --include 'lambda/' npm run unitTests"
+        "unitTests": "TS_NODE_PROJECT='test/tsconfig.commonjs.json' mocha -r global-jsdom/register -r ts-node/register -r test/hooks.js --recursive",
+        "test": "c8 --all --check-coverage --include 'frontend/' --include 'lambda/' npm run unitTests"
     },
     "dependencies": {
         "@apollo/client": "^3.6.5",
@@ -70,6 +70,8 @@
         "eslint-plugin-node": "^11.1.0",
         "eslint-plugin-promise": "^6.0.0",
         "eslint-plugin-react": "^7.30.0",
+        "global-jsdom": "^8.4.0",
+        "jsdom": "^19.0.0",
         "mocha": "^10.0.0",
         "parcel": "^2.5.0",
         "process": "^0.11.10",
