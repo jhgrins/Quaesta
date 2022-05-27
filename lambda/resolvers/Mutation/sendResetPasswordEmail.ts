@@ -7,14 +7,17 @@ import { sendForgotPasswordEmail } from "../../ses";
 import { generateToken } from "../auth";
 
 interface Args {
-    type: string;
-    value: string;
+    userValue: {
+        type: string;
+        value: string;
+    };
 }
 
 const sendResetPasswordEmail = async (_: any, args: Args, context: Context, info: any) => {
     validateEnvironmentVariables();
 
-    const queryOutput = await getItemsByIndex("quaesta-users", args.type, args.value);
+    const { type, value } = args.userValue;
+    const queryOutput = await getItemsByIndex("quaesta-users", type, value);
     const userRecord = getItemFromDynamoDBResult(queryOutput) as User | null;
     if (!userRecord) {
         throw new UserInputError("User Not Found");

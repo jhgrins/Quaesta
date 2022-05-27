@@ -49,10 +49,10 @@ type Query {
 }
 
 type Mutation {
-	createUser(email: String!, password: String!, username: String!): AuthorizationToken!
+	createUser(email: String!, username: String!, password: String!): AuthorizationToken!
 	loginUser(userValue: UserValuePayload!, password: String!): AuthorizationToken
 	editUser(userValues: [UserValuePayload!]!): User!
-	sendResetPasswordEmail(type: String!, value: String!): Boolean
+	sendResetPasswordEmail(userValue: UserValuePayload!): Boolean
 	deleteUser: Boolean
 	requestFriend(friendUsername: String!): User
 	resolveRequestFriend(friendUsername: String!, choice: Boolean!): User
