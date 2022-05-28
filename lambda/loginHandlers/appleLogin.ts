@@ -20,7 +20,7 @@ export const appleLogin = async (event: APIGatewayEvent): Promise<APIGatewayProx
         return { statusCode: HTTP_SERVER_BAD_REQUEST, body: "" };
     }
 
-    const { email } = await AppleSignIn.verifyIdToken(requestBody.get("credential") as string, {
+    const { email } = await AppleSignIn.verifyIdToken(requestBody.get("id_token") as string, {
         audience: "com.quaesta.signin",
         ignoreExpiration: true
     });
