@@ -34,14 +34,13 @@ enum GAME_STATUS {
 	COMPLETED
 }
 
-input UserValuePayload {
-	type: UserValue!
+input KeyValuePair {
+	key: String!
 	value: String!
 }
 
 scalar DateTime
 scalar AuthorizationToken
-scalar UserValue
 
 type Query {
 	selfLookup: User
@@ -50,9 +49,9 @@ type Query {
 
 type Mutation {
 	createUser(email: String!, username: String!, password: String!): AuthorizationToken!
-	loginUser(userValue: UserValuePayload!, password: String!): AuthorizationToken
-	editUser(userValues: [UserValuePayload!]!): User!
-	sendResetPasswordEmail(userValue: UserValuePayload!): Boolean
+	loginUser(userPair: KeyValuePair!, password: String!): AuthorizationToken
+	editUser(userPairs: [KeyValuePair!]!): User!
+	sendResetPasswordEmail(userPair: KeyValuePair!): Boolean
 	deleteUser: Boolean
 	requestFriend(friendUsername: String!): User
 	resolveRequestFriend(friendUsername: String!, choice: Boolean!): User

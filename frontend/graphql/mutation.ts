@@ -1,20 +1,20 @@
 import { gql } from "@apollo/client";
 
 export const CreateUser = gql`
-    mutation CreateUser($email: String!, $password: String!, $username: String!) {
-        createUser(email: $email, password: $password, username: $username)
+    mutation CreateUser($email: String!, $username: String!, $password: String!) {
+        createUser(email: $email, username: $username, password: $password)
     }
 `;
 
 export const Login = gql`
-    mutation Login($userValue: UserValuePayload!, $password: String!) {
-        loginUser(userValue: $userValue, password: $password)
+    mutation Login($userPair: KeyValuePair!, $password: String!) {
+        loginUser(userPair: $userPair, password: $password)
     }
 `;
 
 export const EditUser = gql`
-    mutation EditUser($userValues: [UserValuePayload!]!) {
-        editUser(userValues: $userValues) {
+    mutation EditUser($userPairs: [KeyValuePair!]!) {
+        editUser(userPairs: $userPairs) {
             name
             username
             avatar
@@ -25,8 +25,8 @@ export const EditUser = gql`
 `;
 
 export const SendResetPasswordEmail = gql`
-    mutation SendResetPasswordEmail($userValue: UserValuePayload!) {
-        sendResetPasswordEmail(userValue: $userValue)
+    mutation SendResetPasswordEmail($userPair: KeyValuePair!) {
+        sendResetPasswordEmail(userPair: $userPair)
     }
 `;
 

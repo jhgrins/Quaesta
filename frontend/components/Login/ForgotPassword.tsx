@@ -130,7 +130,7 @@ const ForgotPasswordArea = (props: any) => {
             const isEmail = validateEmail(idField);
             doMutation({
                 variables: {
-                    userValue: { type: isEmail ? "email" : "username", value: idField }
+                    userPair: { key: isEmail ? "email" : "username", value: idField }
                 }
             });
         }
@@ -222,7 +222,7 @@ const NewPassowrdArea = (props: any) => {
     const editUser = () => {
         doMutation({
             variables: {
-                userValues: [{ type: "password", value: idField }]
+                userPairs: [{ type: "password", value: idField }]
             }
         });
     };
@@ -264,7 +264,7 @@ const EmailSentConfirmation = (props: any) => {
             >
                 {props.subText}
             </Typography>
-			<BackToSignInArea />
+            <BackToSignInArea />
         </>
     );
 };

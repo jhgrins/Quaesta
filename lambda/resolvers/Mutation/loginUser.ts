@@ -8,16 +8,16 @@ import { Context } from "../index";
 import { User } from "../../../types";
 
 interface Args {
-    userValue: {
-        type: "email" | "username";
+    keyPair: {
+        key: "email" | "username";
         value: string;
     };
     password: string;
 }
 
 const loginUser = async (_: any, args: Args, context: Context, info: any): Promise<string> => {
-	const { type, value } = args.userValue;
-    const queryOutput = await getItemsByIndex("quaesta-users", type, value);
+	const { key, value } = args.keyPair;
+    const queryOutput = await getItemsByIndex("quaesta-users", key, value);
     const userRecord = getItemFromDynamoDBResult(queryOutput) as User | null;
     if (!userRecord) {
         throw new UserInputError("User Not Found");

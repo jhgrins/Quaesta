@@ -7,8 +7,8 @@ import { Context } from "../index";
 import { checkIsLoggedIn } from "../utils";
 
 interface Args {
-    userValues: {
-        type: string;
+    userPairs: {
+        key: string;
         value: string;
     }[];
 }
@@ -17,14 +17,14 @@ const editUser = async (_: any, args: Args, context: Context, info: any) => {
     await checkIsLoggedIn(context);
 
     let queryOutput;
-    for (const userValue of args.userValues) {
-        if (userValue.type === "email") {
+    for (const userValue of args.userPairs) {
+        if (userValue.key === "email") {
             await validateEmail(userValue.value);
         }
-        if (userValue.type === "username") {
+        if (userValue.key === "username") {
             await validateUsername(userValue.value);
         }
-        if (userValue.type === "password") {
+        if (userValue.key === "password") {
             userValue.value = CryptoJS.AES.encrypt(
                 userValue.value,
                 (process.env.PASSWORD_KEY as string) || "PASSWORD"
@@ -33,7 +33,7 @@ const editUser = async (_: any, args: Args, context: Context, info: any) => {
         queryOutput = await updateItem(
             "quaesta-users",
             context.userId as string,
-            userValue.type,
+            userValue.key,
             userValue.value
         );
     }

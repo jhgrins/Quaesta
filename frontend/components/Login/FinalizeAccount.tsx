@@ -114,9 +114,9 @@ const FinalizeAccountArea = (props: any) => {
         } else {
             doMutation({
                 variables: {
-                    userValues: [
-                        { type: "username", value: username },
-                        { type: "password", value: password }
+                    userPairs: [
+                        { key: "username", value: username },
+                        { key: "password", value: password }
                     ]
                 }
             });
