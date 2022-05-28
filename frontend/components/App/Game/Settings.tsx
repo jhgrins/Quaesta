@@ -1,16 +1,11 @@
 import { useEffect, useState } from "react";
 
-import { useNavigate } from "react-router-dom";
-
 import { Box, TextField, Typography } from "@mui/material";
 import { LoadingButton } from "@mui/lab";
 import VpnKeyIcon from "@mui/icons-material/VpnKey";
 import CheckIcon from "@mui/icons-material/Check";
 
-import { useMutation } from "@apollo/client";
-
-const Settings = (props: any) => {
-    const navigate = useNavigate();
+const Settings = () => {
 
     const [newPublicKey, setNewPublicKey] = useState("");
     const [showKeyChangeSuccess, setShowKeyChangeSuccess] = useState(false);
