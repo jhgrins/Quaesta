@@ -5,7 +5,7 @@ import { getItemsByIndex } from "../db";
 import { SubscriptionMessage } from "../sns";
 import { sendMessageToSocket, HTTP_SUCCESS } from "./utils";
 
-const publish = async (event: SNSEvent): Promise<APIGatewayProxyResult> => {
+export const publish = async (event: SNSEvent): Promise<APIGatewayProxyResult> => {
 	const { message, filters }: SubscriptionMessage = JSON.parse(event.Records[0].Sns.Message);
 
 	console.log("Got subscription of type " + filters.subscription);

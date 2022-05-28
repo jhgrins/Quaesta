@@ -63,6 +63,22 @@ functions:
     events:
       - sns:
           topicName: subscription
+  appleLogin:
+    description: Apple Login Handler
+    handler: lambda/loginHandlers/appleLogin.handler
+    events:
+      - http:
+          path: /apple-login
+          method: post
+          cors: true
+  googleLogin:
+    description: Google Login Handler
+    handler: lambda/loginHandlers/googleLogin.handler
+    events:
+      - http:
+          path: /google-login
+          method: post
+          cors: true
 
 package:
   patterns:
