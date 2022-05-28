@@ -21,7 +21,7 @@ export const appleLogin = async (event: APIGatewayEvent): Promise<APIGatewayProx
     }
 
     const { email } = await AppleSignIn.verifyIdToken(requestBody.get("id_token") as string, {
-        audience: "com.quaesta.signin",
+        audience: process.env.GOOGLE_CLIENT_ID,
         ignoreExpiration: true
     });
     console.log(`Received Apple login request for user with email ${email}`);
