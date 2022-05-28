@@ -24,7 +24,7 @@ export const appleLogin = async (event: APIGatewayEvent): Promise<APIGatewayProx
         audience: "com.quaesta.signin",
         ignoreExpiration: true
     });
-    console.log(`Received Google login request for user with email ${email}`);
+    console.log(`Received Apple login request for user with email ${email}`);
 
     const baseUrl = process.env.IS_OFFLINE ? "http://localhost:3000" : "https://quaesta.dev";
 
