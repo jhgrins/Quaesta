@@ -32,7 +32,7 @@ DDB_ENDPOINT: Endpoint of DynamoDB service to connect to
 MAIL_USERNAME: The username for the mail service
 MAIL_PASSWORD: The password for the mail service
 GOOGLE_CLIENT_ID: The client ID for the Google OAuth2 service
-GOOGLE_CLIENT_SECRET: The client secret for the Google OAuth2 service
+APPLE_CLIENT_ID: The client secret for the Apple OAuth2 service
 TWITCH_CLIENT_ID: The client ID for the Twitch OAuth2 service
 TWITCH_CLIENT_SECRET: The client secret for the Twitch OAuth2 service
 AUTH_KEY: The key used to encrypt and decrypt the user's session
