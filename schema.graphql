@@ -13,8 +13,8 @@ type User {
 type Game {
 	id: ID!
 	name: String!
-	cover: String
-	genres: [String]
+	coverUrl: String!
+	genres: [String!]!
 	companies: [String]
 	status: GAME_STATUS
 	dateAdded: DateTime
@@ -44,7 +44,8 @@ scalar AuthorizationToken
 
 type Query {
 	selfLookup: User
-	gameLookup(name: String!): Game
+	gameLookup(id: ID!): Game
+	gameSearch(name: String!): [Game!]!
 }
 
 type Mutation {

@@ -9,10 +9,10 @@ export const GetSideBarProfile = gql`
 `;
 
 export const GetGameDetails = gql`
-	query GetGameDetails($name: String!) {
-		gameLookup(name: $name) {
+	query GetGameDetails($id: ID!) {
+		gameLookup(id: $id) {
 			name
-			cover
+			coverUrl
 			genres
 			companies
 		}

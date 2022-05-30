@@ -44,7 +44,12 @@ export const googleLogin = async (event: APIGatewayEvent): Promise<APIGatewayPro
         };
     }
 
-    const token = await createUser(null, { email, avatar: picture, name }, { userId: null }, null);
+    const token = await createUser(
+        null,
+        { email, avatar: picture, name },
+        { userId: null, twitchToken: null },
+        null
+    );
     return {
         statusCode: HTTP_REDIRECT,
         headers: {

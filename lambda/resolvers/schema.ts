@@ -11,6 +11,7 @@ export const gqlSchema = buildSchema(schema);
 
 import selfLookup from "./Query/selfLookup";
 import gameLookup from "./Query/gameLookup";
+import gameSearch from "./Query/gameSearch";
 
 import createUser from "./Mutation/createUser";
 import deleteUser from "./Mutation/deleteUser";
@@ -23,20 +24,20 @@ import email from "./User/email";
 import friends from "./User/friends";
 import password from "./User/password";
 
-import cover from "./Game/cover";
+import coverUrl from "./Game/coverUrl";
 import genres from "./Game/genres";
 import companies from "./Game/companies";
 
 export const resolvers = {
-	Query: { selfLookup, gameLookup },
-	Mutation: {
-		createUser,
-		deleteUser,
-		editUser,
-		loginUser,
-		sendResetPasswordEmail,
-		testMutation
-	},
-	User: { email, friends, password },
-	Game: { cover, genres, companies }
+    Query: { selfLookup, gameLookup, gameSearch },
+    Mutation: {
+        createUser,
+        deleteUser,
+        editUser,
+        loginUser,
+        sendResetPasswordEmail,
+        testMutation
+    },
+    User: { email, friends, password },
+    Game: { coverUrl, genres, companies }
 };
