@@ -2,10 +2,6 @@ import { Context } from "../index";
 import { makeIGDBRequestForRouteByIds } from "../utils";
 
 const companies = async (parent: any, args: any, context: Context, info: any) => {
-    if (!parent.involved_companies) {
-        return [];
-    }
-
     const involvedCompanies = await makeIGDBRequestForRouteByIds(
         context.twitchToken as string,
         "involved_companies",

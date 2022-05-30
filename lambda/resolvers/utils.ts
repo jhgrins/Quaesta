@@ -6,7 +6,7 @@ import axios from "axios";
 
 import { Context } from "./index";
 import { BaseGameAPI, getItem, getItemFromDynamoDBResult } from "../db";
-import { User } from "../../types";
+import { Game, User } from "../../types";
 import apicalypse, { ApicalypseConfig } from "apicalypse";
 
 interface Parent {
@@ -65,21 +65,11 @@ export const createIGDBRequestConfig = (twitchToken: string): ApicalypseConfig =
     };
 };
 
-export const makeIGDBRequestForRouteById = async (
-    twitchToken: string,
-    route: string,
-    id: string
-): Promise<any> => {
-    const config = createIGDBRequestConfig(twitchToken);
-    const response = await apicalypse(config).fields("*").where(`id = ${id}`).request(`/${route}`);
-    return response.data[0];
-};
-
 export const makeIGDBRequestForRouteByIds = async (
     twitchToken: string,
     route: string,
     ids: string[]
-): Promise<any> => {
+): Promise<any[]> => {
     const config = createIGDBRequestConfig(twitchToken);
     const response = await apicalypse(config)
         .fields("*")

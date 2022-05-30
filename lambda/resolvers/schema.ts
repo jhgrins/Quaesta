@@ -24,9 +24,17 @@ import email from "./User/email";
 import friends from "./User/friends";
 import password from "./User/password";
 
-import coverUrl from "./Game/coverUrl";
-import genres from "./Game/genres";
+import ageRatings from "./Game/ageRatings";
+import artworks from "./Game/artworks";
 import companies from "./Game/companies";
+import coverUrl from "./Game/coverUrl";
+import dlcs from "./Game/dlcs";
+import franchises from "./Game/franchises";
+import gameEngines from "./Game/gameEngines";
+import genres from "./Game/genres";
+import platforms from "./Game/platforms";
+import ratingCount from "./Game/ratingCount";
+import videos from "./Game/videos";
 
 export const resolvers = {
     Query: { selfLookup, gameLookup, gameSearch },
@@ -39,5 +47,17 @@ export const resolvers = {
         testMutation
     },
     User: { email, friends, password },
-    Game: { coverUrl, genres, companies }
+    Game: {
+        ageRatings,
+        artworks,
+        companies,
+        coverUrl,
+        dlcs,
+        franchises,
+        gameEngines,
+        genres,
+        platforms,
+        ratingCount,
+        videos
+    }
 };

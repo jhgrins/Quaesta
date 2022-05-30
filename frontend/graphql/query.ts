@@ -9,14 +9,23 @@ export const GetSideBarProfile = gql`
 `;
 
 export const GetGameDetails = gql`
-	query GetGameDetails($id: ID!) {
-		gameLookup(id: $id) {
-			name
-			coverUrl
-			genres
-			companies
-		}
-	}
+    query GetGameDetails($id: ID!) {
+        gameLookup(id: $id) {
+            ageRatings
+            artworks
+            companies
+            coverUrl
+            dlcs
+            franchises
+            gameEngines
+            genres
+            name
+            platforms
+			rating
+            ratingCount
+            videos
+        }
+    }
 `;
 
 export const GetCurrentUserName = gql`
