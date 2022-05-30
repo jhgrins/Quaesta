@@ -41,8 +41,8 @@ const Game = () => {
                 </Box>
             </Box>
             <Box display={"flex"} mt={4}>
-                {data.gameLookup.artworks.map((artwork: string) => (
-                    <Box border={1} width={200} height={200} mr={2}>
+                {data.gameLookup.artworks.map((artwork: string, index: number) => (
+                    <Box border={1} width={200} height={200} mr={2} key={index}>
                         <img
                             style={{ objectFit: "cover", width: "100%", height: "100%" }}
                             src={artwork}
