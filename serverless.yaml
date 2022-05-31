@@ -101,9 +101,7 @@ resources:
             AttributeType: S
           - AttributeName: email
             AttributeType: S
-        ProvisionedThroughput:
-          ReadCapacityUnits: 1
-          WriteCapacityUnits: 1
+        BillingMode: PAY_PER_REQUEST
         GlobalSecondaryIndexes:
           - IndexName: email
             KeySchema:
@@ -111,18 +109,14 @@ resources:
                 KeyType: HASH
             Projection:
               ProjectionType: ALL
-            ProvisionedThroughput:
-              ReadCapacityUnits: 1
-              WriteCapacityUnits: 1
+            BillingMode: PAY_PER_REQUEST
           - IndexName: username
             KeySchema:
               - AttributeName: username
                 KeyType: HASH
             Projection:
               ProjectionType: ALL
-            ProvisionedThroughput:
-              ReadCapacityUnits: 1
-              WriteCapacityUnits: 1
+            BillingMode: PAY_PER_REQUEST
     sockets:
       Type: AWS::DynamoDB::Table
       Properties:
@@ -139,9 +133,7 @@ resources:
             AttributeType: S
           - AttributeName: subscription
             AttributeType: S
-        ProvisionedThroughput:
-          ReadCapacityUnits: 1
-          WriteCapacityUnits: 1
+        BillingMode: PAY_PER_REQUEST
         GlobalSecondaryIndexes:
           - IndexName: subscription
             KeySchema:
@@ -149,9 +141,7 @@ resources:
                 KeyType: HASH
             Projection:
               ProjectionType: ALL
-            ProvisionedThroughput:
-              ReadCapacityUnits: 1
-              WriteCapacityUnits: 1
+            BillingMode: PAY_PER_REQUEST
         TimeToLiveSpecification:
           AttributeName: ttl
           Enabled: true
