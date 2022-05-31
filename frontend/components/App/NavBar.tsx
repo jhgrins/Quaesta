@@ -1,16 +1,8 @@
 import { useState } from "react";
 
-import { Link, Navigate, useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 
-import {
-    Autocomplete,
-    Avatar,
-    Box,
-    Button,
-    IconButton,
-    TextField,
-    Typography
-} from "@mui/material";
+import { Autocomplete, Avatar, Box, Button, TextField } from "@mui/material";
 import { makeStyles } from "@mui/styles";
 import match from "autosuggest-highlight/match";
 import parse from "autosuggest-highlight/parse";

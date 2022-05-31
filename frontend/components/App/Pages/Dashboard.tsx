@@ -1,5 +1,5 @@
 import { useQuery } from "@apollo/client";
-import { Box, Typography, Paper } from "@mui/material";
+import { Box, Typography } from "@mui/material";
 import { GetCurrentUserName } from "../../../graphql/query";
 
 const DashBoard = () => {
