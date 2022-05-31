@@ -8,6 +8,15 @@ export const GetSideBarProfile = gql`
 	}
 `;
 
+export const GameSearch = gql`
+    query GameSearch($name: String!) {
+        gameSearch(name: $name) {
+            id
+            name
+        }
+    }
+`;
+
 export const GetGameDetails = gql`
     query GetGameDetails($id: ID!) {
         gameLookup(id: $id) {

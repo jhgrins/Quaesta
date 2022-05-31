@@ -10,7 +10,8 @@ const gameEngines = async (
     args: any,
     context: Context,
     info: any
-): Promise<string[]> => {
+): Promise<string[] | null> => {
+    if (!parent.game_engines) return [];
     const gameEngines = await makeIGDBRequestForRouteByIds(
         context.twitchToken as string,
         "game_engines",
