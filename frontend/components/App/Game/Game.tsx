@@ -1,12 +1,13 @@
-import { useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 
-import { Box, Typography } from "@mui/material";
+import { Box, Button, Typography } from "@mui/material";
 
 import { useQuery } from "@apollo/client";
 import { GetGameDetails } from "../../../graphql/query";
 
 const Game = () => {
-    const { gameId } = useParams() as any;
+    const { gameId } = useParams();
+	const navigate = useNavigate();
     const { loading, error, data } = useQuery(GetGameDetails, {
         variables: { id: gameId }
     });
@@ -15,6 +16,7 @@ const Game = () => {
     if (loadingOrError) {
         return null;
     }
+
     return (
         <Box height={"100%"} display={"flex"} flexDirection={"column"}>
             <Box display={"flex"}>
@@ -39,6 +41,11 @@ const Game = () => {
                     <Typography>Rating Count: {data.gameLookup.ratingCount}</Typography>
                     <Typography>Videos: {data.gameLookup.videos.join(", ")}</Typography>
                 </Box>
+                {data.gameLookup.companies.includes("Riot Games") && (
+                    <Box>
+                        <Button onClick={() => navigate("/app/riot")}>Your Riot Data</Button>
+                    </Box>
+                )}
             </Box>
             <Box display={"flex"} mt={4}>
                 {data.gameLookup.artworks.map((artwork: string, index: number) => (

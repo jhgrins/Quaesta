@@ -2,7 +2,7 @@ import { useState } from "react";
 
 import { Link, useNavigate } from "react-router-dom";
 
-import { Autocomplete, Avatar, Box, Button, TextField } from "@mui/material";
+import { Autocomplete, Avatar, Box, Button, TextField, Typography } from "@mui/material";
 import { makeStyles } from "@mui/styles";
 import match from "autosuggest-highlight/match";
 import parse from "autosuggest-highlight/parse";
@@ -56,6 +56,7 @@ const Search = () => {
         <Box sx={{ flexGrow: 1, p: 1, pl: 2, pr: 2 }}>
             <Autocomplete
                 autoSelect
+                size={"small"}
                 options={ready ? data.gameSearch : []}
                 getOptionLabel={(option: { name: string }) => option.name}
                 onChange={(event, newOption: any) => navigate(`/app/game/${newOption.id}`)}
@@ -97,14 +98,26 @@ const Profile = () => {
     const classes = useStyles();
     const { loading, error, data } = useQuery(GetSideBarProfile);
 
+    if (loading || error) {
+        return null;
+    }
+
     return (
-        <Box sx={{ pl: 2 }}>
+        <Box sx={{ pl: 8 }}>
             <Link to={"/app/profile"} className={"no-line"}>
-                <Avatar
-                    alt={"Profile"}
-                    src={loading || error ? undefined : data.selfLookup.avatar}
-                    className={classes.avatar}
-                />
+                <Box
+                    display={"flex"}
+                    justifyContent={"center"}
+                    alignItems={"center"}
+                    sx={{ height: "100%" }}
+                >
+                    <Typography sx={{ pr: 3 }}>{data.selfLookup.username}</Typography>
+                    <Avatar
+                        alt={"Profile"}
+                        src={data.selfLookup.avatar}
+                        className={classes.avatar}
+                    />
+                </Box>
             </Link>
         </Box>
     );
