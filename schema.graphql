@@ -4,7 +4,6 @@ type User {
     email: String!
     username: String
     password: String
-    riotSummonerName: ID
     friends: [User!]!
     incomingFriendRequests: [User!]!
     outgoingFriendRequests: [User!]!

@@ -28,7 +28,6 @@ const Profile = () => {
             <Typography sx={{ fontSize: 40, fontWeight: 500 }}>Profile</Typography>
             <Box mt={4}>
                 <UserDetails />
-                <ConnectedAccounts />
                 <AccountSettings />
             </Box>
         </Box>
@@ -175,31 +174,6 @@ const Field = (props: any) => {
                 >
                     {disabled ? <CreateIcon /> : <SaveIcon />}
                 </IconButton>
-            </Box>
-        </Box>
-    );
-};
-
-const ConnectedAccounts = () => {
-    const { loading, error, data } = useQuery(GetFullProfile);
-    const [editUser] = useMutation(EditUser, { refetchQueries: [GetFullProfile] });
-
-    if (loading || error) {
-        return null;
-    }
-
-    return (
-        <Box mt={4} p={4} display={"flex"} flexDirection={"column"} border={1}>
-            <Typography sx={{ fontSize: 20, fontWeight: 500 }}>Connected Accounts</Typography>
-            <Box mt={4} display={"flex"} flexDirection={"column"}>
-                <Box display={"flex"} alignItems={"center"}>
-                    <Typography sx={{ mr: 2 }}>Riot Account</Typography>
-                    <Field
-                        editUser={editUser}
-                        value={data.selfLookup.riotSummonerName}
-                        label={"riotSummonerName"}
-                    />
-                </Box>
             </Box>
         </Box>
     );

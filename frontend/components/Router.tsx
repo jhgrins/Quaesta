@@ -14,7 +14,6 @@ import DashBoard from "./App/Pages/Dashboard";
 import Game from "./App/Game/Game";
 import Profile from "./App/Pages/Profile";
 import NotFound from "./NotFound";
-import Riot from "./App/Game/Riot";
 
 const Router = () => {
 	return (
@@ -34,7 +33,6 @@ const Router = () => {
                         <Route path={"profile"} element={<Profile />} />
                         <Route path={"dashboard"} element={<DashBoard />} />
                         <Route path={"game/:gameId"} element={<Game />} />
-                        <Route path={"riot"} element={<Riot />} />
                     </Route>
                     <Route path={"*"} element={<NotFound />} />
                 </Route>

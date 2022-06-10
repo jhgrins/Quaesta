@@ -17,7 +17,6 @@ export const GetFullProfile = gql`
             email
             password
             username
-            riotSummonerName
         }
     }
 `;
