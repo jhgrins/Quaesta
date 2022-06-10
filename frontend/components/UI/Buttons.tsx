@@ -2,7 +2,7 @@ import { Button, Grid } from "@mui/material";
 import makeStyles from '@mui/styles/makeStyles';
 import clsx from "clsx";
 
-const useStyles = makeStyles((theme) => ({
+const useStyles = makeStyles((theme: any) => ({
 	largeBoldButton: {
 		width: 220,
 		height: 45,

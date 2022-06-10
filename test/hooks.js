@@ -1,7 +1,10 @@
 import sinon from "sinon";
 
 exports.mochaHooks = {
-	afterEach() {
-		sinon.restore();
-	}
+    beforeEach() {
+        sinon.replace(console, "log", sinon.fake());
+    },
+    afterEach() {
+        sinon.restore();
+    }
 };

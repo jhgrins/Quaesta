@@ -4,7 +4,7 @@ chai.should();
 
 import platforms from "../../../../lambda/resolvers/Game/companies";
 
-describe("Game/platforms", () => {
+describe("lambda/resolvers/Game/platforms", () => {
     describe("platforms", () => {
         it("should be a function", () => {
             platforms.should.be.a("function");

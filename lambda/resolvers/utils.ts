@@ -6,7 +6,7 @@ import axios from "axios";
 
 import { Context } from "./index";
 import { BaseGameAPI, getItem, getItemFromDynamoDBResult } from "../db";
-import { Game, User } from "../../types";
+import { User } from "../../types";
 import apicalypse, { ApicalypseConfig } from "apicalypse";
 
 interface Parent {

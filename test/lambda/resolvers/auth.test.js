@@ -11,7 +11,7 @@ import {
     authenticateHTTPAccessToken
 } from "../../../lambda/resolvers/auth";
 
-describe("auth", () => {
+describe("lambda/resolvers/auth", () => {
 	describe("generateToken", () => {
 		it("should be a function", () => {
 			generateToken.should.be.a("function");

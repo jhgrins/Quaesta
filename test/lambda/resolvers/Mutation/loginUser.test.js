@@ -4,10 +4,10 @@ chai.should();
 
 import loginUser from "../../../../lambda/resolvers/Mutation/loginUser";
 
-describe("Mutation/loginUser", () => {
-	describe("loginUser", () => {
-		it("should be a function", () => {
-			loginUser.should.be.a("function");
-		});
-	});
+describe("lambda/resolvers/Mutation/loginUser", () => {
+    describe("loginUser", () => {
+        it("should be a function", () => {
+            loginUser.should.be.a("function");
+        });
+    });
 });

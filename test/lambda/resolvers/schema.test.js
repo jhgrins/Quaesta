@@ -4,7 +4,7 @@ chai.should();
 
 import { typeDefs, resolvers } from "../../../lambda/resolvers/schema";
 
-describe("schema", () => {
+describe("lambda/resolvers/schema", () => {
 	describe("typeDefs", () => {
 		it("should be an object", () => {
 			typeDefs.should.be.an("object");
