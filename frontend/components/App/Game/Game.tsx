@@ -6,44 +6,53 @@ import { useQuery } from "@apollo/client";
 import { GetGameDetails } from "../../../graphql/query";
 
 const Game = () => {
-	const { gameName } = useParams() as any;
-	const { loading, error, data } = useQuery(GetGameDetails, {
-		variables: { name: gameName }
-	});
+    const { gameId } = useParams() as any;
+    const { loading, error, data } = useQuery(GetGameDetails, {
+        variables: { id: gameId }
+    });
 
-	const loadingOrError = loading || error;
-	if (loadingOrError) {
-		return null;
-	}
-	return (
-		<Box height={"100%"} display={"flex"} flexDirection={"column"}>
-			<Typography sx={{ fontSize: 40, fontWeight: 500 }}>
-				{loadingOrError ? (
-					"Loading"
-				) : (
-					<Box>
-						{data.gameLookup.name}{" "}
-						<img
-							style={{ width: "30px" }}
-							src={data.gameLookup.cover}
-							alt={`${data.gameLookup.name}'s game cover`}
-						></img>
-					</Box>
-				)}
-			</Typography>
-			<Box
-				mt={4}
-				flexGrow={1}
-				minHeight={500}
-				className={"verticalScrollDiv"}
-				display={"flex"}
-				flexDirection={"column"}
-			>
-				<p>{data.gameLookup.genres.join(", ")}</p>
-				<p>Made by {data.gameLookup.companies.join(", ")}</p>
-			</Box>
-		</Box>
-	);
+    const loadingOrError = loading || error;
+    if (loadingOrError) {
+        return null;
+    }
+    return (
+        <Box height={"100%"} display={"flex"} flexDirection={"column"}>
+            <Box display={"flex"}>
+                <Box border={1} minWidth={400} height={400} mr={8}>
+                    <img
+                        style={{ objectFit: "cover", width: "100%", height: "100%" }}
+                        src={data.gameLookup.coverUrl}
+                        alt={`${data.gameLookup.name}'s game cover`}
+                    />
+                </Box>
+                <Box display={"flex"} flexDirection={"column"}>
+                    <Typography sx={{ fontSize: 40, fontWeight: 500 }}>
+                        {loadingOrError ? "Loading" : <Box>{data.gameLookup.name} </Box>}
+                    </Typography>
+                    <Typography>Made by {data.gameLookup.companies.join(", ")}</Typography>
+                    <Typography>Franchises {data.gameLookup.franchises.join(", ")}</Typography>
+                    <Typography>Game Engines: {data.gameLookup.gameEngines.join(", ")}</Typography>
+                    <Typography>Genres: {data.gameLookup.genres.join(", ")}</Typography>
+                    <Typography>Platforms {data.gameLookup.platforms.join(", ")}</Typography>
+                    <Typography>Rating: {data.gameLookup.rating}</Typography>
+                    <Typography>Rating Count: {data.gameLookup.ratingCount}</Typography>
+                    <Typography>Rating Count: {data.gameLookup.ratingCount}</Typography>
+                    <Typography>Videos: {data.gameLookup.videos.join(", ")}</Typography>
+                </Box>
+            </Box>
+            <Box display={"flex"} mt={4}>
+                {data.gameLookup.artworks.map((artwork: string, index: number) => (
+                    <Box border={1} width={200} height={200} mr={2} key={index}>
+                        <img
+                            style={{ objectFit: "cover", width: "100%", height: "100%" }}
+                            src={artwork}
+                            alt={`${data.gameLookup.name}'s game cover`}
+                        />
+                    </Box>
+                ))}
+            </Box>
+        </Box>
+    );
 };
 
 export default Game;

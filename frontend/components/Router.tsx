@@ -32,7 +32,7 @@ const Router = () => {
 						<Route index element={<DashBoard />} />
 						<Route path={"profile"} element={<Profile />} />
 						<Route path={"dashboard"} element={<DashBoard />} />
-						<Route path={"game/:gameName"} element={<Game />} />
+						<Route path={"game/:gameId"} element={<Game />} />
 					</Route>
 					<Route path={"*"} element={<NotFound />} />
 				</Route>

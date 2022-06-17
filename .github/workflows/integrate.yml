@@ -6,8 +6,31 @@ on:
       - main
 
 jobs:
-  test:
-    name: Test
+  lint:
+    name: Lint
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout Repo
+        uses: actions/checkout@v2.3.1
+
+      - uses: actions/cache@v2
+        id: cache
+        with:
+          path: node_modules
+          key: ${{ runner.os }}-node-${{ hashFiles('**/package.json') }}
+          restore-keys: |
+            ${{ runner.os }}-node-
+
+      - name: Install Node Modules
+        if: steps.cache.outputs.cache-hit != 'true'
+        run: npm install --legacy-peer-deps
+
+      - name: Run Linter
+        run: npm run lint
+
+  types:
+    name: Types
     runs-on: ubuntu-latest
 
     steps:
@@ -29,8 +52,25 @@ jobs:
       - name: Run Type Checker
         run: npm run types
 
-      - name: Run Linter
-        run: npm run lint
+  test:
+    name: Test
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout Repo
+        uses: actions/checkout@v2.3.1
+
+      - uses: actions/cache@v2
+        id: cache
+        with:
+          path: node_modules
+          key: ${{ runner.os }}-node-${{ hashFiles('**/package.json') }}
+          restore-keys: |
+            ${{ runner.os }}-node-
+
+      - name: Install Node Modules
+        if: steps.cache.outputs.cache-hit != 'true'
+        run: npm install --legacy-peer-deps
 
       # - name: Run Tests
       #   run: npm test

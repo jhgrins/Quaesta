@@ -5,8 +5,9 @@ import { AuthenticationError, UserInputError } from "apollo-server-errors";
 import axios from "axios";
 
 import { Context } from "./index";
-import { getItem, getItemFromDynamoDBResult } from "../db";
-import { User } from "../../types";
+import { BaseGameAPI, getItem, getItemFromDynamoDBResult } from "../db";
+import { Game, User } from "../../types";
+import apicalypse, { ApicalypseConfig } from "apicalypse";
 
 interface Parent {
     id: string;
@@ -41,13 +42,38 @@ export const checkInMyFriends = async (context: Context, friendUsername: string)
     }
 };
 
-export const getTwitchAccessToken = async (): Promise<any> => {
+export const getTwitchAccessToken = async (): Promise<string> => {
     const { TWITCH_CLIENT_ID, TWITCH_CLIENT_SECRET } = process.env;
     if (!TWITCH_CLIENT_ID || !TWITCH_CLIENT_SECRET) {
         throw Error("Must Define TWITCH_CLIENT_ID and TWITCH_CLIENT_SECRET");
     }
+    const baseTwitchAuthAPI = "https://id.twitch.tv/oauth2/token";
     const response = await axios.post(
-        `https://id.twitch.tv/oauth2/token?client_id=${TWITCH_CLIENT_ID}&client_secret=${TWITCH_CLIENT_SECRET}&grant_type=client_credentials`
+        `${baseTwitchAuthAPI}?client_id=${TWITCH_CLIENT_ID}&client_secret=${TWITCH_CLIENT_SECRET}&grant_type=client_credentials`
     );
+    return response.data.access_token;
+};
+
+export const createIGDBRequestConfig = (twitchToken: string): ApicalypseConfig => {
+    return {
+        method: "post",
+        headers: {
+            "Client-ID": process.env.TWITCH_CLIENT_ID,
+            Authorization: `Bearer ${twitchToken}`
+        },
+        baseURL: BaseGameAPI
+    };
+};
+
+export const makeIGDBRequestForRouteByIds = async (
+    twitchToken: string,
+    route: string,
+    ids: string[]
+): Promise<any[]> => {
+    const config = createIGDBRequestConfig(twitchToken);
+    const response = await apicalypse(config)
+        .fields("*")
+        .where(ids.map((id) => `id = ${id}`).join(" | "))
+        .request(`/${route}`);
     return response.data;
 };

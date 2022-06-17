@@ -8,10 +8,10 @@ import NavBar from "./NavBar";
 const Layout = (props: any) => {
 	return (
 		<Box width={"100vw"} minHeight={"100vh"} display={"flex"} flexDirection={"column"}>
-			<Box minHeight={80} sx={{ bgcolor: grey[200] }}>
+			<Box sx={{ bgcolor: grey[200] }}>
 				<NavBar {...props} />
 			</Box>
-			<Box flexGrow={1} p={6} bgcolor={"neutral.light"} className={"app"}>
+			<Box flexGrow={1} p={4} bgcolor={"neutral.light"} className={"app"}>
 				<ProtectedRoute>
 					<Outlet />
 				</ProtectedRoute>

@@ -42,7 +42,7 @@ export const appleLogin = async (event: APIGatewayEvent): Promise<APIGatewayProx
         };
     }
 
-    const token = await createUser(null, { email }, { userId: null }, null);
+    const token = await createUser(null, { email }, { userId: null, twitchToken: null }, null);
     return {
         statusCode: HTTP_REDIRECT,
         headers: {

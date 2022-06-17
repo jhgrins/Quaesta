@@ -1,55 +1,113 @@
-import { Link } from "react-router-dom";
+import { useState } from "react";
 
-import { Avatar, Box, Typography } from "@mui/material";
+import { Link, useNavigate } from "react-router-dom";
+
+import { Autocomplete, Avatar, Box, Button, TextField } from "@mui/material";
 import { makeStyles } from "@mui/styles";
+import match from "autosuggest-highlight/match";
+import parse from "autosuggest-highlight/parse";
 
-import { useQuery } from "@apollo/client";
-import { GetSideBarProfile } from "../../graphql/query";
+import { debounce } from "debounce";
+
+import { useLazyQuery, useQuery } from "@apollo/client";
+import { GameSearch, GetSideBarProfile } from "../../graphql/query";
+
+import Logo from "../UI/Logo";
 
 const useStyles = makeStyles((theme: any) => ({
-	avatar: {
-		width: theme.spacing(6),
-		height: theme.spacing(6)
-	}
+    avatar: {
+        width: theme.spacing(6),
+        height: theme.spacing(6)
+    }
 }));
 
 const NavBar = () => {
-	return (
-		<Box
-			sx={{ display: "flex", justifyContent: "space-between", alignContent: "center", p: 2 }}
-		>
-			<Navigation />
-			<NavProfile />
-		</Box>
-	);
+    return (
+        <Box sx={{ display: "flex", p: 1.5, pl: 3, pr: 3 }}>
+            <Logo height={40} />
+            <Menu />
+            <Search />
+            <Profile />
+        </Box>
+    );
 };
 
-const Navigation = () => {
-	const links = [{ name: "Home", to: "/app" }];
-	return (
-		<Box sx={{ display: "flex", alignContent: "center", pl: 2 }}>
-			{links.map((link, index) => (
-				<Link key={index} to={link.to}>
-					<Typography variant={"h6"}>{link.name}</Typography>
-				</Link>
-			))}
-		</Box>
-	);
+const Menu = () => {
+    return (
+        <Box sx={{ display: "flex", pl: 4, pr: 2 }}>
+            <Button>Menu</Button>
+        </Box>
+    );
 };
 
-const NavProfile = () => {
-	const classes = useStyles();
-	const { loading, error, data } = useQuery(GetSideBarProfile);
+const Search = () => {
+    const navigate = useNavigate();
+    const [text, setText] = useState("");
+    const [doQuery, { called, loading, data }] = useLazyQuery(GameSearch, {
+        variables: {
+            name: text
+        }
+    });
 
-	return (
-		<Link to={"/app/profile"} className={"no-line"}>
-			<Avatar
-				alt={"Profile"}
-				src={loading || error ? undefined : data.selfLookup.avatar}
-				className={classes.avatar}
-			/>
-		</Link>
-	);
+    const bouncedQuery = debounce(doQuery, 500);
+    const ready = called && !loading;
+
+    return (
+        <Box sx={{ flexGrow: 1, p: 1, pl: 2, pr: 2 }}>
+            <Autocomplete
+                autoSelect
+                options={ready ? data.gameSearch : []}
+                getOptionLabel={(option: { name: string }) => option.name}
+                onChange={(event, newOption: any) => navigate(`/app/game/${newOption.id}`)}
+                inputValue={text}
+                onInputChange={(event, newText) => {
+                    setText(newText);
+                    bouncedQuery();
+                }}
+                isOptionEqualToValue={(option, value) => option.name === value.name}
+                renderInput={(params) => <TextField {...params} />}
+                renderOption={(props, option: { name: string }, { inputValue }) => {
+                    const matches = match(option.name, inputValue);
+                    const parts = parse(option.name, matches);
+                    return (
+                        <li {...props}>
+                            <div>
+                                {parts.map(
+                                    (part: { highlight: boolean; text: string }, index: number) => (
+                                        <span
+                                            key={index}
+                                            style={{
+                                                fontWeight: part.highlight ? 700 : 400
+                                            }}
+                                        >
+                                            {part.text}
+                                        </span>
+                                    )
+                                )}
+                            </div>
+                        </li>
+                    );
+                }}
+            />
+        </Box>
+    );
+};
+
+const Profile = () => {
+    const classes = useStyles();
+    const { loading, error, data } = useQuery(GetSideBarProfile);
+
+    return (
+        <Box sx={{ pl: 2 }}>
+            <Link to={"/app/profile"} className={"no-line"}>
+                <Avatar
+                    alt={"Profile"}
+                    src={loading || error ? undefined : data.selfLookup.avatar}
+                    className={classes.avatar}
+                />
+            </Link>
+        </Box>
+    );
 };
 
 export default NavBar;

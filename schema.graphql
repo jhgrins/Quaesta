@@ -1,63 +1,71 @@
 type User {
-	name: String
-	avatar: String
-	email: String!
-	username: String
-	password: String
-	friends: [User!]!
-	incomingFriendRequests: [User!]!
-	outgoingFriendRequests: [User!]!
-	games: [Game!]!
+    name: String
+    avatar: String
+    email: String!
+    username: String
+    password: String
+    friends: [User!]!
+    incomingFriendRequests: [User!]!
+    outgoingFriendRequests: [User!]!
+    games: [Game!]!
 }
 
 type Game {
-	id: ID!
-	name: String!
-	cover: String
-	genres: [String]
-	companies: [String]
-	status: GAME_STATUS
-	dateAdded: DateTime
-	dateCompleted: DateTime
-	userReview: Review
+    id: ID!
+    ageRatings: [String!]
+    artworks: [String!]
+    companies: [String!]
+    coverUrl: String
+    dlcs: [String!]
+    released: DateTime
+    franchises: [String!]
+    gameEngines: [String!]
+    genres: [String!]
+    name: String!
+    platforms: [String!]
+    rating: Float
+    ratingCount: Int
+    summary: String
+    videos: [String!]
 }
 
 type Review {
-	rating: Int!
-	title: String
-	description: String
+    rating: Int!
+    title: String
+    description: String
 }
 
 enum GAME_STATUS {
-	BACKLOG
-	IN_PROGRESS
-	COMPLETED
+    BACKLOG
+    IN_PROGRESS
+    COMPLETED
 }
 
 input KeyValuePair {
-	key: String!
-	value: String!
+    key: String!
+    value: String!
 }
 
 scalar DateTime
 scalar AuthorizationToken
 
 type Query {
-	selfLookup: User
-	gameLookup(name: String!): Game
+    selfLookup: User
+    gameLookup(id: ID!): Game
+    gameSearch(name: String!): [Game!]!
 }
 
 type Mutation {
-	createUser(email: String!, username: String!, password: String!): AuthorizationToken!
-	loginUser(userPair: KeyValuePair!, password: String!): AuthorizationToken
-	editUser(userPairs: [KeyValuePair!]!): User!
-	sendResetPasswordEmail(userPair: KeyValuePair!): Boolean
-	deleteUser: Boolean
-	requestFriend(friendUsername: String!): User
-	resolveRequestFriend(friendUsername: String!, choice: Boolean!): User
-	testMutation: Boolean
+    createUser(email: String!, username: String!, password: String!): AuthorizationToken!
+    loginUser(userPair: KeyValuePair!, password: String!): AuthorizationToken
+    editUser(userPairs: [KeyValuePair!]!): User!
+    sendResetPasswordEmail(userPair: KeyValuePair!): Boolean
+    deleteUser: Boolean
+    requestFriend(friendUsername: String!): User
+    resolveRequestFriend(friendUsername: String!, choice: Boolean!): User
+    testMutation: Boolean
 }
 
 type Subscription {
-	subscriptionShowcase: String
+    subscriptionShowcase: String
 }

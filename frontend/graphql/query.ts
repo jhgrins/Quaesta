@@ -8,15 +8,33 @@ export const GetSideBarProfile = gql`
 	}
 `;
 
+export const GameSearch = gql`
+    query GameSearch($name: String!) {
+        gameSearch(name: $name) {
+            id
+            name
+        }
+    }
+`;
+
 export const GetGameDetails = gql`
-	query GetGameDetails($name: String!) {
-		gameLookup(name: $name) {
-			name
-			cover
-			genres
-			companies
-		}
-	}
+    query GetGameDetails($id: ID!) {
+        gameLookup(id: $id) {
+            ageRatings
+            artworks
+            companies
+            coverUrl
+            dlcs
+            franchises
+            gameEngines
+            genres
+            name
+            platforms
+			rating
+            ratingCount
+            videos
+        }
+    }
 `;
 
 export const GetCurrentUserName = gql`
