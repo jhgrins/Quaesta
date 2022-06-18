@@ -19,6 +19,8 @@ import VisibilityOff from "@mui/icons-material/VisibilityOff";
 import { useQuery, useMutation } from "@apollo/client";
 // import { GetFullProfile } from "../../../graphql/query.js";
 import { EditUser, DeleteUser } from "../../../graphql/mutation";
+import { GetFullProfile } from "../../../graphql/query";
+import { useNavigate } from "react-router-dom";
 
 const Profile = () => {
     return (
@@ -26,7 +28,6 @@ const Profile = () => {
             <Typography sx={{ fontSize: 40, fontWeight: 500 }}>Profile</Typography>
             <Box mt={4}>
                 <UserDetails />
-                <InviteLinks />
                 <AccountSettings />
             </Box>
         </Box>
@@ -34,7 +35,6 @@ const Profile = () => {
 };
 
 const UserDetails = () => {
-    const GetFullProfile: any = null;
     const { loading, error, data } = useQuery(GetFullProfile);
     const [editUser] = useMutation(EditUser, { refetchQueries: [GetFullProfile] });
 
@@ -69,7 +69,7 @@ const UserDetails = () => {
     };
 
     return (
-        <Box p={4} display={"flex"} alignItems={"center"}>
+        <Box p={4} display={"flex"} alignItems={"center"} border={1}>
             <Box position={"relative"}>
                 <Avatar
                     alt={"User Profile"}
@@ -142,6 +142,7 @@ const Fields = (props: any) => {
 const Field = (props: any) => {
     const [value, setValue] = useState(props.value);
     const [disabled, setDisabled] = useState(true);
+
     return (
         <Box
             display={"flex"}
@@ -164,7 +165,9 @@ const Field = (props: any) => {
                     color="primary"
                     onClick={() => {
                         if (!disabled) {
-                            props.editUser({ variables: { [props.label.toLowerCase()]: value } });
+                            props.editUser({
+                                variables: { userPairs: { key: props.label.toLowerCase(), value } }
+                            });
                         }
                         setDisabled(!disabled);
                     }}
@@ -176,57 +179,17 @@ const Field = (props: any) => {
     );
 };
 
-const InviteLinks = () => {
-    const [email, setEmail] = useState("");
-    const GetFullProfile: any = null;
-    const { loading, error, data } = useQuery(GetFullProfile);
-
-    if (loading || error) return null;
-
-    return (
-        <Box mt={4} display={"flex"} flexDirection={"column"}>
-            <Typography sx={{ fontSize: 20, fontWeight: 500 }}>Invites</Typography>
-            <Box mt={4} display={"flex"}>
-                <Box p={4} display={"flex"} alignItems={"center"}>
-                    <Box display={"flex"} flexDirection={"column"}>
-                        {data.selfLookup.invites.map((invite: any, index: any) => (
-                            <Box key={index}>
-                                <Typography sx={{ fontSize: 12, fontWeight: 400 }}>
-                                    {invite.email}
-                                </Typography>
-                                <Typography sx={{ fontSize: 12, fontWeight: 400 }}>
-                                    {invite.link}
-                                </Typography>
-                                <Button>Delete Invite Link</Button>
-                            </Box>
-                        ))}
-                    </Box>
-
-                    <Box display={"flex"}>
-                        <TextField
-                            value={email}
-                            label={"Email"}
-                            onChange={(e) => setEmail(e.target.value)}
-                        />
-                        <Box ml={4}>
-                            <Button variant={"contained"} color={"secondary"}>
-                                Generate Invite Link
-                            </Button>
-                        </Box>
-                    </Box>
-                </Box>
-            </Box>
-        </Box>
-    );
-};
-
 const AccountSettings = () => {
-    // const history = useHistory();
+    const navigate = useNavigate();
     const [deleteUser] = useMutation(DeleteUser, {
-        // onCompleted: () => history.push("/login")
+        onCompleted: () => {
+            localStorage.removeItem("token");
+            navigate("/login");
+        }
     });
+
     return (
-        <Box mt={4} display={"flex"} flexDirection={"column"}>
+        <Box mt={4} p={4} display={"flex"} flexDirection={"column"} border={1}>
             <Typography sx={{ fontSize: 20, fontWeight: 500 }}>Account Settings</Typography>
             <Box mt={4} display={"flex"}>
                 <Box>
@@ -234,8 +197,8 @@ const AccountSettings = () => {
                         variant={"contained"}
                         color={"secondary"}
                         onClick={() => {
-                            // history.replace({ pathname: "/login" });
                             localStorage.removeItem("token");
+                            navigate("/login");
                         }}
                     >
                         Logout

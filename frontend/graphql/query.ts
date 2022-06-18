@@ -4,8 +4,21 @@ export const GetSideBarProfile = gql`
 	query GetSideBarProfile {
 		selfLookup {
 			avatar
+            username
 		}
 	}
+`;
+
+export const GetFullProfile = gql`
+    query GetFullProfile {
+        selfLookup {
+            avatar
+            name
+            email
+            password
+            username
+        }
+    }
 `;
 
 export const GameSearch = gql`

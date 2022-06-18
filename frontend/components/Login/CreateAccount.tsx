@@ -94,7 +94,8 @@ const CreateAccountArea = (props: any) => {
 			localStorage.setItem("token", data.createUser);
 			navigate("/app");
 		},
-		onError: () => {
+		onError: (error) => {
+			console.log(error);
 			props.setAlertText("Username Already Exists");
 		}
 	});

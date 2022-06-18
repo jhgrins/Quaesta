@@ -12,7 +12,7 @@ import {
 	HTTP_SERVER_ERROR
 } from "../../../lambda/subscription/utils";
 
-describe("subscription/utils", () => {
+describe("lambda/subscription/utils", () => {
 	describe("sendMessageToSocket", () => {
 		it("should be a function", () => {
 			sendMessageToSocket.should.be.a("function");

@@ -6,7 +6,7 @@ import { useQuery } from "@apollo/client";
 import { GetGameDetails } from "../../../graphql/query";
 
 const Game = () => {
-    const { gameId } = useParams() as any;
+    const { gameId } = useParams();
     const { loading, error, data } = useQuery(GetGameDetails, {
         variables: { id: gameId }
     });
@@ -15,6 +15,7 @@ const Game = () => {
     if (loadingOrError) {
         return null;
     }
+
     return (
         <Box height={"100%"} display={"flex"} flexDirection={"column"}>
             <Box display={"flex"}>

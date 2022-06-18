@@ -4,7 +4,7 @@ chai.should();
 
 import mocks from "../../../lambda/resolvers/mocking";
 
-describe("mocking", () => {
+describe("lambda/resolvers/mocking", () => {
 	describe("mocks", () => {
 		it("should be a object", () => {
 			mocks.should.be.an("object");
