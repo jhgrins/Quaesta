@@ -15,7 +15,7 @@
         "buildFrontend": "vite build",
         "deployLambda": "serverless deploy --stage production",
         "unitTests": "TS_NODE_PROJECT='test/tsconfig.commonjs.json' mocha --recursive -r global-jsdom/register -r ts-node/register test/hooks.js test",
-        "test": "c8 --all --check-coverage --lines 10 --include 'frontend' --include 'lambda' npm run unitTests"
+        "test": "c8 --temp-directory .build/coverage --all --check-coverage --lines 10 --include 'frontend' --include 'lambda' npm run unitTests"
     },
     "dependencies": {
         "@apollo/client": "^3.6.8",
