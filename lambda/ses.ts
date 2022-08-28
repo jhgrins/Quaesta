@@ -9,12 +9,12 @@ import { SendTemplatedEmailResponse } from "aws-sdk/clients/ses";
 const createSESClient = () => {
     if (!process.env.AWS_REGION) throw new Error("AWS_REGION Is Not Defined");
 
-    const snsServiceConfigOptions: ServiceConfigurationOptions = {
+    const sesServiceConfigOptions: ServiceConfigurationOptions = {
         region: process.env.AWS_REGION,
         ...(process.env.IS_OFFLINE && { endpoint: "http://localhost:9001" })
     };
 
-    return new AWS.SES(snsServiceConfigOptions);
+    return new AWS.SES(sesServiceConfigOptions);
 };
 
 export const sendAccountCreatedEmail = async (
@@ -25,7 +25,7 @@ export const sendAccountCreatedEmail = async (
     return await sesClient
         .sendEmail({
             Destination: { ToAddresses: [email] },
-            Source: "team.quaesta.dev",
+            Source: "team@quaesta.dev",
             ReplyToAddresses: ["me@maxrosoff.com"],
             Message: {
                 Body: {

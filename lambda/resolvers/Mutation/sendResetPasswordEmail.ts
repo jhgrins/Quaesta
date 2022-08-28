@@ -14,8 +14,6 @@ interface Args {
 }
 
 const sendResetPasswordEmail = async (_: any, args: Args, context: Context, info: any) => {
-    validateEnvironmentVariables();
-
     const { key, value } = args.userPair;
     const queryOutput = await getItemsByIndex("quaesta-users", key, value);
     const userRecord = getItemFromDynamoDBResult(queryOutput) as User | null;
@@ -30,12 +28,6 @@ const sendResetPasswordEmail = async (_: any, args: Args, context: Context, info
         `https://quaesta.dev/forgot-password/?id=${generateToken(userRecord.id)}`
     );
     return true;
-};
-
-const validateEnvironmentVariables = () => {
-    if (!process.env.MAIL_USERNAME || !process.env.MAIL_PASSWORD) {
-        throw Error("Must Define MAIL_USERNAME and MAIL_PASSWORD");
-    }
 };
 
 export default sendResetPasswordEmail;

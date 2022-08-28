@@ -31,8 +31,6 @@ We currently support the following variables in a `.env` file with key=value pai
 ```
 AWS_REGION: AWS region to deploy service and dynamodb tables to
 DDB_ENDPOINT: Endpoint of DynamoDB service to connect to
-MAIL_USERNAME: The username for the mail service
-MAIL_PASSWORD: The password for the mail service
 GOOGLE_CLIENT_ID: The client ID for the Google OAuth2 service
 APPLE_CLIENT_ID: The client secret for the Apple OAuth2 service
 TWITCH_CLIENT_ID: The client ID for the Twitch OAuth2 service

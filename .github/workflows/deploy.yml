@@ -80,8 +80,6 @@ jobs:
           ENV_DDB_ENDPOINT: ${{ secrets.DDB_ENDPOINT }}
           ENV_GOOGLE_CLIENT_ID: ${{ secrets.GOOGLE_CLIENT_ID }}
           ENV_APPLE_CLIENT_ID: ${{ secrets.APPLE_CLIENT_ID }}
-          ENV_MAIL_USERNAME: ${{ secrets.MAIL_USERNAME }}
-          ENV_MAIL_PASSWORD: ${{ secrets.MAIL_PASSWORD }}
           ENV_TWITCH_CLIENT_ID: ${{ secrets.TWITCH_CLIENT_ID }}
           ENV_TWITCH_CLIENT_SECRET: ${{ secrets.TWITCH_CLIENT_SECRET }}
           ENV_AUTH_KEY: ${{ secrets.AUTH_KEY }}
