@@ -4,13 +4,10 @@ import { useEffect, useState } from "react";
 
 import { Link, useNavigate } from "react-router-dom";
 
-import { Box, Divider, TextField, InputAdornment, Typography } from "@mui/material";
+import { Box, Divider, IconButton, InputAdornment, TextField, Typography } from "@mui/material";
 import VisibilityIcon from "@mui/icons-material/Visibility";
 import VisibilityOffIcon from "@mui/icons-material/VisibilityOff";
-import IconButton from "@mui/material/IconButton";
-import makeStyles from "@mui/styles/makeStyles";
 import { grey, red } from "@mui/material/colors";
-import clsx from "clsx";
 
 import { useMutation } from "@apollo/client";
 import { Login as LoginMutation } from "../../graphql/mutation";
@@ -22,29 +19,7 @@ import AppleLogin from "react-apple-login";
 
 const GoogleClientID = "168855317619-5f94l4jsoifl5jk5g6js5mj0eim8g4f6.apps.googleusercontent.com";
 
-const useStyles = makeStyles((theme) => ({
-    textFieldPadding: {
-        marginTop: theme.spacing(1)
-    },
-    alertPadding: {
-        marginTop: theme.spacing(2)
-    },
-    sectionPadding: {
-        marginTop: theme.spacing(3)
-    },
-    loginFailedAlert: {
-        color: "white",
-        backgroundColor: red[700],
-        borderRadius: 200,
-        paddingTop: 2,
-        paddingBottom: 2,
-        paddingLeft: 15,
-        paddingRight: 15
-    }
-}));
-
 const Login = () => {
-    const classes = useStyles();
     const [alertText, setAlertText] = useState("");
 
     useEffect(() => {
@@ -67,7 +42,7 @@ const Login = () => {
                 flexDirection={"column"}
                 justifyContent={"center"}
                 alignItems={"center"}
-                className={classes.sectionPadding}
+                sx={{ mt: 3 }}
             >
                 <Typography variant={"h5"} align={"center"}>
                     Quaesta
@@ -83,7 +58,6 @@ const Login = () => {
 };
 
 const SignInArea = (props: any) => {
-    const classes = useStyles();
     const navigate = useNavigate();
 
     const [idField, setIdField] = useState("");
@@ -124,7 +98,7 @@ const SignInArea = (props: any) => {
             flexDirection={"column"}
             justifyContent={"center"}
             alignItems={"center"}
-            className={classes.sectionPadding}
+            sx={{ mt: 3 }}
         >
             <Fields
                 idField={idField}
@@ -133,7 +107,7 @@ const SignInArea = (props: any) => {
                 setPassword={setPassword}
                 login={login}
             />
-            <Box className={classes.sectionPadding}>
+            <Box sx={{ mt: 3 }}>
                 <SignInButton onClick={login} disabled={loading} loading={loading}>
                     Sign in
                 </SignInButton>
@@ -143,7 +117,6 @@ const SignInArea = (props: any) => {
 };
 
 const Fields = (props: any) => {
-    const classes = useStyles();
     const [showPassword, setShowPassword] = useState(false);
 
     const moveDown = (currentInputIndex: any) => {
@@ -179,8 +152,8 @@ const Fields = (props: any) => {
                     }}
                 />
                 <TextField
+                    sx={{ mt: 1 }}
                     fullWidth
-                    className={classes.textFieldPadding}
                     variant={"standard"}
                     type={showPassword ? "" : "password"}
                     autoComplete={"current-password"}
@@ -243,7 +216,7 @@ const OAuthArea = () => {
             client_id: GoogleClientID,
             auto_select: true,
             login_uri:
-                process.env.GOOGLE_LOGIN_ENDPOINT || "http://localhost:8000/dev/google-login",
+                import.meta.env.VITE_GOOGLE_LOGIN_ENDPOINT || "http://localhost:8000/dev/google-login",
             ux_mode: "redirect"
         });
 
@@ -262,7 +235,7 @@ const OAuthArea = () => {
                 <AppleLogin
                     clientId={"com.quaesta.signin"}
                     redirectURI={
-                        process.env.APPLE_LOGIN_ENDPOINT || "http://localhost:8000/dev/apple-login"
+                        import.meta.env.VITE_APPLE_LOGIN_ENDPOINT || "http://localhost:8000/dev/apple-login"
                     }
                     scope={"name email"}
                     responseType={"code id_token"}
@@ -306,14 +279,8 @@ const AppleIcon = () => {
 };
 
 const CreateAccountArea = () => {
-    const classes = useStyles();
     return (
-        <Box
-            display={"flex"}
-            justifyContent={"center"}
-            alignItems={"center"}
-            className={classes.sectionPadding}
-        >
+        <Box display={"flex"} justifyContent={"center"} alignItems={"center"} sx={{ mt: 3 }}>
             <Typography variant={"body2"}>New?</Typography>
             <Link to={"/create-account"} style={{ paddingLeft: 5 }}>
                 <Typography variant={"body2"} color={"primary"}>
@@ -325,9 +292,21 @@ const CreateAccountArea = () => {
 };
 
 const LoginAlert = (props: any) => {
-    const classes = useStyles();
     return (
-        <Box className={clsx(classes.alertPadding, classes.loginFailedAlert)}>{props.children}</Box>
+        <Box
+            sx={{
+                mt: 2,
+                color: "white",
+                backgroundColor: red[700],
+                borderRadius: 200,
+                paddingTop: 2,
+                paddingBottom: 2,
+                paddingLeft: 15,
+                paddingRight: 15
+            }}
+        >
+            {props.children}
+        </Box>
     );
 };
 

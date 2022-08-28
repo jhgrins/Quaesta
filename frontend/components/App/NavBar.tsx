@@ -3,7 +3,6 @@ import { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 
 import { Autocomplete, Avatar, Box, Button, TextField, Typography } from "@mui/material";
-import { makeStyles } from "@mui/styles";
 import match from "autosuggest-highlight/match";
 import parse from "autosuggest-highlight/parse";
 
@@ -13,13 +12,6 @@ import { useLazyQuery, useQuery } from "@apollo/client";
 import { GameSearch, GetSideBarProfile } from "../../graphql/query";
 
 import Logo from "../UI/Logo";
-
-const useStyles = makeStyles((theme: any) => ({
-    avatar: {
-        width: theme.spacing(6),
-        height: theme.spacing(6)
-    }
-}));
 
 const NavBar = () => {
     return (
@@ -95,7 +87,6 @@ const Search = () => {
 };
 
 const Profile = () => {
-    const classes = useStyles();
     const { loading, error, data } = useQuery(GetSideBarProfile);
 
     if (loading || error) {
@@ -115,7 +106,7 @@ const Profile = () => {
                     <Avatar
                         alt={"Profile"}
                         src={data.selfLookup.avatar}
-                        className={classes.avatar}
+                        sx={{ width: 48, height: 48 }}
                     />
                 </Box>
             </Link>

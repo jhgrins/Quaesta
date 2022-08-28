@@ -32,10 +32,10 @@ jobs:
         run: npm run buildFrontend
         env:
           NODE_ENV: production
-          GRAPHQL_ENDPOINT: ${{ secrets.GRAPHQL_ENDPOINT }}
-          WEBSOCKET_ENDPOINT: ${{ secrets.WEBSOCKET_ENDPOINT }}
-          APPLE_LOGIN_ENDPOINT: ${{ secrets.APPLE_LOGIN_ENDPOINT }}
-          GOOGLE_LOGIN_ENDPOINT: ${{ secrets.GOOGLE_LOGIN_ENDPOINT }}
+          VITE_GRAPHQL_ENDPOINT: ${{ secrets.VITE_GRAPHQL_ENDPOINT }}
+          VITE_WEBSOCKET_ENDPOINT: ${{ secrets.VITE_WEBSOCKET_ENDPOINT }}
+          VITE_APPLE_LOGIN_ENDPOINT: ${{ secrets.VITE_APPLE_LOGIN_ENDPOINT }}
+          VITE_GOOGLE_LOGIN_ENDPOINT: ${{ secrets.VITE_GOOGLE_LOGIN_ENDPOINT }}
 
       - name: Deploy 🚀
         uses: JamesIves/github-pages-deploy-action@v4.2.5
