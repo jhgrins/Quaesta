@@ -3,10 +3,8 @@ import {
 	createTheme,
 	responsiveFontSizes,
 	ThemeProvider,
-	Theme,
 	StyledEngineProvider
 } from "@mui/material/styles";
-import type { Palette } from "@mui/material/styles/createPalette";
 import { grey } from "@mui/material/colors";
 
 import { ApolloClient, ApolloProvider, InMemoryCache, from, split, HttpLink } from "@apollo/client";
