@@ -17,7 +17,6 @@ interface Args {
 }
 
 const createUser = async (_: any, args: Args, context: Context, info: any): Promise<string> => {
-    validateEnvironmentVariables();
     await validateEmail(args.email);
     if (args.username) await validateUsername(args.username);
     if (args.password) {
@@ -33,12 +32,6 @@ const createUser = async (_: any, args: Args, context: Context, info: any): Prom
     console.log(`Sending Account Created Email to ${args.email}`);
     sendAccountCreatedEmail(args.email, args.username as string);
     return generateToken(randomUserId);
-};
-
-const validateEnvironmentVariables = () => {
-    if (!process.env.MAIL_USERNAME || !process.env.MAIL_PASSWORD) {
-        throw Error("Must Define MAIL_USERNAME and MAIL_PASSWORD");
-    }
 };
 
 const validateEmail = async (email: string) => {

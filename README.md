@@ -26,20 +26,36 @@ npm install && npm start
 
 ### Environment Variables
 
-We currently support the following variables in a `.env` file with key=value pairs. Do not include AWS_REGION for production builds (required for development). To use the CD, add them as GitHub secrets.
+We currently support the following variables in a `.env` file with key=value pairs. To use the CD, add them as GitHub secrets.
+
+#### Development
+
+For development, the following environment variables are supported:
+
+```
+AWS_ACCOUNT_ID: The AWS account ID to use for the Lambda function.
+AWS_REGION: AWS region that will be used for the deployment to production
+GOOGLE_CLIENT_ID: The Google client ID to use for authentication for login with Google.
+APPLE_CLIENT_ID: The Apple client ID to use for authentication for login with Google.
+TWITCH_CLIENT_ID: The Twitch client ID to use for authentication for IGDB.
+TWITCH_CLIENT_SECRET: The Twitch secret to use for authentication for IGDB.
+MOCKS (optional): If set to true, the server will use mock data instead of real data.
+```
+
+#### Production
 
 ```
 AWS_REGION: AWS region to deploy service and dynamodb tables to
-DDB_ENDPOINT: Endpoint of DynamoDB service to connect to
-MAIL_USERNAME: The username for the mail service
-MAIL_PASSWORD: The password for the mail service
 GOOGLE_CLIENT_ID: The client ID for the Google OAuth2 service
 APPLE_CLIENT_ID: The client secret for the Apple OAuth2 service
 TWITCH_CLIENT_ID: The client ID for the Twitch OAuth2 service
 TWITCH_CLIENT_SECRET: The client secret for the Twitch OAuth2 service
 AUTH_KEY: The key used to encrypt and decrypt the user's session
 PASSWORD_KEY: The key used to encrypt and decrypt the user's password
-MOCKS: Controls whether or not the lambda operates in mocking mode
+VITE_GRAPHQL_ENDPOINT: The endpoint for the GraphQL service
+VITE_WEBSOCKET_ENDPOINT: The endpoint for the GraphQL subscription websocket service
+VITE_GOOGLE_LOGIN_ENDPOINT: The endpoint for the Google login service
+VITE_APPLE_LOGIN_ENDPOINT: The endpoint for the Apple login service
 ```
 
 You will also need the following secrets to deploy to AWS
