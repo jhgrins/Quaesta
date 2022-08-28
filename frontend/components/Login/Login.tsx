@@ -212,16 +212,17 @@ const DividerArea = () => {
 const OAuthArea = () => {
     useEffect(() => {
         // eslint-disable-next-line no-undef
-        google.accounts.id.initialize({
+        globalThis.google.accounts.id.initialize({
             client_id: GoogleClientID,
             auto_select: true,
             login_uri:
-                import.meta.env.VITE_GOOGLE_LOGIN_ENDPOINT || "http://localhost:8000/dev/google-login",
+                import.meta.env.VITE_GOOGLE_LOGIN_ENDPOINT ||
+                "http://localhost:8000/dev/google-login",
             ux_mode: "redirect"
         });
 
         // eslint-disable-next-line no-undef
-        google.accounts.id.renderButton(document.getElementById("googleLoginButton"));
+        globalThis.google.accounts.id.renderButton(document.getElementById("googleLoginButton"));
     }, []);
 
     return (
