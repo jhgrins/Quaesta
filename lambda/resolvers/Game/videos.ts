@@ -11,6 +11,9 @@ const videos = async (
     context: Context,
     info: any
 ): Promise<string[]> => {
+    if (!parent.videos) {
+        return [];
+    }
     const videos = await makeIGDBRequestForRouteByIds(
         context.twitchToken as string,
         "game_videos",
