@@ -33,7 +33,7 @@ custom:
     stages:
       - dev
     clean: true
-    outputDir: ./build/output
+    outputDir: "./.build/ses_output"
 
 provider:
   name: aws
