@@ -26,12 +26,10 @@ __pycache__
 .parcel-cache
 .build
 build
-coverage
 data
 dist
 lib
 out
-output
 
 # Server Files
 

@@ -3,10 +3,8 @@ import {
 	createTheme,
 	responsiveFontSizes,
 	ThemeProvider,
-	Theme,
 	StyledEngineProvider
 } from "@mui/material/styles";
-import type { Palette } from "@mui/material/styles/createPalette";
 import { grey } from "@mui/material/colors";
 
 import { ApolloClient, ApolloProvider, InMemoryCache, from, split, HttpLink } from "@apollo/client";
@@ -18,23 +16,25 @@ import { setContext } from "@apollo/client/link/context";
 import WebSocketLink from "./WebSocketLink";
 import Router from "./Router";
 
-import Logo from "../static/images/logo.png";
+import Logo from "../assets/images/logo.png";
 
 /* eslint-disable no-unused-vars */
-declare module "@mui/styles/defaultTheme" {
-	interface DefaultTheme extends Theme {}
-}
+declare module "@mui/material/styles" {
+	interface Palette {
+        neutral: Palette["primary"];
+    }
+    interface PaletteOptions {
+        neutral: PaletteOptions["primary"];
+    }
 
-declare module "@mui/material/styles/createPalette" {
-	interface PaletteOptions {
-		neutral?: {
-			main: Palette["primary"]["main"];
-			light: Palette["primary"]["main"];
-			medium: Palette["primary"]["main"];
-			mediumDark: Palette["primary"]["main"];
-			dark: Palette["primary"]["main"];
-		};
-	}
+	interface PaletteColor {
+        medium?: string;
+		mediumDark?: string;
+    }
+    interface SimplePaletteColorOptions {
+        medium?: string;
+		mediumDark?: string;
+    }
 }
 /* eslint-enable no-unused-vars */
 
@@ -72,7 +72,7 @@ const App = () => {
 
 const FullApp = () => {
 	const httpLink = new HttpLink({
-		uri: process.env.GRAPHQL_ENDPOINT || "http://localhost:8000/dev/graphql",
+		uri: import.meta.env.VITE_GRAPHQL_ENDPOINT || "http://localhost:8000/dev/graphql",
 		credentials: "same-origin"
 	});
 
@@ -87,7 +87,7 @@ const FullApp = () => {
 	});
 
 	const wsLink = new WebSocketLink({
-		url: process.env.WEBSOCKET_ENDPOINT || "ws://localhost:8001",
+		url: import.meta.env.VITE_WEBSOCKET_ENDPOINT || "ws://localhost:8001",
 		connectionParams: () => {
 			const token = localStorage.getItem("token");
 			return {

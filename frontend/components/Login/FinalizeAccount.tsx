@@ -3,11 +3,8 @@ import { useEffect, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 
 import { Box, InputAdornment, TextField, Typography } from "@mui/material";
-import makeStyles from "@mui/styles/makeStyles";
-import { red } from "@mui/material/colors";
 import LockIcon from "@mui/icons-material/Lock";
 import AccountCircleIcon from "@mui/icons-material/AccountCircle";
-import clsx from "clsx";
 
 import { useMutation } from "@apollo/client";
 import { EditUser } from "../../graphql/mutation";
@@ -15,29 +12,7 @@ import { EditUser } from "../../graphql/mutation";
 import { SignInButton } from "../UI/Buttons";
 import Logo from "../UI/Logo";
 
-const useStyles = makeStyles((theme) => ({
-    textFieldPadding: {
-        marginTop: theme.spacing(1)
-    },
-    alertPadding: {
-        marginTop: theme.spacing(2)
-    },
-    sectionPadding: {
-        marginTop: theme.spacing(3)
-    },
-    loginFailedAlert: {
-        color: "white",
-        backgroundColor: red[700],
-        borderRadius: 200,
-        paddingTop: 2,
-        paddingBottom: 2,
-        paddingLeft: 15,
-        paddingRight: 15
-    }
-}));
-
 const FinalizeAccount = () => {
-    const classes = useStyles();
     const navigate = useNavigate();
 
     const [alertText, setAlertText] = useState("");
@@ -71,12 +46,11 @@ const FinalizeAccount = () => {
                 flexDirection={"column"}
                 justifyContent={"center"}
                 alignItems={"center"}
-                className={classes.sectionPadding}
             >
                 <Typography variant={"h5"} align={"center"}>
                     Create Account
                 </Typography>
-                <Typography variant={"body1"} align={"center"} className={classes.textFieldPadding}>
+                <Typography variant={"body1"} align={"center"}>
                     Give us a few details, and you will be on your way.
                 </Typography>
                 {alertText && <FinalizeAccountAlert>{alertText}</FinalizeAccountAlert>}
@@ -88,8 +62,6 @@ const FinalizeAccount = () => {
 };
 
 const FinalizeAccountArea = (props: any) => {
-    const classes = useStyles();
-
     const [username, setUsername] = useState("");
     const [password, setPassword] = useState("");
 
@@ -130,7 +102,6 @@ const FinalizeAccountArea = (props: any) => {
             flexDirection={"column"}
             justifyContent={"center"}
             alignItems={"center"}
-            className={classes.sectionPadding}
         >
             <Fields
                 username={username}
@@ -139,7 +110,7 @@ const FinalizeAccountArea = (props: any) => {
                 setPassword={setPassword}
                 editUser={editUser}
             />
-            <Box className={classes.sectionPadding}>
+            <Box>
                 <SignInButton onClick={editUser} disabled={loading} loading={loading}>
                     Create Account
                 </SignInButton>
@@ -149,7 +120,6 @@ const FinalizeAccountArea = (props: any) => {
 };
 
 const Fields = (props: any) => {
-    const classes = useStyles();
     const moveDown = (currentInputIndex: any) => {
         document.getElementsByTagName("input")[currentInputIndex + 1].focus();
     };
@@ -165,7 +135,6 @@ const Fields = (props: any) => {
         >
             <TextField
                 fullWidth
-                className={classes.textFieldPadding}
                 variant={"standard"}
                 label={"Username"}
                 value={props.username}
@@ -183,7 +152,6 @@ const Fields = (props: any) => {
             />
             <TextField
                 fullWidth
-                className={classes.textFieldPadding}
                 variant={"standard"}
                 type={"password"}
                 label={"Password"}
@@ -205,14 +173,8 @@ const Fields = (props: any) => {
 };
 
 const BackToSignInArea = () => {
-    const classes = useStyles();
     return (
-        <Box
-            display={"flex"}
-            justifyContent={"center"}
-            alignItems={"center"}
-            className={classes.sectionPadding}
-        >
+        <Box display={"flex"} justifyContent={"center"} alignItems={"center"}>
             <Typography variant={"body2"}>Already have an account?</Typography>
             <Link to={"/login"} style={{ paddingLeft: 5 }}>
                 <Typography variant={"body2"} color={"primary"}>
@@ -224,10 +186,7 @@ const BackToSignInArea = () => {
 };
 
 const FinalizeAccountAlert = (props: any) => {
-    const classes = useStyles();
-    return (
-        <Box className={clsx(classes.alertPadding, classes.loginFailedAlert)}>{props.children}</Box>
-    );
+    return <Box>{props.children}</Box>;
 };
 
 export default FinalizeAccount;

@@ -3,36 +3,16 @@ import { useEffect, useState } from "react";
 import { Outlet } from "react-router-dom";
 
 import { Box, Grid, Paper } from "@mui/material";
-import makeStyles from "@mui/styles/makeStyles";
 import { grey } from "@mui/material/colors";
 
 import { motion } from "framer-motion";
 
-import Carousel1 from "../../static/images/carousel/carousel1.jpeg";
-import Carousel2 from "../../static/images/carousel/carousel2.jpeg";
-import Carousel3 from "../../static/images/carousel/carousel3.jpeg";
-import Carousel4 from "../../static/images/carousel/carousel4.jpeg";
-
-const useStyles = makeStyles((theme) => ({
-	rootPadding: {
-		[theme.breakpoints.up("xs")]: {
-			padding: theme.spacing(0)
-		},
-		[theme.breakpoints.up("sm")]: {
-			padding: theme.spacing(8)
-		},
-		[theme.breakpoints.up("lg")]: {
-			padding: theme.spacing(10)
-		},
-		[theme.breakpoints.up("xl")]: {
-			padding: theme.spacing(20)
-		}
-	}
-}));
+import Carousel1 from "../../assets/images/carousel/carousel1.jpeg";
+import Carousel2 from "../../assets/images/carousel/carousel2.jpeg";
+import Carousel3 from "../../assets/images/carousel/carousel3.jpeg";
+import Carousel4 from "../../assets/images/carousel/carousel4.jpeg";
 
 const Layout = () => {
-	const classes = useStyles();
-
 	const loginAreaWidth = 475;
 	return (
 		<Box
@@ -41,7 +21,6 @@ const Layout = () => {
 				height: "100vh",
 				bgcolor: "primary.main"
 			}}
-			className={classes.rootPadding}
 		>
 			<Paper elevation={8} sx={{ height: "100%", display: "flex" }} square>
 				<ImageCarousel />

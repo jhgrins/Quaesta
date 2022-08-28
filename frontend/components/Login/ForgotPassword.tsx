@@ -3,41 +3,17 @@ import { useState, useEffect } from "react";
 import { Link, useLocation } from "react-router-dom";
 
 import { Box, InputAdornment, TextField, Typography } from "@mui/material";
-import makeStyles from "@mui/styles/makeStyles";
 import AccountCircleIcon from "@mui/icons-material/AccountCircle";
 import VisibilityIcon from "@mui/icons-material/Visibility";
 import VisibilityOffIcon from "@mui/icons-material/VisibilityOff";
 import IconButton from "@mui/material/IconButton";
 import LockIcon from "@mui/icons-material/Lock";
-import { red } from "@mui/material/colors";
-import clsx from "clsx";
 
 import { useMutation } from "@apollo/client";
 import { EditUser, SendResetPasswordEmail } from "../../graphql/mutation";
 
 import { SignInButton } from "../UI/Buttons";
 import Logo from "../UI/Logo";
-
-const useStyles = makeStyles((theme) => ({
-    textFieldPadding: {
-        marginTop: theme.spacing(1)
-    },
-    alertPadding: {
-        marginTop: theme.spacing(2)
-    },
-    sectionPadding: {
-        marginTop: theme.spacing(3)
-    },
-    loginFailedAlert: {
-        color: "white",
-        backgroundColor: red[700],
-        borderRadius: 200,
-        paddingTop: 2,
-        paddingBottom: 2,
-        paddingLeft: 15,
-        paddingRight: 15
-    }
-}));
 
 const validateEmail = (text: any) => /\S+@\S+\.\S+/.test(text);
 
@@ -51,7 +27,6 @@ const ForgotPassword = () => {
 };
 
 const ForgotPasswordEntry = () => {
-    const classes = useStyles();
     const [emailSent, setEmailSent] = useState(false);
     const [alertText, setAlertText] = useState("");
 
@@ -75,18 +50,13 @@ const ForgotPasswordEntry = () => {
                 flexDirection={"column"}
                 justifyContent={"center"}
                 alignItems={"center"}
-                className={classes.sectionPadding}
             >
                 {!emailSent ? (
                     <>
                         <Typography variant={"h5"} align={"center"}>
                             Forgot Password
                         </Typography>
-                        <Typography
-                            variant={"body1"}
-                            align={"center"}
-                            className={classes.textFieldPadding}
-                        >
+                        <Typography variant={"body1"} align={"center"}>
                             {"Don't worry, it happens to the best of us."}
                         </Typography>
                         {alertText && <ForgotPasswordAlert>{alertText}</ForgotPasswordAlert>}
@@ -97,7 +67,6 @@ const ForgotPasswordEntry = () => {
                     </>
                 ) : (
                     <EmailSentConfirmation
-                        classes={classes}
                         mainText={"Email Sent"}
                         subText={
                             "If an account exists with those credentials, a link to reset your password will be sent to the associated email"
@@ -111,7 +80,6 @@ const ForgotPasswordEntry = () => {
 };
 
 const ForgotPasswordArea = (props: any) => {
-    const classes = useStyles();
     const [idField, setIdField] = useState("");
 
     const [doMutation, { loading }] = useMutation(SendResetPasswordEmail, {
@@ -143,7 +111,6 @@ const ForgotPasswordArea = (props: any) => {
             flexDirection={"column"}
             justifyContent={"center"}
             alignItems={"center"}
-            className={classes.sectionPadding}
         >
             <EmailField
                 sendResetPasswordEmailMutation={sendResetPasswordEmailMutation}
@@ -151,7 +118,7 @@ const ForgotPasswordArea = (props: any) => {
                 setIdField={setIdField}
                 label={"Username or Email"}
             />
-            <Box className={classes.sectionPadding}>
+            <Box>
                 <SignInButton
                     onClick={() => sendResetPasswordEmailMutation()}
                     disabled={loading}
@@ -165,7 +132,6 @@ const ForgotPasswordArea = (props: any) => {
 };
 
 const ForgotPasswordAuthToken = (props: any) => {
-    const classes = useStyles();
     const [newPasswordEmail, setNewPasswordEmail] = useState(false);
 
     useEffect(() => {
@@ -188,7 +154,6 @@ const ForgotPasswordAuthToken = (props: any) => {
                 flexDirection={"column"}
                 justifyContent={"center"}
                 alignItems={"center"}
-                className={classes.sectionPadding}
             >
                 {!newPasswordEmail ? (
                     <>
@@ -200,7 +165,6 @@ const ForgotPasswordAuthToken = (props: any) => {
                     </>
                 ) : (
                     <EmailSentConfirmation
-                        classes={classes}
                         mainText={"Password Changed"}
                         subText={"Your password is now updated!"}
                     />
@@ -211,7 +175,6 @@ const ForgotPasswordAuthToken = (props: any) => {
 };
 
 const NewPassowrdArea = (props: any) => {
-    const classes = useStyles();
     const [idField, setIdField] = useState("");
     const [doMutation, { loading }] = useMutation(EditUser, {
         onCompleted: () => {
@@ -234,7 +197,6 @@ const NewPassowrdArea = (props: any) => {
             flexDirection={"column"}
             justifyContent={"center"}
             alignItems={"center"}
-            className={classes.sectionPadding}
         >
             <PasswordField
                 editUser={editUser}
@@ -242,7 +204,7 @@ const NewPassowrdArea = (props: any) => {
                 setIdField={setIdField}
                 label={"New Password"}
             />
-            <Box className={classes.sectionPadding}>
+            <Box>
                 <SignInButton onClick={() => editUser()} disabled={loading} loading={loading}>
                     Change Password
                 </SignInButton>
@@ -345,14 +307,8 @@ const PasswordField = (props: any) => {
 };
 
 const BackToSignInArea = () => {
-    const classes = useStyles();
     return (
-        <Box
-            display={"flex"}
-            justifyContent={"center"}
-            alignItems={"center"}
-            className={classes.sectionPadding}
-        >
+        <Box display={"flex"} justifyContent={"center"} alignItems={"center"}>
             <Typography variant={"body2"}>Suddenly Remember?</Typography>
             <Link to={"/login"} style={{ paddingLeft: 5 }}>
                 <Typography variant={"body2"} color={"primary"}>
@@ -364,10 +320,7 @@ const BackToSignInArea = () => {
 };
 
 const ForgotPasswordAlert = (props: any) => {
-    const classes = useStyles();
-    return (
-        <Box className={clsx(classes.alertPadding, classes.loginFailedAlert)}>{props.children}</Box>
-    );
+    return <Box>{props.children}</Box>;
 };
 
 export default ForgotPassword;

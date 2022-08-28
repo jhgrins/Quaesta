@@ -6,6 +6,9 @@ interface Parent {
 }
 
 const ageRatings = async (parent: any, args: any, context: Context, info: any) => {
+    if (!parent.age_ratings) {
+        return [];
+    }
     const ageRatings = await makeIGDBRequestForRouteByIds(
         context.twitchToken as string,
         "age_ratings",
