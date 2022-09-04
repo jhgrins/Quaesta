@@ -4,7 +4,7 @@
 
 Built on the Apollo Framework for GraphQL, this project implements a portal for storing your favorite games. Using a schema-first Graph approach, we implement an Apollo Server on AWS Lambda, with support for services such as authentication, logging, mocking, and testing. Our frontend is React based Apollo Client, utilizing hooks and new technology such as Webpack v5 and Typescript. Our service runs on AWS, and has a completly automated continuous deployment process.
 
-Created by Josette and Max
+Created by [Josette](https://github.com/jhgrins) and [Max](https://github.com/mrosoff)
 
 [![Continuous Deployment Status](https://github.com/jhgrins/Quaesta/actions/workflows/deploy.yml/badge.svg)](https://github.com/jhgrins/Quaesta/actions/workflows/deploy.yml)
 
