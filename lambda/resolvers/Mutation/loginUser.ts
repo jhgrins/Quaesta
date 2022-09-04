@@ -8,7 +8,7 @@ import { Context } from "../index";
 import { User } from "../../../types";
 
 interface Args {
-    keyPair: {
+    userPair: {
         key: "email" | "username";
         value: string;
     };
@@ -16,7 +16,7 @@ interface Args {
 }
 
 const loginUser = async (_: any, args: Args, context: Context, info: any): Promise<string> => {
-	const { key, value } = args.keyPair;
+	const { key, value } = args.userPair;
     const queryOutput = await getItemsByIndex("quaesta-users", key, value);
     const userRecord = getItemFromDynamoDBResult(queryOutput) as User | null;
     if (!userRecord) {
