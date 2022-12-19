@@ -1,0 +1,19 @@
+{
+  "image": "mcr.microsoft.com/devcontainers/universal:2",
+  "waitFor": "onCreateCommand",
+  "updateContentCommand": "npm install",
+  "postCreateCommand": "",
+  "portsAttributes": {
+    "3000": {
+      "label": "Vite Frontend"
+    },
+    "8000": {
+      "label": "Serverless HTTP"
+    },
+    "8001": {
+      "label": "Serverless Websockets",
+      "onAutoForward": "silent"
+    }
+  },
+  "forwardPorts": [3000, 8000, 8001]
+}
